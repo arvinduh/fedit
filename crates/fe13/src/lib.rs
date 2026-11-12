@@ -7,6 +7,7 @@
 #![deny(clippy::print_stdout, clippy::print_stderr)]
 
 pub mod error;
+pub mod text;
 pub mod types;
 
 pub use error::Error;
