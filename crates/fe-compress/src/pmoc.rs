@@ -2,6 +2,8 @@
 //!
 //! Owns the 16-byte PMOC layout. Higher layers handle container streams.
 
+use crc32fast;
+
 use crate::error;
 
 /// PMOC archive magic signature.
@@ -38,4 +40,24 @@ impl Header {
       crc32: u32::from_le_bytes([b[12], b[13], b[14], b[15]]),
     })
   }
+
+  /// Serializes header to a 16-byte array.
+  #[must_use]
+  pub fn to_bytes(&self) -> [u8; 16] {
+    let mut b = [0u8; 16];
+    b[..4].copy_from_slice(&MAGIC);
+    b[4..8].copy_from_slice(&self.version.to_le_bytes());
+    b[8..12].copy_from_slice(&self.decompressed_len.to_le_bytes());
+    b[12..16].copy_from_slice(&self.crc32.to_le_bytes());
+    b
+  }
+}
+
+/// Computes IEEE 802.3 CRC-32 across preview slice and payload.
+#[must_use]
+pub fn compute_crc32(preview: &[u8], payload: &[u8]) -> u32 {
+  let mut hasher = crc32fast::Hasher::new();
+  hasher.update(preview);
+  hasher.update(payload);
+  hasher.finalize()
 }
