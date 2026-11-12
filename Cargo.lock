@@ -28,6 +28,9 @@ dependencies = [
 [[package]]
 name = "fe13"
 version = "0.1.0"
+dependencies = [
+ "thiserror",
+]
 
 [[package]]
 name = "fedit-cli"

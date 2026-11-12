@@ -126,3 +126,41 @@ impl<'a> PreviewMut<'a> {
     self.raw[9] = mode as u8;
   }
 }
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  const CHAPTER0: &[u8] =
+    include_bytes!("../../../tests/fixtures/20200831-225628/Chapter0");
+
+  #[test]
+  fn test_preview_header_parsing() {
+    let raw: &[u8; PREVIEW_LEN] =
+      CHAPTER0[..PREVIEW_LEN].try_into().expect("192 bytes");
+    let preview = PreviewRef::new(raw);
+    assert_eq!(preview.avatar_name(), "Robin", "avatar name");
+    assert_eq!(preview.chapter_title(), "Chapter 19", "chapter title");
+    assert_eq!(preview.mode(), Some(types::GameMode::Classic), "mode");
+    assert_eq!(preview.slot_counter(), 2855, "slot counter");
+  }
+
+  #[test]
+  fn test_preview_mutators() {
+    let mut buf = [0u8; PREVIEW_LEN];
+    let mut mutator = PreviewMut::new(&mut buf);
+    mutator.set_gold(1_200_000);
+    mutator.set_avatar_name("Chrom");
+    mutator.set_difficulty(types::Difficulty::Lunatic);
+    mutator.set_mode(types::GameMode::Casual);
+    let view = PreviewRef::new(&buf);
+    assert_eq!(view.gold(), 999_999, "gold clamped");
+    assert_eq!(view.avatar_name(), "Chrom", "mutated name");
+    assert_eq!(
+      view.difficulty(),
+      Some(types::Difficulty::Lunatic),
+      "mutated diff"
+    );
+    assert_eq!(view.mode(), Some(types::GameMode::Casual), "mutated mode");
+  }
+}
