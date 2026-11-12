@@ -6,5 +6,6 @@
 #![deny(clippy::print_stdout, clippy::print_stderr)]
 
 pub mod error;
+pub mod huffman;
 pub mod pmoc;
 pub use error::Error;
