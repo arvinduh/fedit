@@ -70,3 +70,46 @@ impl EdniIndex {
     })
   }
 }
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn test_edni_index_parse() {
+    let mut payload = vec![0u8; 300];
+    payload[0..4].copy_from_slice(b"EDNI");
+    let offsets: [(u32, &[u8; 4]); 7] = [
+      (0x104, b"RESU"),
+      (0x110, b"PAMG"),
+      (0x120, b"TINU"),
+      (0x130, b"IFER"),
+      (0x140, b"NART"),
+      (0x150, b"62UD"),
+      (0x160, b"TSVE"),
+    ];
+    for (i, &(raw_off, magic)) in offsets.iter().enumerate() {
+      let b = raw_off.to_le_bytes();
+      payload[(i + 1) * 4..(i + 1) * 4 + 4].copy_from_slice(&b);
+      let payload_off = (raw_off as usize) - PREVIEW_OFFSET;
+      payload[payload_off..payload_off + 4].copy_from_slice(magic);
+    }
+    let index = EdniIndex::parse(&payload).expect("valid index");
+    assert_eq!(index.user_offset, 0x104 - PREVIEW_OFFSET);
+    assert_eq!(index.pamg_offset, 0x110 - PREVIEW_OFFSET);
+    assert_eq!(index.unit_offset, 0x120 - PREVIEW_OFFSET);
+    assert_eq!(index.ifer_offset, 0x130 - PREVIEW_OFFSET);
+    assert_eq!(index.convoy_offset, 0x140 - PREVIEW_OFFSET);
+    assert_eq!(index.d62_offset, 0x150 - PREVIEW_OFFSET);
+    assert_eq!(index.tsve_offset, 0x160 - PREVIEW_OFFSET);
+  }
+
+  #[test]
+  fn test_edni_invalid_magic() {
+    let payload = b"BADM0000000000000000000000000000";
+    assert!(matches!(
+      EdniIndex::parse(payload),
+      Err(crate::error::Error::InvalidEdniMagic)
+    ));
+  }
+}
