@@ -53,3 +53,24 @@ pub fn unpack(raw: &[u8]) -> Result<Container, error::Error> {
     payload,
   })
 }
+
+/// Repacks preview bytes and payload bytes into a PMOC container archive.
+///
+/// # Errors
+///
+/// Fails if payload length overflows 24 bits or compression fails.
+pub fn repack(preview: &[u8], payload: &[u8]) -> Result<Vec<u8>, error::Error> {
+  let compressed = huffman::compress(payload)?;
+  let d_len = u32::try_from(payload.len())
+    .map_err(|_| error::Error::CorruptHuffmanTree)?;
+  let hdr = pmoc::Header {
+    version: 2,
+    decompressed_len: d_len,
+    crc32: pmoc::compute_crc32(preview, payload),
+  };
+  let mut out = Vec::with_capacity(preview.len() + 16 + compressed.len());
+  out.extend_from_slice(preview);
+  out.extend_from_slice(&hdr.to_bytes());
+  out.extend_from_slice(&compressed);
+  Ok(out)
+}

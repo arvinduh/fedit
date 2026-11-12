@@ -12,5 +12,6 @@ pub mod pmoc;
 
 pub use container::Container;
 pub use container::ContainerKind;
+pub use container::repack;
 pub use container::unpack;
 pub use error::Error;
