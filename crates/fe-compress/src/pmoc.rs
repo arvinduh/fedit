@@ -61,3 +61,36 @@ pub fn compute_crc32(preview: &[u8], payload: &[u8]) -> u32 {
   hasher.update(payload);
   hasher.finalize()
 }
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn test_pmoc_header_roundtrip() {
+    let header = Header {
+      version: 2,
+      decompressed_len: 12_298,
+      crc32: 0xd370_51d6,
+    };
+    let bytes = header.to_bytes();
+    let parsed = Header::parse(&bytes).expect("valid header");
+    assert_eq!(parsed, header, "header roundtrip must match");
+  }
+
+  #[test]
+  fn test_pmoc_invalid_magic_and_version() {
+    assert!(
+      Header::parse(b"PMOX000000000000").is_err(),
+      "bad magic rejected"
+    );
+    let bad_ver = [b'P', b'M', b'O', b'C', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    assert!(Header::parse(&bad_ver).is_err(), "version != 2 rejected");
+  }
+
+  #[test]
+  fn test_compute_crc32() {
+    let crc = compute_crc32(b"prev", b"load");
+    assert_ne!(crc, 0, "crc should be computed");
+  }
+}
