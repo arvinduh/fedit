@@ -5,6 +5,8 @@
 use std::cmp;
 use std::collections;
 
+use crate::error;
+
 /// Bit code representation for an 8-bit symbol.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct Code {
@@ -103,6 +105,54 @@ fn fill_codes(
     }
     None => {}
   }
+}
+
+/// Builds the Nintendo 0x28 tree table byte stream.
+///
+/// # Errors
+///
+/// Fails if node offsets exceed the 6-bit limit.
+pub fn build_tree_table(
+  arena: &[Node],
+  root: usize,
+) -> Result<Vec<u8>, error::Error> {
+  let (mut table, mut next_c) = (vec![0u8, 0u8], 2usize);
+  let mut queue = collections::VecDeque::from([(root, 1usize)]);
+  while let Some((node_idx, p)) = queue.pop_front() {
+    let Node::Internal { left, right } = arena[node_idx] else {
+      continue;
+    };
+    let (c, off) = (next_c, (next_c - (p & !1) - 2) / 2);
+    next_c += 2;
+    table.resize(c + 2, 0);
+    if off > 0x3F {
+      return Err(error::Error::CorruptHuffmanTree);
+    }
+    let mut flags =
+      u8::try_from(off).map_err(|_| error::Error::CorruptHuffmanTree)?;
+    match arena[left] {
+      Node::Leaf { symbol } => {
+        flags |= 0x80;
+        table[c] = symbol;
+      }
+      Node::Internal { .. } => queue.push_back((left, c)),
+    }
+    match arena[right] {
+      Node::Leaf { symbol } => {
+        flags |= 0x40;
+        table[c + 1] = symbol;
+      }
+      Node::Internal { .. } => queue.push_back((right, c + 1)),
+    }
+    table[p] = flags;
+  }
+  while table.len() % 4 != 0 {
+    table.push(0);
+  }
+  let half = (table.len() / 2) - 1;
+  table[0] =
+    u8::try_from(half).map_err(|_| error::Error::CorruptHuffmanTree)?;
+  Ok(table)
 }
 
 #[cfg(test)]
