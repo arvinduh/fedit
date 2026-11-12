@@ -4,3 +4,6 @@
 //! checksums. Higher layers own game-specific save structures and file I/O.
 
 #![deny(clippy::print_stdout, clippy::print_stderr)]
+
+pub mod error;
+pub use error::Error;
