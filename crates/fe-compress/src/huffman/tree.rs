@@ -2,6 +2,9 @@
 //!
 //! Owns node representations and symbol code types for tree building.
 
+use std::cmp;
+use std::collections;
+
 /// Bit code representation for an 8-bit symbol.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct Code {
@@ -26,6 +29,49 @@ pub enum Node {
     /// Arena index of right child (bit 1).
     right: usize,
   },
+}
+
+/// Builds a Huffman tree arena and root index from payload frequencies.
+#[must_use]
+pub fn build_tree(payload: &[u8]) -> (Vec<Node>, usize) {
+  let mut freq = [0u32; 256];
+  for &b in payload {
+    freq[usize::from(b)] += 1;
+  }
+  let (mut heap, mut arena) = (collections::BinaryHeap::new(), Vec::new());
+  for sym in 0u8..=255 {
+    let count = freq[usize::from(sym)];
+    if count > 0 {
+      let idx = arena.len();
+      arena.push(Node::Leaf { symbol: sym });
+      heap.push(cmp::Reverse((count, idx, idx)));
+    }
+  }
+  for sym in [0u8, 1u8] {
+    if heap.len() >= 2 {
+      break;
+    }
+    if freq[usize::from(sym)] == 0 {
+      let idx = arena.len();
+      arena.push(Node::Leaf { symbol: sym });
+      heap.push(cmp::Reverse((0, idx, idx)));
+    }
+  }
+  while heap.len() > 1 {
+    let (Some(cmp::Reverse((w1, _, n1))), Some(cmp::Reverse((w2, _, n2)))) =
+      (heap.pop(), heap.pop())
+    else {
+      break;
+    };
+    let idx = arena.len();
+    arena.push(Node::Internal {
+      left: n1,
+      right: n2,
+    });
+    heap.push(cmp::Reverse((w1 + w2, idx, idx)));
+  }
+  let root = heap.pop().map_or(0, |cmp::Reverse((_, _, n))| n);
+  (arena, root)
 }
 
 #[cfg(test)]
