@@ -12,6 +12,7 @@ pub mod text;
 pub mod types;
 
 pub use error::Error;
+pub use preview::PreviewMut;
 pub use preview::PreviewRef;
 pub use types::ClassId;
 pub use types::Difficulty;
