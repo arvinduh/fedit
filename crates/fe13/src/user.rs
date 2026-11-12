@@ -36,3 +36,44 @@ impl<'a> UserRef<'a> {
     ])
   }
 }
+
+/// Mutable view over the RESU campaign state block.
+#[derive(Debug)]
+pub struct UserMut<'a> {
+  /// Mutable backing RESU byte slice.
+  raw: &'a mut [u8],
+}
+
+impl<'a> UserMut<'a> {
+  /// Wraps a mutable RESU block byte slice.
+  pub fn new(raw: &'a mut [u8]) -> Self {
+    Self { raw }
+  }
+
+  /// Sets campaign gold clamped to [`MAX_GOLD`].
+  pub fn set_gold(&mut self, gold: u32) {
+    if self.raw.len() >= GOLD_OFFSET + 4 {
+      let clamped = gold.min(MAX_GOLD);
+      self.raw[GOLD_OFFSET..GOLD_OFFSET + 4]
+        .copy_from_slice(&clamped.to_le_bytes());
+    }
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn test_user_gold_mutation() {
+    let mut buf = [0u8; 16];
+    let mut user = UserMut::new(&mut buf);
+    user.set_gold(1_500_000);
+    let view = UserRef::new(&buf);
+    assert_eq!(view.gold(), MAX_GOLD);
+    let mut user = UserMut::new(&mut buf);
+    user.set_gold(42_000);
+    let view = UserRef::new(&buf);
+    assert_eq!(view.gold(), 42_000);
+  }
+}
