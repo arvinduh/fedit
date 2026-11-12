@@ -7,11 +7,13 @@
 #![deny(clippy::print_stdout, clippy::print_stderr)]
 
 pub mod error;
+pub mod index;
 pub mod preview;
 pub mod text;
 pub mod types;
 
 pub use error::Error;
+pub use index::EdniIndex;
 pub use preview::PreviewMut;
 pub use preview::PreviewRef;
 pub use types::ClassId;
