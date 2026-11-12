@@ -1,0 +1,11 @@
+[package]
+name = "fedit-cli"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "fedit"
+path = "src/main.rs"
+
+[lints]
+workspace = true
