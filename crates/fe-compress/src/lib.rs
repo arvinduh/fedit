@@ -5,7 +5,11 @@
 
 #![deny(clippy::print_stdout, clippy::print_stderr)]
 
+pub mod container;
 pub mod error;
 pub mod huffman;
 pub mod pmoc;
+
+pub use container::Container;
+pub use container::ContainerKind;
 pub use error::Error;
