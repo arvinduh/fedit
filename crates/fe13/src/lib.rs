@@ -7,10 +7,12 @@
 #![deny(clippy::print_stdout, clippy::print_stderr)]
 
 pub mod error;
+pub mod preview;
 pub mod text;
 pub mod types;
 
 pub use error::Error;
+pub use preview::PreviewRef;
 pub use types::ClassId;
 pub use types::Difficulty;
 pub use types::GameMode;
