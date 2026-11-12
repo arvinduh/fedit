@@ -74,6 +74,37 @@ pub fn build_tree(payload: &[u8]) -> (Vec<Node>, usize) {
   (arena, root)
 }
 
+/// Builds bit code representation for all 256 symbols from tree arena.
+#[must_use]
+pub fn build_codes(arena: &[Node], root: usize) -> [Code; 256] {
+  let mut codes = [Code::default(); 256];
+  fill_codes(arena, root, 0, 0, &mut codes);
+  codes
+}
+
+/// Recursively traverses tree to populate symbol codes.
+fn fill_codes(
+  arena: &[Node],
+  idx: usize,
+  bits: u32,
+  len: u8,
+  codes: &mut [Code; 256],
+) {
+  match arena.get(idx) {
+    Some(Node::Leaf { symbol }) => {
+      codes[usize::from(*symbol)] = Code {
+        bits,
+        len: len.max(1),
+      };
+    }
+    Some(Node::Internal { left, right }) => {
+      fill_codes(arena, *left, bits << 1, len + 1, codes);
+      fill_codes(arena, *right, (bits << 1) | 1, len + 1, codes);
+    }
+    None => {}
+  }
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -88,5 +119,12 @@ mod tests {
       len: 3,
     };
     assert_eq!(code.len, 3, "code len");
+  }
+
+  #[test]
+  fn test_build_tree_and_codes() {
+    let (arena, root) = build_tree(b"hello huffman");
+    let codes = build_codes(&arena, root);
+    assert!(codes[usize::from(b'h')].len > 0, "symbol h encoded");
   }
 }
