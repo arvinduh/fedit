@@ -2,6 +2,8 @@
 //!
 //! Owns stream decoding; callers own container headers.
 
+pub mod tree;
+
 use crate::error;
 
 /// Decompresses a Nintendo 0x28 8-bit Huffman stream.
