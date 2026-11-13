@@ -37,7 +37,7 @@ impl<'a> PreviewRef<'a> {
   /// Game difficulty setting.
   #[must_use]
   pub fn difficulty(self) -> Option<types::Difficulty> {
-    types::Difficulty::from_raw(self.raw[8])
+    types::Difficulty::from_raw((self.raw[8] >> 2) & 0x03)
   }
 
   /// Permanent death mode.
@@ -118,7 +118,8 @@ impl<'a> PreviewMut<'a> {
 
   /// Sets game difficulty.
   pub fn set_difficulty(&mut self, difficulty: types::Difficulty) {
-    self.raw[8] = difficulty as u8;
+    let bits = (difficulty as u8) << 2;
+    self.raw[8] = (self.raw[8] & !0x0C) | bits;
   }
 
   /// Sets permanent death mode.
@@ -141,6 +142,7 @@ mod tests {
     let preview = PreviewRef::new(raw);
     assert_eq!(preview.avatar_name(), "Robin", "avatar name");
     assert_eq!(preview.chapter_title(), "Chapter 19", "chapter title");
+    assert_eq!(preview.difficulty(), Some(types::Difficulty::Hard), "diff");
     assert_eq!(preview.mode(), Some(types::GameMode::Classic), "mode");
     assert_eq!(preview.slot_counter(), 2855, "slot counter");
   }
