@@ -9,7 +9,7 @@ const CHAPTER0: &[u8] =
 fn test_chapter0_save_slot_roundtrip() {
   let mut slot = fe13::SaveSlot::from_bytes(CHAPTER0).expect("parse slot");
   assert_eq!(slot.preview().avatar_name(), "Robin");
-  assert_eq!(slot.preview().chapter_title(), "Chapter 19");
+  assert_eq!(slot.preview().chapter_title(), "Chapter 19: The Conqueror");
   assert_eq!(slot.preview().difficulty(), Some(fe13::Difficulty::Hard));
   assert_eq!(slot.units().count(), 20);
   assert_eq!(slot.gold(), 697_504);
@@ -21,7 +21,10 @@ fn test_chapter0_save_slot_roundtrip() {
   let repacked = slot.to_bytes().expect("repack slot");
   let reloaded = fe13::SaveSlot::from_bytes(&repacked).expect("reload slot");
   assert_eq!(reloaded.preview().avatar_name(), "Robin");
-  assert_eq!(reloaded.preview().chapter_title(), "Chapter 19");
+  assert_eq!(
+    reloaded.preview().chapter_title(),
+    "Chapter 19: The Conqueror"
+  );
   assert_eq!(
     reloaded.preview().difficulty(),
     Some(fe13::Difficulty::Hard)

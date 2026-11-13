@@ -58,14 +58,29 @@ impl<'a> PreviewRef<'a> {
     text::read_utf16le(&self.raw[0x10..0x2A])
   }
 
-  /// Display string for the current chapter.
+  /// Chapter identifier string (e.g. "Chapter 19").
+  #[must_use]
+  pub fn chapter_number(self) -> String {
+    text::read_utf16le(&self.raw[0x2A..0x4A])
+  }
+
+  /// Chapter subtitle string (e.g. "The Conqueror").
+  #[must_use]
+  pub fn chapter_subtitle(self) -> String {
+    text::read_utf16le(&self.raw[0x4A..0x6A])
+  }
+
+  /// Full formatted chapter title string.
   #[must_use]
   pub fn chapter_title(self) -> String {
-    let title = text::read_utf16le(&self.raw[0x2A..0x4A]);
-    if title.is_empty() {
-      text::read_utf16le(&self.raw[0x4A..0x6A])
+    let num = self.chapter_number();
+    let sub = self.chapter_subtitle();
+    if num.is_empty() {
+      sub
+    } else if sub.is_empty() {
+      num
     } else {
-      title
+      format!("{num}: {sub}")
     }
   }
 
@@ -140,7 +155,11 @@ mod tests {
       CHAPTER0[..PREVIEW_LEN].try_into().expect("192 bytes");
     let preview = PreviewRef::new(raw);
     assert_eq!(preview.avatar_name(), "Robin", "avatar name");
-    assert_eq!(preview.chapter_title(), "Chapter 19", "chapter title");
+    assert_eq!(
+      preview.chapter_title(),
+      "Chapter 19: The Conqueror",
+      "chapter title"
+    );
     assert_eq!(preview.difficulty(), Some(types::Difficulty::Hard), "diff");
     assert_eq!(preview.mode(), Some(types::GameMode::Classic), "mode");
     assert_eq!(preview.slot_counter(), 2855, "slot counter");
