@@ -27,6 +27,7 @@ fn test_edit_save_slot() {
       "Morgan",
       "--play-time",
       "150:00:00",
+      "--backup",
     ])
     .status()
     .expect("edit");
@@ -68,6 +69,7 @@ fn test_edit_archive_directory_with_backup() {
       "888888",
       "--avatar-name",
       "Morgan",
+      "--backup",
     ])
     .status()
     .expect("edit directory");
@@ -83,13 +85,12 @@ fn test_edit_archive_directory_with_backup() {
   assert!(s.contains("Morgan"), "mutated avatar persisted");
   assert!(s.contains("888888"), "mutated gold persisted");
 
-  let backups_dir = tmp.join("backups");
-  assert!(backups_dir.is_dir(), "backups directory was created");
-  let has_backup = fs::read_dir(&backups_dir)
-    .expect("read backups dir")
-    .filter_map(Result::ok)
-    .any(|e| e.path().join("Chapter0").is_file());
-  assert!(has_backup, "backup chapter 0 file was created");
+  let bak_dir = tmp.with_file_name("fedit_edit_dir_test_bak");
+  assert!(
+    bak_dir.join("Chapter0").is_file(),
+    "backup chapter 0 created"
+  );
 
   let _ = fs::remove_dir_all(&tmp);
+  let _ = fs::remove_dir_all(&bak_dir);
 }
