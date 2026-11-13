@@ -88,7 +88,13 @@ impl<'a> PreviewRef<'a> {
   /// Total play time duration.
   #[must_use]
   pub fn play_time(self) -> time::PlayTime {
-    time::PlayTime::from_secs(0)
+    let secs = u64::from(u32::from_le_bytes([
+      self.raw[1],
+      self.raw[2],
+      self.raw[3],
+      self.raw[4],
+    ]));
+    time::PlayTime::from_secs(secs)
   }
 }
 
@@ -120,6 +126,14 @@ impl<'a> PreviewMut<'a> {
   pub fn set_mode(&mut self, mode: types::GameMode) {
     self.raw[9] = mode as u8;
   }
+
+  /// Sets total play time duration.
+  pub fn set_play_time(&mut self, time: time::PlayTime) {
+    let raw = u32::try_from(time.as_secs())
+      .unwrap_or(u32::MAX)
+      .to_le_bytes();
+    self.raw[1..5].copy_from_slice(&raw);
+  }
 }
 
 #[cfg(test)]
@@ -142,7 +156,7 @@ mod tests {
     );
     assert_eq!(preview.difficulty(), Some(types::Difficulty::Hard), "diff");
     assert_eq!(preview.mode(), Some(types::GameMode::Classic), "mode");
-    assert_eq!(preview.slot_counter(), 2855, "slot counter");
+    assert_eq!(preview.play_time().to_string(), "203:03:15");
   }
 
   #[test]
@@ -152,6 +166,7 @@ mod tests {
     mutator.set_avatar_name("Chrom");
     mutator.set_difficulty(types::Difficulty::Lunatic);
     mutator.set_mode(types::GameMode::Casual);
+    mutator.set_play_time(time::PlayTime::from_secs(3600));
     let view = PreviewRef::new(&buf);
     assert_eq!(view.avatar_name(), "Chrom", "mutated name");
     assert_eq!(
@@ -160,5 +175,6 @@ mod tests {
       "mutated diff"
     );
     assert_eq!(view.mode(), Some(types::GameMode::Casual), "mutated mode");
+    assert_eq!(view.play_time().to_string(), "01:00:00");
   }
 }
