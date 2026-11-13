@@ -9,6 +9,7 @@
 pub mod convoy;
 pub mod error;
 pub mod index;
+pub mod names;
 pub mod preview;
 pub mod slot;
 pub mod text;
