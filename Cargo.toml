@@ -3,6 +3,7 @@ resolver = "2"
 members = [
   "crates/fe-compress",
   "crates/fe13",
+  "crates/fedit-core",
   "crates/fedit-cli",
 ]
 

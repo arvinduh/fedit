@@ -1,0 +1,13 @@
+[package]
+name = "fedit-core"
+description = "Save archive management, automated backups, and atomic persistence"
+version.workspace = true
+edition.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+fe-compress = { path = "../fe-compress" }
+fe13 = { path = "../fe13" }
+thiserror = "2"
