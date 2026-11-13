@@ -15,11 +15,11 @@ use crate::user;
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct SaveSlot {
   /// Raw 192-byte preview header buffer.
-  pub(crate) preview: [u8; preview::PREVIEW_LEN],
+  preview: [u8; preview::PREVIEW_LEN],
   /// Decompressed EDNI save payload buffer.
-  pub(crate) payload: Vec<u8>,
+  payload: Vec<u8>,
   /// Resolved subsystem block index table.
-  pub(crate) index: index::EdniIndex,
+  index: index::EdniIndex,
 }
 
 impl SaveSlot {
