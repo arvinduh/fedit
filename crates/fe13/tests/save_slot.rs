@@ -12,9 +12,14 @@ fn test_chapter0_save_slot_roundtrip() {
   assert_eq!(slot.preview().chapter_title(), "Chapter 19: The Conqueror");
   assert_eq!(slot.preview().difficulty(), Some(fe13::Difficulty::Hard));
   assert_eq!(slot.units().count(), 20);
+  assert_eq!(slot.roster.len(), 20);
+  assert_eq!(slot.convoy.len(), 29);
   assert_eq!(slot.gold(), 697_504);
 
   slot.set_gold(999_999);
+  slot.roster[0].stats.hp = 99;
+  slot.roster[0].stats.strength = 50;
+  slot.convoy[0].uses = 42;
   assert_eq!(slot.gold(), 999_999);
   assert_eq!(slot.user().gold(), 999_999);
 
@@ -32,4 +37,9 @@ fn test_chapter0_save_slot_roundtrip() {
   assert_eq!(reloaded.gold(), 999_999);
   assert_eq!(reloaded.user().gold(), 999_999);
   assert_eq!(reloaded.units().count(), 20);
+  assert_eq!(reloaded.roster.len(), 20);
+  assert_eq!(reloaded.roster[0].stats.hp, 99);
+  assert_eq!(reloaded.roster[0].stats.strength, 50);
+  assert_eq!(reloaded.convoy.len(), 29);
+  assert_eq!(reloaded.convoy[0].uses, 42);
 }

@@ -42,10 +42,13 @@ impl SaveSlot {
         }
       })?;
     let index = index::EdniIndex::parse(&container.payload)?;
-    let roster =
-      unit::UnitIter::collect_units(&container.payload[index.unit_offset..]);
-    let convoy =
-      convoy::ConvoyRef::new(&container.payload[index.convoy_offset..]).items();
+    let roster = unit::UnitIter::collect_units(
+      &container.payload[index.unit_offset..index.ifer_offset],
+    );
+    let convoy = convoy::ConvoyRef::new(
+      &container.payload[index.convoy_offset..index.d62_offset],
+    )
+    .items();
     Ok(Self {
       preview,
       payload: container.payload,
@@ -109,12 +112,16 @@ impl SaveSlot {
   /// Returns a borrowed view over the NART convoy storage.
   #[must_use]
   pub fn convoy(&self) -> convoy::ConvoyRef<'_> {
-    convoy::ConvoyRef::new(&self.payload[self.index.convoy_offset..])
+    convoy::ConvoyRef::new(
+      &self.payload[self.index.convoy_offset..self.index.d62_offset],
+    )
   }
 
   /// Returns a mutable view over the NART convoy storage.
   pub fn convoy_mut(&mut self) -> convoy::ConvoyMut<'_> {
-    convoy::ConvoyMut::new(&mut self.payload[self.index.convoy_offset..])
+    convoy::ConvoyMut::new(
+      &mut self.payload[self.index.convoy_offset..self.index.d62_offset],
+    )
   }
 
   /// Returns campaign gold.
