@@ -7,6 +7,8 @@ use std::path;
 
 use fe13;
 
+use crate::atomic;
+use crate::backup;
 use crate::error;
 
 /// Save archive containing multi-slot campaign and battle states.
@@ -63,5 +65,27 @@ impl SaveArchive {
       chapters,
       maps,
     })
+  }
+
+  /// Persists modified slots to disk, creating an automated backup snapshot first.
+  ///
+  /// # Errors
+  ///
+  /// Returns an error if backup creation or file serialization fails.
+  pub fn save(&self) -> Result<Option<path::PathBuf>, error::Error> {
+    let backup_dir = backup::BackupManager::create_backup(&self.root)?;
+    for (i, slot) in self.chapters.iter().enumerate() {
+      if let Some(slot) = slot {
+        let repacked = slot.to_bytes()?;
+        atomic::write_atomic(self.root.join(format!("Chapter{i}")), &repacked)?;
+      }
+    }
+    for (i, slot) in self.maps.iter().enumerate() {
+      if let Some(slot) = slot {
+        let repacked = slot.to_bytes()?;
+        atomic::write_atomic(self.root.join(format!("Map{i}")), &repacked)?;
+      }
+    }
+    Ok(backup_dir)
   }
 }
