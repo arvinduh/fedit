@@ -8,6 +8,23 @@ use std::fmt;
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct UnitId(pub u16);
 
+impl UnitId {
+  /// Canonical character name for the unit identifier.
+  #[must_use]
+  pub const fn name(&self) -> Option<&'static str> {
+    crate::names::character_name(self.0)
+  }
+}
+
+impl fmt::Display for UnitId {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    match self.name() {
+      Some(name) => write!(f, "{name}"),
+      None => write!(f, "Unit({})", self.0),
+    }
+  }
+}
+
 /// Unique identifier for a unit class.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct ClassId(pub u8);
