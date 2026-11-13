@@ -76,6 +76,14 @@ impl EditArgs {
         .into(),
       );
     }
+    if self.backup
+      && (self.output.is_none() || self.output.as_ref() == Some(&self.file))
+    {
+      let bak = self.file.with_extension("bak");
+      fs::copy(&self.file, &bak)?;
+      println!("Backup created at {}", bak.display());
+    }
+
     let bytes = fs::read(&self.file)?;
     let mut slot = fe13::SaveSlot::from_bytes(&bytes)?;
 
@@ -94,13 +102,6 @@ impl EditArgs {
 
     let packed = slot.to_bytes()?;
     let out_path = self.output.as_ref().unwrap_or(&self.file);
-    if self.backup
-      && (self.output.is_none() || self.output.as_ref() == Some(&self.file))
-    {
-      let bak = self.file.with_extension("bak");
-      fs::copy(&self.file, &bak)?;
-      println!("Backup created at {}", bak.display());
-    }
     crate::atomic::write_atomic(out_path, &packed)?;
     Ok(())
   }
