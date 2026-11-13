@@ -41,4 +41,40 @@ impl<'a> UnitRef<'a> {
   pub fn strength(&self) -> u8 {
     self.raw[9]
   }
+
+  /// Magic stat.
+  #[must_use]
+  pub fn magic(&self) -> u8 {
+    self.raw[10]
+  }
+
+  /// Skill stat.
+  #[must_use]
+  pub fn skill(&self) -> u8 {
+    self.raw[11]
+  }
+
+  /// Speed stat.
+  #[must_use]
+  pub fn speed(&self) -> u8 {
+    self.raw[12]
+  }
+
+  /// Luck stat.
+  #[must_use]
+  pub fn luck(&self) -> u8 {
+    self.raw[13]
+  }
+
+  /// Defense stat.
+  #[must_use]
+  pub fn defense(&self) -> u8 {
+    self.raw[14]
+  }
+
+  /// Resistance stat.
+  #[must_use]
+  pub fn resistance(&self) -> u8 {
+    self.raw[15]
+  }
 }
