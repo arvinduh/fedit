@@ -20,10 +20,18 @@ fn test_edit_save_slot() {
   let e = process::Command::new(bin)
     .args(["edit"])
     .arg(&save)
-    .args(["--gold", "999999", "--avatar-name", "Morgan"])
+    .args([
+      "--gold",
+      "999999",
+      "--avatar-name",
+      "Morgan",
+      "--play-time",
+      "150:00:00",
+    ])
     .status()
     .expect("edit");
   assert!(e.success(), "edit ok");
+  assert!(tmp.join("Chapter0.bak").is_file(), "backup created");
 
   let out = process::Command::new(bin)
     .args(["inspect"])
@@ -34,6 +42,7 @@ fn test_edit_save_slot() {
   let s = String::from_utf8_lossy(&out.stdout);
   assert!(s.contains("Morgan"), "avatar mutated");
   assert!(s.contains("999999"), "gold mutated");
+  assert!(s.contains("150:00:00"), "play time mutated");
   let _ = fs::remove_dir_all(&tmp);
 }
 
