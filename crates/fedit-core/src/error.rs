@@ -30,4 +30,11 @@ pub enum Error {
     /// Path to the empty or invalid directory.
     path: path::PathBuf,
   },
+
+  /// Requested save slot was not found in the archive.
+  #[error("save slot '{slot}' not found in archive")]
+  SlotNotFound {
+    /// Name or identifier of the missing save slot.
+    slot: String,
+  },
 }
