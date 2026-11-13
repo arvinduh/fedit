@@ -8,6 +8,7 @@ use crate::convoy;
 use crate::error;
 use crate::index;
 use crate::preview;
+use crate::time;
 use crate::unit;
 use crate::user;
 
@@ -133,5 +134,18 @@ impl SaveSlot {
   /// Updates campaign gold clamped to maximum allowable gold.
   pub fn set_gold(&mut self, amount: u32) {
     self.user_mut().set_gold(amount);
+  }
+
+  /// Returns total play time duration.
+  #[must_use]
+  pub fn play_time(&self) -> time::PlayTime {
+    self.preview().play_time()
+  }
+
+  /// Updates total play time across preview header and campaign user block.
+  pub fn set_play_time(&mut self, time: time::PlayTime) {
+    self.preview_mut().set_play_time(time);
+    let secs = u32::try_from(time.as_secs()).unwrap_or(u32::MAX);
+    self.user_mut().set_play_time(secs);
   }
 }
