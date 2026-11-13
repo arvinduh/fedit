@@ -2,6 +2,8 @@
 //!
 //! Owns typed wrappers for unit, class, item IDs, difficulty, and mode.
 
+use std::fmt;
+
 /// Unique identifier for a character unit slot or prototype.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct UnitId(pub u16);
@@ -58,6 +60,26 @@ impl GameMode {
       0 => Some(Self::Classic),
       1 => Some(Self::Casual),
       _ => None,
+    }
+  }
+}
+
+impl fmt::Display for Difficulty {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    match self {
+      Self::Normal => write!(f, "Normal"),
+      Self::Hard => write!(f, "Hard"),
+      Self::Lunatic => write!(f, "Lunatic"),
+      Self::LunaticPlus => write!(f, "Lunatic+"),
+    }
+  }
+}
+
+impl fmt::Display for GameMode {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    match self {
+      Self::Classic => write!(f, "Classic"),
+      Self::Casual => write!(f, "Casual"),
     }
   }
 }
