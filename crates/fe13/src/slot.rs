@@ -46,7 +46,7 @@ impl SaveSlot {
       &container.payload[index.unit_offset..index.ifer_offset],
     );
     let convoy = convoy::ConvoyRef::new(
-      &container.payload[index.convoy_offset..index.d62_offset],
+      &container.payload[index.convoy_offset..index.convoy_end_offset],
     )
     .items();
     Ok(Self {
@@ -113,14 +113,14 @@ impl SaveSlot {
   #[must_use]
   pub fn convoy(&self) -> convoy::ConvoyRef<'_> {
     convoy::ConvoyRef::new(
-      &self.payload[self.index.convoy_offset..self.index.d62_offset],
+      &self.payload[self.index.convoy_offset..self.index.convoy_end_offset],
     )
   }
 
   /// Returns a mutable view over the NART convoy storage.
   pub fn convoy_mut(&mut self) -> convoy::ConvoyMut<'_> {
     convoy::ConvoyMut::new(
-      &mut self.payload[self.index.convoy_offset..self.index.d62_offset],
+      &mut self.payload[self.index.convoy_offset..self.index.convoy_end_offset],
     )
   }
 
