@@ -4,12 +4,12 @@
 //! header metadata, play statistics, and CRC-32 integrity status.
 
 use std::fs;
+use std::io;
 use std::path;
 
 use clap;
 use fe_compress;
 use fe13;
-use fedit_core;
 
 use crate::cli::error;
 
@@ -28,37 +28,13 @@ impl InspectArgs {
   /// Returns an error if the save file cannot be read or validated.
   pub fn run(self) -> Result<(), error::Error> {
     if self.file.is_dir() {
-      let archive = fedit_core::SaveArchive::open(&self.file)?;
-      println!("Archive Root:      {}", archive.root.display());
-      println!(
-        "Global Status:     {}",
-        if archive.global.is_some() {
-          "Present"
-        } else {
-          "Missing"
-        }
+      return Err(
+        io::Error::new(
+          io::ErrorKind::InvalidInput,
+          "directories not supported; pass a single save file",
+        )
+        .into(),
       );
-      for (i, slot) in archive.chapters.iter().enumerate() {
-        if let Some(s) = slot {
-          let p = s.preview();
-          println!(
-            "Chapter {i}:         {} | {} | Gold: {}",
-            p.avatar_name(),
-            p.chapter_title(),
-            s.gold()
-          );
-        }
-      }
-      for (i, slot) in archive.maps.iter().enumerate() {
-        if let Some(s) = slot {
-          println!(
-            "Map {i}:             Units: {} | Convoy: {}",
-            s.roster.len(),
-            s.convoy.len()
-          );
-        }
-      }
-      return Ok(());
     }
     let bytes = fs::read(&self.file)?;
     if bytes.len() >= 4 && &bytes[0..4] == b"PMOC" {
