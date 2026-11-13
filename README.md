@@ -5,6 +5,12 @@ archives.
 
 ## Usage
 
+### Global Options
+
+- `-v, --verbose`: Increase logging verbosity (`-v` = info, `-vv` = debug,
+  `-vvv` = trace).
+- `-q, --quiet`: Silence non-error output.
+
 ### Inspect Save Metadata
 
 Inspect campaign gold, play time, avatar details, and CRC-32 integrity:
