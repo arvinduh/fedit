@@ -24,6 +24,9 @@ pub struct ConvoyArgs {
   /// New uses count for the target convoy item.
   #[arg(long)]
   pub uses: Option<u16>,
+  /// Create a backup before mutating.
+  #[arg(long)]
+  pub backup: bool,
   /// Output convoy storage as JSON.
   #[arg(long)]
   pub json: bool,
@@ -53,7 +56,7 @@ impl ConvoyArgs {
             slot: format!("Convoy slot {target}"),
           })?;
         it.uses = uses;
-        a.save()?;
+        a.save_archive(self.backup)?;
       } else {
         let mut s = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
         let it = s
@@ -64,8 +67,10 @@ impl ConvoyArgs {
             slot: format!("Convoy slot {target}"),
           })?;
         it.uses = uses;
-        let bak = self.file.with_extension("bak");
-        fs::copy(&self.file, &bak)?;
+        if self.backup {
+          let bak = self.file.with_extension("bak");
+          fs::copy(&self.file, &bak)?;
+        }
         fedit_core::atomic::write_atomic(&self.file, &s.to_bytes()?)?;
       }
       println!("Updated convoy slot {target} uses to {uses}");

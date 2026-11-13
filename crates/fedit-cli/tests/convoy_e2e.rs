@@ -35,6 +35,7 @@ fn test_convoy_cli() {
       "0",
       "--uses",
       "25",
+      "--backup",
     ])
     .output()
     .expect("fedit convoy mutate");
