@@ -43,6 +43,37 @@ impl UnitStats {
     self.hp = val;
     Ok(())
   }
+
+  /// Sets combat stat value with upper bound validation `(0..=80)`.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`crate::Error::StatOutOfBounds`] if `val > 80`.
+  pub fn set_combat_stat(
+    &mut self,
+    stat: &'static str,
+    val: u8,
+  ) -> Result<(), crate::Error> {
+    if val > 80 {
+      return Err(crate::Error::StatOutOfBounds {
+        stat,
+        value: val,
+        min: 0,
+        max: 80,
+      });
+    }
+    match stat {
+      "strength" => self.strength = val,
+      "magic" => self.magic = val,
+      "skill" => self.skill = val,
+      "speed" => self.speed = val,
+      "luck" => self.luck = val,
+      "defense" => self.defense = val,
+      "resistance" => self.resistance = val,
+      _ => {}
+    }
+    Ok(())
+  }
 }
 
 /// Owned character unit domain representation.
@@ -272,6 +303,14 @@ impl<'a> Iterator for UnitIter<'a> {
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn test_unit_stats_combat_stat_bounds() {
+    let mut stats = UnitStats::default();
+    assert!(stats.set_combat_stat("strength", 81).is_err());
+    assert!(stats.set_combat_stat("strength", 40).is_ok());
+    assert_eq!(stats.strength, 40);
+  }
 
   #[test]
   fn test_unit_stats_hp_bounds() {
