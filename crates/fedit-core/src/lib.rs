@@ -3,6 +3,8 @@
 //! Owns directory-level multi-slot save discovery, pre-mutation backup
 //! snapshots, and atomic file serialization.
 
+pub mod atomic;
 pub mod error;
 
+pub use atomic::write_atomic;
 pub use error::Error;
