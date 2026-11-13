@@ -1,11 +1,11 @@
 //! Convoy storage inspection command.
 
 use std::fs;
+use std::io;
 use std::path;
 
 use clap;
 use fe13;
-use fedit_core;
 use serde_json;
 
 use crate::cli::error;
@@ -36,6 +36,15 @@ impl ConvoyArgs {
   ///
   /// Returns an error if the save file cannot be read or parsed.
   pub fn run(self) -> Result<(), error::Error> {
+    if self.file.is_dir() {
+      return Err(
+        io::Error::new(
+          io::ErrorKind::InvalidInput,
+          "directories not supported; pass a single save slot file",
+        )
+        .into(),
+      );
+    }
     if let (Some(target), Some(uses)) = (self.slot, self.uses) {
       if self.backup {
         let bak = self.file.with_extension("bak");
@@ -47,25 +56,18 @@ impl ConvoyArgs {
         .convoy
         .iter_mut()
         .find(|it| it.slot == target)
-        .ok_or_else(|| fedit_core::Error::SlotNotFound {
-          slot: format!("Convoy slot {target}"),
+        .ok_or_else(|| {
+          io::Error::new(
+            io::ErrorKind::NotFound,
+            format!("convoy slot {target} not found"),
+          )
         })?;
       it.uses = uses;
       crate::atomic::write_atomic(&self.file, &s.to_bytes()?)?;
       println!("Updated convoy slot {target} uses to {uses}");
       return Ok(());
     }
-    let slot = if self.file.is_dir() {
-      let a = fedit_core::SaveArchive::open(&self.file)?;
-      let c = 0;
-      a.chapters[c]
-        .clone()
-        .ok_or_else(|| fedit_core::Error::SlotNotFound {
-          slot: format!("Chapter{c}"),
-        })?
-    } else {
-      fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?
-    };
+    let slot = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
     if self.json {
       let rows: Vec<serde_json::Value> = slot
         .convoy
