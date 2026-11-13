@@ -62,7 +62,22 @@ impl EditArgs {
   /// Returns an error if the save file cannot be read or mutated.
   #[expect(dead_code, reason = "wired in subcommand router commit")]
   pub fn run(self) -> Result<(), error::Error> {
-    let _ = fs::metadata(&self.file)?;
+    let bytes = fs::read(&self.file)?;
+    let mut slot = fe13::SaveSlot::from_bytes(&bytes)?;
+
+    if let Some(gold) = self.gold {
+      slot.set_gold(gold);
+    }
+    if let Some(ref name) = self.avatar_name {
+      slot.preview_mut().set_avatar_name(name);
+    }
+    if let Some(diff) = self.difficulty {
+      slot.preview_mut().set_difficulty(diff.into());
+    }
+
+    let packed = slot.to_bytes()?;
+    let out_path = self.output.as_ref().unwrap_or(&self.file);
+    fs::write(out_path, packed)?;
     Ok(())
   }
 }
