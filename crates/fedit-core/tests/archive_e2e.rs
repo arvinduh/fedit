@@ -24,7 +24,10 @@ fn test_archive_discovery_mutation_and_backup() {
   assert_eq!(c0.gold(), 697_504, "original gold");
 
   c0.set_gold(999_999);
-  let backup = archive.save().expect("save archive").expect("backup dir");
+  let backup = archive
+    .save_archive(true)
+    .expect("save archive")
+    .expect("backup dir");
   assert!(backup.join("Chapter0").is_file(), "backup file created");
 
   let reloaded = fedit_core::SaveArchive::open(&tmp).expect("reopen archive");
@@ -36,4 +39,5 @@ fn test_archive_discovery_mutation_and_backup() {
   assert_eq!(orig_c0.gold(), 697_504, "original gold in backup");
 
   let _ = fs::remove_dir_all(&tmp);
+  let _ = fs::remove_dir_all(&backup);
 }

@@ -5,7 +5,6 @@
 use std::fs;
 use std::io;
 use std::path;
-use std::time;
 
 /// Candidate file names for Fire Emblem Awakening saves.
 const SAVE_FILES: [&str; 7] = [
@@ -33,11 +32,13 @@ impl BackupManager {
     if to_copy.is_empty() {
       return Ok(None);
     }
-    let ts = time::SystemTime::now()
-      .duration_since(time::UNIX_EPOCH)
-      .unwrap_or_default()
-      .as_secs();
-    let backup_dir = root.join("backups").join(ts.to_string());
+    let name = root.file_name().map_or_else(
+      || "save_bak".to_string(),
+      |s| format!("{}_bak", s.to_string_lossy()),
+    );
+    let backup_dir = root
+      .parent()
+      .map_or_else(|| path::PathBuf::from(&name), |p| p.join(&name));
     fs::create_dir_all(&backup_dir)?;
     for src in to_copy {
       if let Some(name) = src.file_name() {

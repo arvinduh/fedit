@@ -67,13 +67,29 @@ impl SaveArchive {
     })
   }
 
-  /// Persists modified slots to disk, creating an automated backup snapshot first.
+  /// Persists modified slots to disk, optionally creating a sibling backup directory.
   ///
   /// # Errors
   ///
   /// Returns an error if backup creation or file serialization fails.
   pub fn save(&self) -> Result<Option<path::PathBuf>, error::Error> {
-    let backup_dir = backup::BackupManager::create_backup(&self.root)?;
+    self.save_archive(false)
+  }
+
+  /// Persists modified slots to disk with explicit backup control.
+  ///
+  /// # Errors
+  ///
+  /// Returns an error if backup creation or file serialization fails.
+  pub fn save_archive(
+    &self,
+    backup: bool,
+  ) -> Result<Option<path::PathBuf>, error::Error> {
+    let backup_dir = if backup {
+      backup::BackupManager::create_backup(&self.root)?
+    } else {
+      None
+    };
     for (i, slot) in self.chapters.iter().enumerate() {
       if let Some(slot) = slot {
         let repacked = slot.to_bytes()?;
