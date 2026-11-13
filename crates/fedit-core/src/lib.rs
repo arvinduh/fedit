@@ -4,6 +4,7 @@
 //! snapshots, and atomic file serialization.
 
 pub mod atomic;
+pub mod backup;
 pub mod error;
 
 pub use atomic::write_atomic;
