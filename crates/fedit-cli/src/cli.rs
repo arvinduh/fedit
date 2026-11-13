@@ -4,3 +4,4 @@
 //! editing Nintendo 3DS Fire Emblem: Awakening save files.
 
 pub mod error;
+pub mod inspect;

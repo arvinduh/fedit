@@ -8,6 +8,7 @@ name = "fedit"
 path = "src/main.rs"
 
 [dependencies]
+clap = { version = "4.5", features = ["derive"] }
 fe-compress = { path = "../fe-compress" }
 fe13 = { path = "../fe13" }
 thiserror = "2.0"
