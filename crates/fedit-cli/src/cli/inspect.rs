@@ -8,7 +8,6 @@ use std::io;
 use std::path;
 
 use clap;
-use fe_compress;
 use fe13;
 
 use crate::cli::error;
@@ -37,10 +36,10 @@ impl InspectArgs {
       );
     }
     let bytes = fs::read(&self.file)?;
-    if bytes.len() >= 4 && &bytes[0..4] == b"PMOC" {
-      let decomp = fe_compress::unpack(&bytes)?;
+    if bytes.starts_with(b"PMOC") {
+      let global = fe13::GlobalSave::from_bytes(&bytes)?;
       println!("Container Kind:    Global");
-      println!("Decompressed Size: {} bytes", decomp.payload.len());
+      println!("Decompressed Size: {} bytes", global.payload_len());
       println!("CRC-32:            Valid");
       return Ok(());
     }
