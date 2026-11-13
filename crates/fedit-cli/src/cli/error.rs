@@ -7,6 +7,7 @@ use std::io;
 
 use fe_compress;
 use fe13;
+use serde_json;
 use thiserror;
 
 /// Top-level error type for `fedit` CLI operations.
@@ -21,4 +22,7 @@ pub enum Error {
   /// Fire Emblem domain or save validation error occurred.
   #[error(transparent)]
   Fe13(#[from] fe13::Error),
+  /// JSON serialization or deserialization error.
+  #[error(transparent)]
+  Json(#[from] serde_json::Error),
 }
