@@ -8,7 +8,16 @@ mod cli;
 
 use std::process;
 
+use clap::Parser;
+use env_logger;
+
 fn main() -> process::ExitCode {
-  let _ = size_of::<cli::error::Error>();
-  process::ExitCode::SUCCESS
+  env_logger::init();
+  match cli::Args::parse().run() {
+    Ok(()) => process::ExitCode::SUCCESS,
+    Err(err) => {
+      eprintln!("[ERROR] {err}");
+      process::ExitCode::FAILURE
+    }
+  }
 }

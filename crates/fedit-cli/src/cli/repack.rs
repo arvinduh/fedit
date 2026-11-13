@@ -12,7 +12,6 @@ use crate::cli::error;
 
 /// Arguments for the `repack` subcommand.
 #[derive(Debug, clap::Args)]
-#[expect(dead_code, reason = "wired in subcommand router commit")]
 pub struct RepackArgs {
   /// Path to the decompressed payload file.
   pub payload: path::PathBuf,
@@ -30,7 +29,6 @@ impl RepackArgs {
   /// # Errors
   ///
   /// Returns an error if inputs cannot be read or compressed.
-  #[expect(dead_code, reason = "wired in subcommand router commit")]
   pub fn run(self) -> Result<(), error::Error> {
     let payload = fs::read(&self.payload)?;
     let preview = match self.preview {

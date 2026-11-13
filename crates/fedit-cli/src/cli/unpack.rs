@@ -25,7 +25,6 @@ struct UnpackSummary {
 
 /// Arguments for the `unpack` subcommand.
 #[derive(Debug, clap::Args)]
-#[expect(dead_code, reason = "wired in subcommand router commit")]
 pub struct UnpackArgs {
   /// Path to the compressed save container.
   pub file: path::PathBuf,
@@ -46,7 +45,6 @@ impl UnpackArgs {
   /// # Errors
   ///
   /// Returns an error if the file cannot be read or decompressed.
-  #[expect(dead_code, reason = "wired in subcommand router commit")]
   pub fn run(self) -> Result<(), error::Error> {
     let bytes = fs::read(&self.file)?;
     let container = fe_compress::unpack(&bytes)?;

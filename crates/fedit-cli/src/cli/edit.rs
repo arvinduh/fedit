@@ -36,7 +36,6 @@ impl From<DifficultyArg> for fe13::Difficulty {
 
 /// Arguments for the `edit` subcommand.
 #[derive(Debug, clap::Args)]
-#[expect(dead_code, reason = "wired in subcommand router commit")]
 pub struct EditArgs {
   /// Path to the save slot file to edit.
   pub file: path::PathBuf,
@@ -60,7 +59,6 @@ impl EditArgs {
   /// # Errors
   ///
   /// Returns an error if the save file cannot be read or mutated.
-  #[expect(dead_code, reason = "wired in subcommand router commit")]
   pub fn run(self) -> Result<(), error::Error> {
     let bytes = fs::read(&self.file)?;
     let mut slot = fe13::SaveSlot::from_bytes(&bytes)?;

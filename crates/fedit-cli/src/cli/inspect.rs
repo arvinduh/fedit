@@ -14,7 +14,6 @@ use crate::cli::error;
 
 /// Arguments for the `inspect` subcommand.
 #[derive(Debug, clap::Args)]
-#[expect(dead_code, reason = "wired in subcommand router commit")]
 pub struct InspectArgs {
   /// Path to the save file to inspect.
   pub file: path::PathBuf,
@@ -26,7 +25,6 @@ impl InspectArgs {
   /// # Errors
   ///
   /// Returns an error if the save file cannot be read or validated.
-  #[expect(dead_code, reason = "wired in subcommand router commit")]
   pub fn run(self) -> Result<(), error::Error> {
     let bytes = fs::read(&self.file)?;
     if bytes.len() >= 4 && &bytes[0..4] == b"PMOC" {

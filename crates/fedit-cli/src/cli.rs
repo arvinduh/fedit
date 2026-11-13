@@ -27,7 +27,6 @@ pub const STYLES: styling::Styles = styling::Styles::styled()
   about = "Modular Nintendo 3DS Fire Emblem save toolchain",
   styles = STYLES
 )]
-#[expect(dead_code, reason = "wired in main process host commit")]
 pub enum Args {
   /// Inspect save container headers, statistics, and checksums.
   Inspect(inspect::InspectArgs),
@@ -45,7 +44,6 @@ impl Args {
   /// # Errors
   ///
   /// Returns an error if subcommand execution fails.
-  #[expect(dead_code, reason = "wired in main process host commit")]
   pub fn run(self) -> Result<(), error::Error> {
     match self {
       Self::Inspect(args) => args.run(),
