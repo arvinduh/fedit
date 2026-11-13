@@ -6,6 +6,7 @@
 
 #![deny(clippy::print_stdout, clippy::print_stderr)]
 
+pub mod convoy;
 pub mod error;
 pub mod index;
 pub mod preview;
@@ -14,6 +15,7 @@ pub mod types;
 pub mod unit;
 pub mod user;
 
+pub use convoy::ConvoyRef;
 pub use error::Error;
 pub use index::EdniIndex;
 pub use preview::PreviewMut;
