@@ -75,8 +75,16 @@ impl InspectArgs {
       ("Container Kind:", "Slot Save".to_string()),
       ("Avatar:", p.avatar_name()),
       ("Chapter:", p.chapter_title()),
-      ("Difficulty:", format!("{:?}", p.difficulty())),
-      ("Mode:", format!("{:?}", p.mode())),
+      (
+        "Difficulty:",
+        p.difficulty()
+          .map_or_else(|| "Unknown".to_string(), |d| d.to_string()),
+      ),
+      (
+        "Mode:",
+        p.mode()
+          .map_or_else(|| "Unknown".to_string(), |m| m.to_string()),
+      ),
       ("Gold:", slot.gold().to_string()),
       ("Play Time:", p.play_time().to_string()),
       ("Roster Count:", slot.units().count().to_string()),
