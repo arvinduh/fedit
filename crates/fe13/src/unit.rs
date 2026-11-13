@@ -4,6 +4,42 @@
 
 use crate::types;
 
+/// Combat attributes and character statistics.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct UnitStats {
+  /// Maximum hit points.
+  pub hp: u8,
+  /// Physical strength stat.
+  pub strength: u8,
+  /// Magic stat.
+  pub magic: u8,
+  /// Skill stat.
+  pub skill: u8,
+  /// Speed stat.
+  pub speed: u8,
+  /// Luck stat.
+  pub luck: u8,
+  /// Physical defense stat.
+  pub defense: u8,
+  /// Magical resistance stat.
+  pub resistance: u8,
+}
+
+/// Owned character unit domain representation.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct Unit {
+  /// Character identifier.
+  pub unit_id: types::UnitId,
+  /// Unit class identifier.
+  pub class_id: types::ClassId,
+  /// Character combat attributes.
+  pub stats: UnitStats,
+  /// Inventory equipment slots (up to 5 items).
+  pub items: [Option<types::ItemId>; 5],
+  /// Byte offset of this unit entry within the TINU block.
+  pub offset: usize,
+}
+
 /// Borrowed view over an individual character unit slot.
 #[derive(Debug, Clone, Copy)]
 pub struct UnitRef<'a> {
