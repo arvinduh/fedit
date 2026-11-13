@@ -40,6 +40,50 @@ pub struct Unit {
   pub offset: usize,
 }
 
+impl Unit {
+  /// Constructs an owned unit from a borrowed view and block offset.
+  #[must_use]
+  pub fn from_ref(offset: usize, r: &UnitRef<'_>) -> Self {
+    Self {
+      unit_id: r.unit_id(),
+      class_id: r.class_id(),
+      stats: UnitStats {
+        hp: r.hp(),
+        strength: r.strength(),
+        magic: r.magic(),
+        skill: r.skill(),
+        speed: r.speed(),
+        luck: r.luck(),
+        defense: r.defense(),
+        resistance: r.resistance(),
+      },
+      items: [r.item(0), r.item(1), r.item(2), r.item(3), r.item(4)],
+      offset,
+    }
+  }
+
+  /// Writes modified unit fields back into a raw unit slice.
+  pub fn write_back(&self, slice: &mut [u8]) {
+    if slice.len() < 32 {
+      return;
+    }
+    slice[0..2].copy_from_slice(&self.unit_id.0.to_le_bytes());
+    slice[2] = self.class_id.0;
+    slice[8] = self.stats.hp;
+    slice[9] = self.stats.strength;
+    slice[10] = self.stats.magic;
+    slice[11] = self.stats.skill;
+    slice[12] = self.stats.speed;
+    slice[13] = self.stats.luck;
+    slice[14] = self.stats.defense;
+    slice[15] = self.stats.resistance;
+    for (i, item) in self.items.iter().enumerate() {
+      let id = item.map_or(0xffff_u16, |it| it.0);
+      slice[16 + i * 2..18 + i * 2].copy_from_slice(&id.to_le_bytes());
+    }
+  }
+}
+
 /// Borrowed view over an individual character unit slot.
 #[derive(Debug, Clone, Copy)]
 pub struct UnitRef<'a> {
