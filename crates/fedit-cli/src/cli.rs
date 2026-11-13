@@ -7,6 +7,7 @@ pub mod edit;
 pub mod error;
 pub mod inspect;
 pub mod repack;
+pub mod roster;
 pub mod unpack;
 
 use clap;
@@ -36,6 +37,8 @@ pub enum Args {
   Repack(repack::RepackArgs),
   /// Mutate save slot parameters in-place.
   Edit(edit::EditArgs),
+  /// Inspect character unit roster stats and attributes.
+  Roster(roster::RosterArgs),
 }
 
 impl Args {
@@ -50,6 +53,7 @@ impl Args {
       Self::Unpack(args) => args.run(),
       Self::Repack(args) => args.run(),
       Self::Edit(args) => args.run(),
+      Self::Roster(args) => args.run(),
     }
   }
 }
