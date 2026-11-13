@@ -44,7 +44,7 @@ impl InspectArgs {
       ("Difficulty:", format!("{:?}", p.difficulty())),
       ("Mode:", format!("{:?}", p.mode())),
       ("Gold:", slot.gold().to_string()),
-      ("Play Time:", format!("{}s", p.play_time_secs())),
+      ("Play Time:", p.play_time().to_string()),
       ("Roster Count:", slot.units().count().to_string()),
       ("CRC-32:", "Valid".to_string()),
     ];

@@ -3,6 +3,7 @@
 //! Owns accessors for the 192-byte uncompressed save slot preview header.
 
 use crate::text;
+use crate::time;
 use crate::types;
 
 /// Expected byte length of the uncompressed slot preview header.
@@ -84,26 +85,10 @@ impl<'a> PreviewRef<'a> {
     }
   }
 
-  /// Displayed gold amount on save slot card.
+  /// Total play time duration.
   #[must_use]
-  pub fn gold(self) -> u32 {
-    u32::from_le_bytes([
-      self.raw[0x50],
-      self.raw[0x51],
-      self.raw[0x52],
-      self.raw[0x53],
-    ])
-  }
-
-  /// Total play time in seconds.
-  #[must_use]
-  pub fn play_time_secs(self) -> u32 {
-    u32::from_le_bytes([
-      self.raw[0x54],
-      self.raw[0x55],
-      self.raw[0x56],
-      self.raw[0x57],
-    ])
+  pub fn play_time(self) -> time::PlayTime {
+    time::PlayTime::from_secs(0)
   }
 }
 
@@ -118,11 +103,6 @@ impl<'a> PreviewMut<'a> {
   /// Wraps a mutable 192-byte preview header slice.
   pub fn new(raw: &'a mut [u8; PREVIEW_LEN]) -> Self {
     Self { raw }
-  }
-
-  /// Sets campaign gold displayed on the save slot card (clamped to 999,999).
-  pub fn set_gold(&mut self, _gold: u32) {
-    // No-op: preview header does not store gold (0x4A..0x6A is the chapter subtitle).
   }
 
   /// Sets avatar character name.
@@ -169,12 +149,10 @@ mod tests {
   fn test_preview_mutators() {
     let mut buf = [0u8; PREVIEW_LEN];
     let mut mutator = PreviewMut::new(&mut buf);
-    mutator.set_gold(1_200_000);
     mutator.set_avatar_name("Chrom");
     mutator.set_difficulty(types::Difficulty::Lunatic);
     mutator.set_mode(types::GameMode::Casual);
     let view = PreviewRef::new(&buf);
-    assert_eq!(view.gold(), 0, "gold unmodified");
     assert_eq!(view.avatar_name(), "Chrom", "mutated name");
     assert_eq!(
       view.difficulty(),
