@@ -7,7 +7,6 @@ use std::io;
 
 use fe_compress;
 use fe13;
-use fedit_core;
 use serde_json;
 use thiserror;
 
@@ -23,9 +22,6 @@ pub enum Error {
   /// Fire Emblem domain or save validation error occurred.
   #[error(transparent)]
   Fe13(#[from] fe13::Error),
-  /// Archive or backup management error occurred.
-  #[error(transparent)]
-  Core(#[from] fedit_core::Error),
   /// JSON serialization or deserialization error.
   #[error(transparent)]
   Json(#[from] serde_json::Error),

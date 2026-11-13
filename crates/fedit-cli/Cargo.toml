@@ -12,7 +12,6 @@ clap.workspace = true
 env_logger.workspace = true
 fe-compress.workspace = true
 fe13.workspace = true
-fedit-core.workspace = true
 log.workspace = true
 serde.workspace = true
 serde_json.workspace = true
