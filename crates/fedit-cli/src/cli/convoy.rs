@@ -18,6 +18,12 @@ pub struct ConvoyArgs {
   /// Target chapter index when inspecting an archive directory (0..=2).
   #[arg(long)]
   pub chapter: Option<usize>,
+  /// Target convoy slot index to mutate.
+  #[arg(long)]
+  pub slot: Option<usize>,
+  /// New uses count for the target convoy item.
+  #[arg(long)]
+  pub uses: Option<u16>,
   /// Output convoy storage as JSON.
   #[arg(long)]
   pub json: bool,
@@ -30,6 +36,41 @@ impl ConvoyArgs {
   ///
   /// Returns an error if the save file cannot be read or parsed.
   pub fn run(self) -> Result<(), error::Error> {
+    if let (Some(target), Some(uses)) = (self.slot, self.uses) {
+      if self.file.is_dir() {
+        let mut a = fedit_core::SaveArchive::open(&self.file)?;
+        let c = self.chapter.unwrap_or(0);
+        let s = a.chapters[c].as_mut().ok_or_else(|| {
+          fedit_core::Error::SlotNotFound {
+            slot: format!("Chapter{c}"),
+          }
+        })?;
+        let it = s
+          .convoy
+          .iter_mut()
+          .find(|it| it.slot == target)
+          .ok_or_else(|| fedit_core::Error::SlotNotFound {
+            slot: format!("Convoy slot {target}"),
+          })?;
+        it.uses = uses;
+        a.save()?;
+      } else {
+        let mut s = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
+        let it = s
+          .convoy
+          .iter_mut()
+          .find(|it| it.slot == target)
+          .ok_or_else(|| fedit_core::Error::SlotNotFound {
+            slot: format!("Convoy slot {target}"),
+          })?;
+        it.uses = uses;
+        let bak = self.file.with_extension("bak");
+        fs::copy(&self.file, &bak)?;
+        fedit_core::atomic::write_atomic(&self.file, &s.to_bytes()?)?;
+      }
+      println!("Updated convoy slot {target} uses to {uses}");
+      return Ok(());
+    }
     let slot = if self.file.is_dir() {
       let a = fedit_core::SaveArchive::open(&self.file)?;
       let c = self.chapter.unwrap_or(0);
