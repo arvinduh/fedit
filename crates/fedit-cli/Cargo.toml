@@ -7,5 +7,10 @@ edition.workspace = true
 name = "fedit"
 path = "src/main.rs"
 
+[dependencies]
+fe-compress = { path = "../fe-compress" }
+fe13 = { path = "../fe13" }
+thiserror = "2.0"
+
 [lints]
 workspace = true

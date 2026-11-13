@@ -36,6 +36,11 @@ dependencies = [
 [[package]]
 name = "fedit-cli"
 version = "0.1.0"
+dependencies = [
+ "fe-compress",
+ "fe13",
+ "thiserror",
+]
 
 [[package]]
 name = "proc-macro2"
