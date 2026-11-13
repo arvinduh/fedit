@@ -106,9 +106,8 @@ impl<'a> PreviewMut<'a> {
   }
 
   /// Sets campaign gold displayed on the save slot card (clamped to 999,999).
-  pub fn set_gold(&mut self, gold: u32) {
-    let clamped = gold.min(999_999);
-    self.raw[0x50..0x54].copy_from_slice(&clamped.to_le_bytes());
+  pub fn set_gold(&mut self, _gold: u32) {
+    // No-op: preview header does not store gold (0x4A..0x6A is the chapter subtitle).
   }
 
   /// Sets avatar character name.
@@ -156,7 +155,7 @@ mod tests {
     mutator.set_difficulty(types::Difficulty::Lunatic);
     mutator.set_mode(types::GameMode::Casual);
     let view = PreviewRef::new(&buf);
-    assert_eq!(view.gold(), 999_999, "gold clamped");
+    assert_eq!(view.gold(), 0, "gold unmodified");
     assert_eq!(view.avatar_name(), "Chrom", "mutated name");
     assert_eq!(
       view.difficulty(),

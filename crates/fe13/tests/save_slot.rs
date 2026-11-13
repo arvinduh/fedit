@@ -12,9 +12,10 @@ fn test_chapter0_save_slot_roundtrip() {
   assert_eq!(slot.preview().chapter_title(), "Chapter 19");
   assert_eq!(slot.preview().difficulty(), Some(fe13::Difficulty::Hard));
   assert_eq!(slot.units().count(), 20);
+  assert_eq!(slot.gold(), 697_504);
 
   slot.set_gold(999_999);
-  assert_eq!(slot.preview().gold(), 999_999);
+  assert_eq!(slot.gold(), 999_999);
   assert_eq!(slot.user().gold(), 999_999);
 
   let repacked = slot.to_bytes().expect("repack slot");
@@ -25,7 +26,7 @@ fn test_chapter0_save_slot_roundtrip() {
     reloaded.preview().difficulty(),
     Some(fe13::Difficulty::Hard)
   );
-  assert_eq!(reloaded.preview().gold(), 999_999);
+  assert_eq!(reloaded.gold(), 999_999);
   assert_eq!(reloaded.user().gold(), 999_999);
   assert_eq!(reloaded.units().count(), 20);
 }

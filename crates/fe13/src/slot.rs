@@ -93,9 +93,14 @@ impl SaveSlot {
     convoy::ConvoyMut::new(&mut self.payload[self.index.convoy_offset..])
   }
 
-  /// Synchronously updates campaign gold across both preview and RESU blocks.
+  /// Returns campaign gold.
+  #[must_use]
+  pub fn gold(&self) -> u32 {
+    self.user().gold()
+  }
+
+  /// Updates campaign gold clamped to maximum allowable gold.
   pub fn set_gold(&mut self, amount: u32) {
-    self.preview_mut().set_gold(amount);
     self.user_mut().set_gold(amount);
   }
 }

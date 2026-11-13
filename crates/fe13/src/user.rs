@@ -6,7 +6,7 @@
 pub const MAX_GOLD: u32 = 999_999;
 
 /// Byte offset of the campaign gold field relative to RESU start.
-const GOLD_OFFSET: usize = 0x08;
+const GOLD_OFFSET: usize = 0x09;
 
 /// Borrowed view over the RESU campaign state block.
 #[derive(Debug, Clone, Copy)]
