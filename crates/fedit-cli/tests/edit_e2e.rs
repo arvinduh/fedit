@@ -52,7 +52,14 @@ fn test_edit_archive_directory_with_backup() {
   let edit_status = process::Command::new(bin)
     .args(["edit"])
     .arg(&tmp)
-    .args(["--chapter", "0", "--gold", "888888", "--avatar-name", "Morgan"])
+    .args([
+      "--chapter",
+      "0",
+      "--gold",
+      "888888",
+      "--avatar-name",
+      "Morgan",
+    ])
     .status()
     .expect("edit directory");
   assert!(edit_status.success(), "edit success");

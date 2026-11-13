@@ -43,10 +43,28 @@ fn test_inspect_archive_directory() {
   assert!(output.status.success(), "command exit status");
   let stdout = String::from_utf8_lossy(&output.stdout);
   assert!(stdout.contains("Archive Root"), "archive root header");
-  assert!(stdout.contains("Global Status:     Present"), "global present");
-  assert!(stdout.contains("Chapter 0:         Robin"), "chapter 0 avatar");
-  assert!(stdout.contains("Chapter 1:         Robin"), "chapter 1 avatar");
-  assert!(stdout.contains("Chapter 2:         Rew"), "chapter 2 avatar");
-  assert!(stdout.contains("Map 0:             Units: 6"), "map 0 units");
-  assert!(stdout.contains("Map 1:             Units: 17"), "map 1 units");
+  assert!(
+    stdout.contains("Global Status:     Present"),
+    "global present"
+  );
+  assert!(
+    stdout.contains("Chapter 0:         Robin"),
+    "chapter 0 avatar"
+  );
+  assert!(
+    stdout.contains("Chapter 1:         Robin"),
+    "chapter 1 avatar"
+  );
+  assert!(
+    stdout.contains("Chapter 2:         Rew"),
+    "chapter 2 avatar"
+  );
+  assert!(
+    stdout.contains("Map 0:             Units: 6"),
+    "map 0 units"
+  );
+  assert!(
+    stdout.contains("Map 1:             Units: 17"),
+    "map 1 units"
+  );
 }
