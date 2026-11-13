@@ -18,6 +18,8 @@ pub struct EdniIndex {
   pub ifer_offset: usize,
   /// NART convoy storage offset.
   pub convoy_offset: usize,
+  /// Convoy storage buffer end offset.
+  pub convoy_end_offset: usize,
   /// 62UD support table offset.
   pub d62_offset: usize,
   /// TSVE event state offset.
@@ -34,9 +36,16 @@ impl EdniIndex {
     if payload.len() < 0x20 || &payload[0..4] != b"EDNI" {
       return Err(crate::error::Error::InvalidEdniMagic);
     }
-    let r = |idx: usize, exp: [u8; 4]| -> Result<usize, crate::error::Error> {
+    let (mut user, mut pamg, mut unit, mut ifer) = (None, None, None, None);
+    let (mut convoy, mut convoy_end, mut d62, mut tsve) =
+      (None, None, None, None);
+    let mut idx = 1;
+    while idx * 4 + 4 <= payload.len() {
       let b = &payload[idx * 4..idx * 4 + 4];
       let raw = u32::from_le_bytes([b[0], b[1], b[2], b[3]]) as usize;
+      if raw == 0 {
+        break;
+      }
       let off = raw.checked_sub(PREVIEW_OFFSET).ok_or(
         crate::error::Error::OffsetOutOfBounds {
           offset: raw,
@@ -49,24 +58,30 @@ impl EdniIndex {
           len: payload.len(),
         });
       }
-      let mut act = [0u8; 4];
-      act.copy_from_slice(&payload[off..off + 4]);
-      if act != exp {
-        return Err(crate::error::Error::InvalidBlockMagic {
-          expected: exp,
-          actual: act,
-        });
+      if convoy.is_some() && convoy_end.is_none() {
+        convoy_end = Some(off);
       }
-      Ok(off)
-    };
+      match &payload[off..off + 4] {
+        b"RESU" => user = Some(off),
+        b"PAMG" => pamg = Some(off),
+        b"TINU" => unit = Some(off),
+        b"IFER" => ifer = Some(off),
+        b"NART" => convoy = Some(off),
+        b"62UD" => d62 = Some(off),
+        b"TSVE" => tsve = Some(off),
+        _ => {}
+      }
+      idx += 1;
+    }
     Ok(Self {
-      user_offset: r(1, *b"RESU")?,
-      pamg_offset: r(2, *b"PAMG")?,
-      unit_offset: r(3, *b"TINU")?,
-      ifer_offset: r(4, *b"IFER")?,
-      convoy_offset: r(5, *b"NART")?,
-      d62_offset: r(6, *b"62UD")?,
-      tsve_offset: r(7, *b"TSVE")?,
+      user_offset: user.ok_or(crate::error::Error::InvalidEdniMagic)?,
+      pamg_offset: pamg.ok_or(crate::error::Error::InvalidEdniMagic)?,
+      unit_offset: unit.ok_or(crate::error::Error::InvalidEdniMagic)?,
+      ifer_offset: ifer.ok_or(crate::error::Error::InvalidEdniMagic)?,
+      convoy_offset: convoy.ok_or(crate::error::Error::InvalidEdniMagic)?,
+      convoy_end_offset: convoy_end.unwrap_or(0),
+      d62_offset: d62.ok_or(crate::error::Error::InvalidEdniMagic)?,
+      tsve_offset: tsve.ok_or(crate::error::Error::InvalidEdniMagic)?,
     })
   }
 }
