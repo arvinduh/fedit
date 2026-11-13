@@ -8,6 +8,7 @@
 
 pub mod convoy;
 pub mod error;
+pub mod global;
 pub mod index;
 pub mod names;
 pub mod preview;
@@ -22,6 +23,7 @@ pub use convoy::ConvoyItem;
 pub use convoy::ConvoyMut;
 pub use convoy::ConvoyRef;
 pub use error::Error;
+pub use global::GlobalSave;
 pub use index::EdniIndex;
 pub use preview::PreviewMut;
 pub use preview::PreviewRef;
