@@ -1,11 +1,11 @@
 //! Character unit roster inspection command.
 
 use std::fs;
+use std::io;
 use std::path;
 
 use clap;
 use fe13;
-use fedit_core;
 use serde_json;
 
 use crate::cli::error;
@@ -13,11 +13,8 @@ use crate::cli::error;
 /// Arguments for the `roster` subcommand.
 #[derive(Debug, clap::Args)]
 pub struct RosterArgs {
-  /// Path to save file or archive directory.
+  /// Path to save slot file.
   pub file: path::PathBuf,
-  /// Target chapter index when inspecting an archive directory (0..=2).
-  #[arg(long)]
-  pub chapter: Option<usize>,
   /// Output roster as JSON.
   #[arg(long)]
   pub json: bool,
@@ -30,17 +27,16 @@ impl RosterArgs {
   ///
   /// Returns an error if the save file cannot be read or parsed.
   pub fn run(self) -> Result<(), error::Error> {
-    let slot = if self.file.is_dir() {
-      let a = fedit_core::SaveArchive::open(&self.file)?;
-      let c = self.chapter.unwrap_or(0);
-      a.chapters[c]
-        .clone()
-        .ok_or_else(|| fedit_core::Error::SlotNotFound {
-          slot: format!("Chapter{c}"),
-        })?
-    } else {
-      fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?
-    };
+    if self.file.is_dir() {
+      return Err(
+        io::Error::new(
+          io::ErrorKind::InvalidInput,
+          "directories not supported; pass a single save slot file",
+        )
+        .into(),
+      );
+    }
+    let slot = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
     if self.json {
       let rows: Vec<serde_json::Value> = slot
         .roster
