@@ -189,6 +189,34 @@ impl<'a> UnitIter<'a> {
   pub fn new(raw: &'a [u8]) -> Self {
     Self { raw, pos: 0 }
   }
+
+  /// Collects all valid units from a TINU block slice.
+  #[must_use]
+  pub fn collect_units(raw: &[u8]) -> Vec<Unit> {
+    let mut units = Vec::new();
+    let mut pos = 0;
+    while pos + 32 <= raw.len() {
+      let i = pos;
+      let uid = u16::from_le_bytes([raw[i], raw[i + 1]]);
+      let cid = raw[i + 2];
+      let hp = raw[i + 8];
+      let has_empty = (0..5).any(|s| {
+        let it = u16::from_le_bytes([raw[i + 16 + s * 2], raw[i + 17 + s * 2]]);
+        it == 0xffff
+      });
+      if (1..=60).contains(&uid)
+        && (1..=80).contains(&cid)
+        && (10..=99).contains(&hp)
+        && has_empty
+      {
+        pos += 180;
+        units.push(Unit::from_ref(i, &UnitRef::new(&raw[i..])));
+      } else {
+        pos += 1;
+      }
+    }
+    units
+  }
 }
 
 impl<'a> Iterator for UnitIter<'a> {
