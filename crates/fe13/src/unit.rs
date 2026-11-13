@@ -140,3 +140,40 @@ impl<'a> Iterator for UnitIter<'a> {
     None
   }
 }
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn test_unit_ref_accessors() {
+    let mut buf = [0u8; 32];
+    buf[0..2].copy_from_slice(&1u16.to_le_bytes());
+    buf[2] = 7;
+    buf[8] = 45;
+    buf[9] = 28;
+    buf[10] = 24;
+    buf[16..18].copy_from_slice(&0x0244u16.to_le_bytes());
+    buf[18..20].copy_from_slice(&0xffffu16.to_le_bytes());
+    let unit = UnitRef::new(&buf);
+    assert_eq!(unit.unit_id(), types::UnitId(1));
+    assert_eq!(unit.class_id(), types::ClassId(7));
+    assert_eq!(unit.hp(), 45);
+    assert_eq!(unit.strength(), 28);
+    assert_eq!(unit.magic(), 24);
+    assert_eq!(unit.item(0), Some(types::ItemId(0x0244)));
+    assert_eq!(unit.item(1), None);
+  }
+
+  #[test]
+  fn test_unit_iter() {
+    let mut buf = vec![0u8; 250];
+    buf[0..2].copy_from_slice(&1u16.to_le_bytes());
+    buf[2] = 7;
+    buf[8] = 45;
+    buf[16..18].copy_from_slice(&0xffffu16.to_le_bytes());
+    let units: Vec<_> = UnitIter::new(&buf).collect();
+    assert_eq!(units.len(), 1);
+    assert_eq!(units[0].unit_id(), types::UnitId(1));
+  }
+}
