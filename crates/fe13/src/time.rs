@@ -2,6 +2,7 @@
 //!
 //! Encapsulates duration counters in seconds without 24-hour wrap-around.
 
+use std::fmt;
 use std::time;
 
 /// In-game elapsed play time duration.
@@ -42,5 +43,30 @@ impl PlayTime {
   #[must_use]
   pub const fn seconds(&self) -> u8 {
     (self.duration.as_secs() % 60) as u8
+  }
+}
+
+impl fmt::Display for PlayTime {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    write!(
+      f,
+      "{:02}:{:02}:{:02}",
+      self.hours(),
+      self.minutes(),
+      self.seconds()
+    )
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn test_play_time_formatting() {
+    assert_eq!(PlayTime::from_secs(0).to_string(), "00:00:00");
+    assert_eq!(PlayTime::from_secs(75).to_string(), "00:01:15");
+    assert_eq!(PlayTime::from_secs(3661).to_string(), "01:01:01");
+    assert_eq!(PlayTime::from_secs(360_000).to_string(), "100:00:00");
   }
 }
