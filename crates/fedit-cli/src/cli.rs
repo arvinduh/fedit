@@ -5,4 +5,5 @@
 
 pub mod error;
 pub mod inspect;
+pub mod repack;
 pub mod unpack;
