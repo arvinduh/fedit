@@ -17,6 +17,7 @@ pub mod types;
 pub mod unit;
 pub mod user;
 
+pub use convoy::ConvoyItem;
 pub use convoy::ConvoyMut;
 pub use convoy::ConvoyRef;
 pub use error::Error;

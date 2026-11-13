@@ -2,6 +2,19 @@
 //!
 //! Owns views over the NART convoy storage subsystem block.
 
+use crate::types;
+
+/// Owned convoy storage inventory item.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct ConvoyItem {
+  /// Item identifier.
+  pub item_id: types::ItemId,
+  /// Remaining uses or stacked quantity.
+  pub uses: u16,
+  /// Slot index within convoy storage.
+  pub slot: usize,
+}
+
 /// Borrowed view over the NART convoy storage block.
 #[derive(Debug, Clone, Copy)]
 pub struct ConvoyRef<'a> {
@@ -31,6 +44,26 @@ impl<'a> ConvoyRef<'a> {
   pub fn is_empty(&self) -> bool {
     self.len() == 0
   }
+
+  /// Returns all occupied convoy storage items.
+  #[must_use]
+  pub fn items(&self) -> Vec<ConvoyItem> {
+    let mut items = Vec::new();
+    let max_slots = self.raw.len().saturating_sub(8) / 4;
+    for slot in 0..max_slots {
+      let off = 8 + slot * 4;
+      let id = u16::from_be_bytes([self.raw[off], self.raw[off + 1]]);
+      let uses = u16::from_be_bytes([self.raw[off + 2], self.raw[off + 3]]);
+      if id != 0 {
+        items.push(ConvoyItem {
+          item_id: types::ItemId(id),
+          uses,
+          slot,
+        });
+      }
+    }
+    items
+  }
 }
 
 /// Mutable view over the NART convoy storage block.
@@ -51,6 +84,15 @@ impl<'a> ConvoyMut<'a> {
     let off = 8 + slot * 4 + 2;
     if off + 2 <= self.raw.len() {
       self.raw[off..off + 2].copy_from_slice(&quantity.to_le_bytes());
+    }
+  }
+
+  /// Sets an item and quantity in a convoy slot.
+  pub fn set_item(&mut self, slot: usize, item_id: types::ItemId, uses: u16) {
+    let off = 8 + slot * 4;
+    if off + 4 <= self.raw.len() {
+      self.raw[off..off + 2].copy_from_slice(&item_id.0.to_be_bytes());
+      self.raw[off + 2..off + 4].copy_from_slice(&uses.to_be_bytes());
     }
   }
 }
