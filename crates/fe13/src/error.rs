@@ -38,6 +38,32 @@ pub enum Error {
   /// Fixed-width UTF-16LE string decoding failed.
   #[error("failed to decode UTF-16LE string")]
   Utf16Decode,
+  /// Combat or character stat value was out of bounds.
+  #[error("stat '{stat}' value {value} is out of bounds [{min}..={max}]")]
+  StatOutOfBounds {
+    /// Stat name.
+    stat: &'static str,
+    /// Provided value.
+    value: u8,
+    /// Minimum allowed.
+    min: u8,
+    /// Maximum allowed.
+    max: u8,
+  },
+  /// Gold value exceeded maximum allowable amount.
+  #[error("gold amount {value} exceeds maximum {max}")]
+  GoldOutOfBounds {
+    /// Provided value.
+    value: u32,
+    /// Maximum allowed.
+    max: u32,
+  },
+  /// Character was not found in the roster.
+  #[error("character '{name}' was not found in the roster")]
+  CharacterNotFound {
+    /// Character name searched for.
+    name: String,
+  },
   /// Lower-level container or compression error.
   #[error(transparent)]
   Compress(#[from] fe_compress::Error),
