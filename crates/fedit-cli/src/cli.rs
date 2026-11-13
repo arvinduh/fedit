@@ -5,12 +5,13 @@
 
 pub mod convoy;
 pub mod edit;
-pub mod error;
 pub mod inspect;
 pub mod repack;
 pub mod roster;
 pub mod unit;
 pub mod unpack;
+
+pub use crate::error;
 
 use clap;
 use clap::builder::styling;

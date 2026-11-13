@@ -6,6 +6,7 @@
 
 mod atomic;
 mod cli;
+pub mod error;
 
 use std::process;
 
