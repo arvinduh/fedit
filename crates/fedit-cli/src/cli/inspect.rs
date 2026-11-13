@@ -32,7 +32,11 @@ impl InspectArgs {
       println!("Archive Root:      {}", archive.root.display());
       println!(
         "Global Status:     {}",
-        if archive.global.is_some() { "Present" } else { "Missing" }
+        if archive.global.is_some() {
+          "Present"
+        } else {
+          "Missing"
+        }
       );
       for (i, slot) in archive.chapters.iter().enumerate() {
         if let Some(s) = slot {

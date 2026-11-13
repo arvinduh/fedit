@@ -71,10 +71,8 @@ impl EditArgs {
         .chapters
         .get_mut(ch_idx)
         .and_then(Option::as_mut)
-        .ok_or_else(|| {
-          fedit_core::Error::SlotNotFound {
-            slot: format!("Chapter{ch_idx}"),
-          }
+        .ok_or_else(|| fedit_core::Error::SlotNotFound {
+          slot: format!("Chapter{ch_idx}"),
         })?;
       if let Some(gold) = self.gold {
         slot.set_gold(gold);
