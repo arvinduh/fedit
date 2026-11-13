@@ -52,6 +52,9 @@ pub struct EditArgs {
   /// New difficulty setting to set.
   #[arg(long)]
   pub difficulty: Option<DifficultyArg>,
+  /// New play time duration ("hh:mm:ss" or total seconds).
+  #[arg(long)]
+  pub play_time: Option<String>,
   /// Destination output path (defaults to in-place overwrite).
   #[arg(short, long)]
   pub output: Option<path::PathBuf>,
@@ -83,6 +86,9 @@ impl EditArgs {
       if let Some(diff) = self.difficulty {
         slot.preview_mut().set_difficulty(diff.into());
       }
+      if let Some(t) = self.play_time.as_deref().and_then(parse_play_time) {
+        slot.set_play_time(t);
+      }
       let backup = archive.save()?;
       if let Some(backup) = backup {
         println!("Backup created at {}", backup.display());
@@ -102,10 +108,31 @@ impl EditArgs {
     if let Some(diff) = self.difficulty {
       slot.preview_mut().set_difficulty(diff.into());
     }
+    if let Some(t) = self.play_time.as_deref().and_then(parse_play_time) {
+      slot.set_play_time(t);
+    }
 
     let packed = slot.to_bytes()?;
     let out_path = self.output.as_ref().unwrap_or(&self.file);
-    fs::write(out_path, packed)?;
+    if self.output.is_none() || self.output.as_ref() == Some(&self.file) {
+      let bak = self.file.with_extension("bak");
+      fs::copy(&self.file, &bak)?;
+      println!("Backup created at {}", bak.display());
+    }
+    fedit_core::atomic::write_atomic(out_path, &packed)?;
     Ok(())
+  }
+}
+
+/// Parses duration string formatted as "hh:mm:ss" or integer seconds.
+fn parse_play_time(s: &str) -> Option<fe13::PlayTime> {
+  let parts: Vec<&str> = s.split(':').collect();
+  if parts.len() == 3 {
+    let h: u64 = parts[0].parse().ok()?;
+    let m: u64 = parts[1].parse().ok()?;
+    let s: u64 = parts[2].parse().ok()?;
+    Some(fe13::PlayTime::from_secs(h * 3600 + m * 60 + s))
+  } else {
+    s.parse::<u64>().ok().map(fe13::PlayTime::from_secs)
   }
 }
