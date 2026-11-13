@@ -1,6 +1,7 @@
 //! Character unit stat inspection and modification command.
 
 use std::fs;
+use std::io;
 use std::path;
 
 use clap;
@@ -57,21 +58,23 @@ pub struct UnitArgs {
 impl UnitArgs {
   /// Executes the unit command.
   pub fn run(self) -> Result<(), error::Error> {
-    let (mut a, mut f_slot) = if self.file.is_dir() {
-      (Some(fedit_core::SaveArchive::open(&self.file)?), None)
-    } else {
-      let s = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
-      (None, Some(s))
-    };
-    let c = 0;
-    let slot = match a.as_mut() {
-      Some(ar) => ar.chapters[c].as_mut().ok_or_else(|| {
-        fedit_core::Error::SlotNotFound {
-          slot: format!("Chapter{c}"),
-        }
-      })?,
-      None => f_slot.as_mut().expect("file slot"),
-    };
+    if self.file.is_dir() {
+      return Err(
+        io::Error::new(
+          io::ErrorKind::InvalidInput,
+          "directories not supported; pass a single save slot file",
+        )
+        .into(),
+      );
+    }
+    if self.backup
+      && (self.output.is_none() || self.output.as_ref() == Some(&self.file))
+    {
+      let bak = self.file.with_extension("bak");
+      fs::copy(&self.file, &bak)?;
+      println!("Backup created at {}", bak.display());
+    }
+    let mut slot = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
     let u = if let Some(idx) = self.index {
       slot.roster.get_mut(idx).ok_or_else(|| {
         fedit_core::Error::SlotNotFound {
