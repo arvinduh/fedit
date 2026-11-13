@@ -14,9 +14,6 @@ use crate::cli::error;
 pub struct UnitArgs {
   /// Path to save file or archive directory.
   pub file: path::PathBuf,
-  /// Target chapter slot index (0..=2).
-  #[arg(long)]
-  pub chapter: Option<usize>,
   /// Target unit roster index.
   #[arg(long)]
   pub index: Option<usize>,
@@ -66,7 +63,7 @@ impl UnitArgs {
       let s = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
       (None, Some(s))
     };
-    let c = self.chapter.unwrap_or(0);
+    let c = 0;
     let slot = match a.as_mut() {
       Some(ar) => ar.chapters[c].as_mut().ok_or_else(|| {
         fedit_core::Error::SlotNotFound {
@@ -139,7 +136,7 @@ impl UnitArgs {
         {
           fs::copy(&self.file, self.file.with_extension("bak"))?;
         }
-        fedit_core::atomic::write_atomic(
+        crate::atomic::write_atomic(
           dest,
           &f_slot.expect("f_slot").to_bytes()?,
         )?;
