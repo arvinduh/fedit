@@ -25,6 +25,26 @@ pub struct UnitStats {
   pub resistance: u8,
 }
 
+impl UnitStats {
+  /// Sets hit points with bounds checking `[10..=99]`.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`crate::Error::StatOutOfBounds`] if `val` is outside `[10, 99]`.
+  pub fn set_hp(&mut self, val: u8) -> Result<(), crate::Error> {
+    if !(10..=99).contains(&val) {
+      return Err(crate::Error::StatOutOfBounds {
+        stat: "hp",
+        value: val,
+        min: 10,
+        max: 99,
+      });
+    }
+    self.hp = val;
+    Ok(())
+  }
+}
+
 /// Owned character unit domain representation.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Unit {
@@ -252,6 +272,15 @@ impl<'a> Iterator for UnitIter<'a> {
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn test_unit_stats_hp_bounds() {
+    let mut stats = UnitStats::default();
+    assert!(stats.set_hp(9).is_err());
+    assert!(stats.set_hp(100).is_err());
+    assert!(stats.set_hp(45).is_ok());
+    assert_eq!(stats.hp, 45);
+  }
 
   #[test]
   fn test_unit_ref_accessors() {
