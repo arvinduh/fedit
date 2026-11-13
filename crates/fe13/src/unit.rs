@@ -77,4 +77,19 @@ impl<'a> UnitRef<'a> {
   pub fn resistance(&self) -> u8 {
     self.raw[15]
   }
+
+  /// Inventory item identifier at slot (0..5).
+  #[must_use]
+  pub fn item(&self, slot: usize) -> Option<types::ItemId> {
+    if slot >= 5 || self.raw.len() < 16 + (slot + 1) * 2 {
+      return None;
+    }
+    let id =
+      u16::from_le_bytes([self.raw[16 + slot * 2], self.raw[17 + slot * 2]]);
+    if id == 0xffff {
+      None
+    } else {
+      Some(types::ItemId(id))
+    }
+  }
 }
