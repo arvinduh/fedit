@@ -20,7 +20,9 @@ fn test_chapter0_save_slot_roundtrip() {
 
   slot.set_gold(999_999).expect("set gold");
   assert!(slot.set_gold(1_000_000).is_err());
-  let frederick = slot.find_unit_by_name("frederick").expect("frederick exists");
+  let frederick = slot
+    .find_unit_by_name("frederick")
+    .expect("frederick exists");
   assert_eq!(frederick.unit_id.0, 3);
   slot.roster[0].stats.hp = 99;
   slot.roster[0].stats.strength = 50;

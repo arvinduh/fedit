@@ -21,7 +21,9 @@ impl GlobalSave {
   /// Fails if container is invalid or decompression fails.
   pub fn from_bytes(raw: &[u8]) -> Result<Self, error::Error> {
     let container = fe_compress::unpack(raw)?;
-    Ok(Self { payload: container.payload })
+    Ok(Self {
+      payload: container.payload,
+    })
   }
 
   /// Repacks the global save into a compressed container.

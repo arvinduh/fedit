@@ -52,8 +52,6 @@ pub struct UnitArgs {
   pub backup: bool,
 }
 
-
-
 impl UnitArgs {
   /// Executes the unit command.
   pub fn run(self) -> Result<(), error::Error> {

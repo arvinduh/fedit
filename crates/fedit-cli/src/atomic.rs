@@ -19,7 +19,10 @@ pub fn write_atomic(
 ) -> io::Result<()> {
   let target = target.as_ref();
   let parent = target.parent().unwrap_or_else(|| path::Path::new("."));
-  let name = target.file_name().and_then(|n| n.to_str()).unwrap_or("target");
+  let name = target
+    .file_name()
+    .and_then(|n| n.to_str())
+    .unwrap_or("target");
   let nanos = time::SystemTime::now()
     .duration_since(time::UNIX_EPOCH)
     .unwrap_or_default()
