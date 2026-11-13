@@ -56,15 +56,6 @@ pub struct UnitArgs {
 }
 
 
-/// Clamps and assigns an optional stat value, returning whether it was set.
-fn clamp_stat(opt: Option<u8>, min: u8, max: u8, target: &mut u8) -> bool {
-  if let Some(v) = opt {
-    *target = v.clamp(min, max);
-    true
-  } else {
-    false
-  }
-}
 
 impl UnitArgs {
   /// Executes the unit command.
@@ -104,14 +95,39 @@ impl UnitArgs {
         .into(),
       );
     };
-    let mut m = clamp_stat(self.hp, 10, 99, &mut u.stats.hp);
-    m |= clamp_stat(self.strength, 0, 80, &mut u.stats.strength);
-    m |= clamp_stat(self.magic, 0, 80, &mut u.stats.magic);
-    m |= clamp_stat(self.skill, 0, 80, &mut u.stats.skill);
-    m |= clamp_stat(self.speed, 0, 80, &mut u.stats.speed);
-    m |= clamp_stat(self.luck, 0, 80, &mut u.stats.luck);
-    m |= clamp_stat(self.defense, 0, 80, &mut u.stats.defense);
-    m |= clamp_stat(self.resistance, 0, 80, &mut u.stats.resistance);
+    let mut m = false;
+    if let Some(v) = self.hp {
+      u.stats.set_hp(v)?;
+      m = true;
+    }
+    if let Some(v) = self.strength {
+      u.stats.set_combat_stat("strength", v)?;
+      m = true;
+    }
+    if let Some(v) = self.magic {
+      u.stats.set_combat_stat("magic", v)?;
+      m = true;
+    }
+    if let Some(v) = self.skill {
+      u.stats.set_combat_stat("skill", v)?;
+      m = true;
+    }
+    if let Some(v) = self.speed {
+      u.stats.set_combat_stat("speed", v)?;
+      m = true;
+    }
+    if let Some(v) = self.luck {
+      u.stats.set_combat_stat("luck", v)?;
+      m = true;
+    }
+    if let Some(v) = self.defense {
+      u.stats.set_combat_stat("defense", v)?;
+      m = true;
+    }
+    if let Some(v) = self.resistance {
+      u.stats.set_combat_stat("resistance", v)?;
+      m = true;
+    }
     let uid = u.unit_id;
     if m {
       if let Some(ar) = a {
