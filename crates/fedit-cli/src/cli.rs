@@ -31,7 +31,21 @@ pub const STYLES: styling::Styles = styling::Styles::styled()
   about = "Modular Nintendo 3DS Fire Emblem save toolchain",
   styles = STYLES
 )]
-pub enum Args {
+pub struct Cli {
+  /// Subcommand to execute.
+  #[command(subcommand)]
+  pub command: Command,
+  /// Increase logging verbosity (-v = info, -vv = debug, -vvv = trace).
+  #[arg(short = 'v', long = "verbose", action = clap::ArgAction::Count, global = true)]
+  pub verbose: u8,
+  /// Silence non-error output.
+  #[arg(short = 'q', long = "quiet", global = true)]
+  pub quiet: bool,
+}
+
+/// Available subcommands for `fedit`.
+#[derive(Debug, clap::Subcommand)]
+pub enum Command {
   /// Inspect save container headers, statistics, and checksums.
   Inspect(inspect::InspectArgs),
   /// Decompress save containers to disk.
@@ -48,7 +62,7 @@ pub enum Args {
   Unit(unit::UnitArgs),
 }
 
-impl Args {
+impl Command {
   /// Dispatches the chosen subcommand.
   ///
   /// # Errors

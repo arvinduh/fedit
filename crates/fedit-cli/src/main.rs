@@ -12,14 +12,33 @@ use std::process;
 
 use clap::Parser;
 use env_logger;
+use log;
 
 fn main() -> process::ExitCode {
-  env_logger::init();
-  match cli::Args::parse().run() {
+  let args = cli::Cli::parse();
+  init_logger(args.verbose, args.quiet);
+  match args.command.run() {
     Ok(()) => process::ExitCode::SUCCESS,
     Err(err) => {
       eprintln!("[ERROR] {err}");
       process::ExitCode::FAILURE
     }
   }
+}
+
+/// Configures global log filter level based on verbosity flags.
+fn init_logger(verbose: u8, quiet: bool) {
+  let filter = if quiet {
+    log::LevelFilter::Error
+  } else {
+    match verbose {
+      0 => log::LevelFilter::Warn,
+      1 => log::LevelFilter::Info,
+      2 => log::LevelFilter::Debug,
+      _ => log::LevelFilter::Trace,
+    }
+  };
+  env_logger::Builder::from_default_env()
+    .filter_level(filter)
+    .init();
 }
