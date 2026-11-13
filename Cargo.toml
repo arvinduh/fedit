@@ -3,7 +3,6 @@ resolver = "2"
 members = [
   "crates/fe-compress",
   "crates/fe13",
-  "crates/fedit-core",
   "crates/fedit-cli",
 ]
 
@@ -14,7 +13,6 @@ edition = "2024"
 [workspace.dependencies]
 fe-compress = { path = "crates/fe-compress", version = "0.1.0" }
 fe13 = { path = "crates/fe13", version = "0.1.0" }
-fedit-core = { path = "crates/fedit-core", version = "0.1.0" }
 thiserror = "2"
 crc32fast = "1.4"
 clap = { version = "4.5", features = ["derive"] }

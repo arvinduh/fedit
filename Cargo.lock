@@ -169,19 +169,9 @@ dependencies = [
  "env_logger",
  "fe-compress",
  "fe13",
- "fedit-core",
  "log",
  "serde",
  "serde_json",
- "thiserror",
-]
-
-[[package]]
-name = "fedit-core"
-version = "0.1.0"
-dependencies = [
- "fe-compress",
- "fe13",
  "thiserror",
 ]
 
