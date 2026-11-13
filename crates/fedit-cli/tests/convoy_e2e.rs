@@ -41,5 +41,12 @@ fn test_convoy_cli() {
     .expect("fedit convoy mutate");
   assert!(m_out.status.success(), "mutate status ok");
   assert!(file.with_extension("bak").exists(), "backup exists");
+
+  let dir_out = process::Command::new(bin)
+    .args(["convoy", tmp.to_str().unwrap()])
+    .status()
+    .expect("convoy dir");
+  assert!(!dir_out.success(), "directory rejected");
+
   let _ = fs::remove_dir_all(&tmp);
 }
