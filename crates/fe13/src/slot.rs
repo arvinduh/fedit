@@ -20,6 +20,10 @@ pub struct SaveSlot {
   payload: Vec<u8>,
   /// Resolved subsystem block index table.
   index: index::EdniIndex,
+  /// Owned unit roster.
+  pub roster: Vec<unit::Unit>,
+  /// Owned convoy storage items.
+  pub convoy: Vec<convoy::ConvoyItem>,
 }
 
 impl SaveSlot {
@@ -38,10 +42,16 @@ impl SaveSlot {
         }
       })?;
     let index = index::EdniIndex::parse(&container.payload)?;
+    let roster =
+      unit::UnitIter::collect_units(&container.payload[index.unit_offset..]);
+    let convoy =
+      convoy::ConvoyRef::new(&container.payload[index.convoy_offset..]).items();
     Ok(Self {
       preview,
       payload: container.payload,
       index,
+      roster,
+      convoy,
     })
   }
 
@@ -51,7 +61,21 @@ impl SaveSlot {
   ///
   /// Fails on compression error.
   pub fn to_bytes(&self) -> Result<Vec<u8>, error::Error> {
-    Ok(fe_compress::repack(&self.preview, &self.payload)?)
+    let mut payload = self.payload.clone();
+    for u in &self.roster {
+      let base = self.index.unit_offset + u.offset;
+      if base + 32 <= payload.len() {
+        u.write_back(&mut payload[base..]);
+      }
+    }
+    for item in &self.convoy {
+      let off = self.index.convoy_offset + 8 + item.slot * 4;
+      if off + 4 <= payload.len() {
+        payload[off..off + 2].copy_from_slice(&item.item_id.0.to_be_bytes());
+        payload[off + 2..off + 4].copy_from_slice(&item.uses.to_be_bytes());
+      }
+    }
+    Ok(fe_compress::repack(&self.preview, &payload)?)
   }
 
   /// Returns a borrowed view over the preview header.
