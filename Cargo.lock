@@ -29,6 +29,7 @@ dependencies = [
 name = "fe13"
 version = "0.1.0"
 dependencies = [
+ "fe-compress",
  "thiserror",
 ]
 

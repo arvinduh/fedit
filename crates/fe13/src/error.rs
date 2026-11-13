@@ -2,6 +2,7 @@
 //!
 //! Owns the crate-wide [`enum@Error`] type.
 
+use fe_compress;
 use thiserror;
 
 /// Errors that can occur when parsing or mutating FE13 saves.
@@ -37,4 +38,7 @@ pub enum Error {
   /// Fixed-width UTF-16LE string decoding failed.
   #[error("failed to decode UTF-16LE string")]
   Utf16Decode,
+  /// Lower-level container or compression error.
+  #[error(transparent)]
+  Compress(#[from] fe_compress::Error),
 }
