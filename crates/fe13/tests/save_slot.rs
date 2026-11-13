@@ -4,6 +4,8 @@ use fe13;
 
 const CHAPTER0: &[u8] =
   include_bytes!("../../../tests/fixtures/20200831-225628/Chapter0");
+const MAP0: &[u8] =
+  include_bytes!("../../../tests/fixtures/20200831-225628/Map0");
 
 #[test]
 fn test_chapter0_save_slot_roundtrip() {
@@ -42,4 +44,16 @@ fn test_chapter0_save_slot_roundtrip() {
   assert_eq!(reloaded.roster[0].stats.strength, 50);
   assert_eq!(reloaded.convoy.len(), 29);
   assert_eq!(reloaded.convoy[0].uses, 42);
+}
+
+#[test]
+fn test_map0_save_slot_roundtrip() {
+  let slot = fe13::SaveSlot::from_bytes(MAP0).expect("parse map0 slot");
+  assert_eq!(slot.units().count(), 6);
+  assert_eq!(slot.roster.len(), 6);
+  assert_eq!(slot.convoy.len(), 1);
+  let repacked = slot.to_bytes().expect("repack map0");
+  let reloaded = fe13::SaveSlot::from_bytes(&repacked).expect("reload map0");
+  assert_eq!(reloaded.roster.len(), 6);
+  assert_eq!(reloaded.convoy.len(), 1);
 }
