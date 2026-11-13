@@ -11,6 +11,7 @@ pub mod index;
 pub mod preview;
 pub mod text;
 pub mod types;
+pub mod unit;
 pub mod user;
 
 pub use error::Error;
@@ -22,6 +23,7 @@ pub use types::Difficulty;
 pub use types::GameMode;
 pub use types::ItemId;
 pub use types::UnitId;
+pub use unit::UnitRef;
 pub use user::MAX_GOLD;
 pub use user::UserMut;
 pub use user::UserRef;
