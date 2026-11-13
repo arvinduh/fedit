@@ -19,7 +19,10 @@ pub struct UnitArgs {
   pub chapter: Option<usize>,
   /// Target unit roster index.
   #[arg(long)]
-  pub index: usize,
+  pub index: Option<usize>,
+  /// Target unit character name (case-insensitive).
+  #[arg(short, long)]
+  pub name: Option<String>,
   /// New max hit points stat.
   #[arg(long)]
   pub hp: Option<u8>,
@@ -47,7 +50,11 @@ pub struct UnitArgs {
   /// Destination output path.
   #[arg(short, long)]
   pub output: Option<path::PathBuf>,
+  /// Create a backup before mutating.
+  #[arg(long)]
+  pub backup: bool,
 }
+
 
 /// Clamps and assigns an optional stat value, returning whether it was set.
 fn clamp_stat(opt: Option<u8>, min: u8, max: u8, target: &mut u8) -> bool {
@@ -77,11 +84,26 @@ impl UnitArgs {
       })?,
       None => f_slot.as_mut().expect("file slot"),
     };
-    let u = slot.roster.get_mut(self.index).ok_or_else(|| {
-      fedit_core::Error::SlotNotFound {
-        slot: format!("Unit {}", self.index),
-      }
-    })?;
+    let u = if let Some(idx) = self.index {
+      slot.roster.get_mut(idx).ok_or_else(|| {
+        fedit_core::Error::SlotNotFound {
+          slot: format!("Unit index {idx}"),
+        }
+      })?
+    } else if let Some(ref target) = self.name {
+      slot.find_unit_by_name_mut(target).ok_or_else(|| {
+        fedit_core::Error::SlotNotFound {
+          slot: format!("Character '{target}'"),
+        }
+      })?
+    } else {
+      return Err(
+        fedit_core::Error::SlotNotFound {
+          slot: "Must specify --index or --name".to_string(),
+        }
+        .into(),
+      );
+    };
     let mut m = clamp_stat(self.hp, 10, 99, &mut u.stats.hp);
     m |= clamp_stat(self.strength, 0, 80, &mut u.stats.strength);
     m |= clamp_stat(self.magic, 0, 80, &mut u.stats.magic);
@@ -90,12 +112,15 @@ impl UnitArgs {
     m |= clamp_stat(self.luck, 0, 80, &mut u.stats.luck);
     m |= clamp_stat(self.defense, 0, 80, &mut u.stats.defense);
     m |= clamp_stat(self.resistance, 0, 80, &mut u.stats.resistance);
+    let uid = u.unit_id;
     if m {
       if let Some(ar) = a {
-        ar.save()?;
+        ar.save_archive(self.backup)?;
       } else {
         let dest = self.output.as_ref().unwrap_or(&self.file);
-        if self.output.is_none() {
+        if self.backup
+          && (self.output.is_none() || self.output.as_ref() == Some(&self.file))
+        {
           fs::copy(&self.file, self.file.with_extension("bak"))?;
         }
         fedit_core::atomic::write_atomic(
@@ -103,13 +128,10 @@ impl UnitArgs {
           &f_slot.expect("f_slot").to_bytes()?,
         )?;
       }
-      println!("Updated unit {} stats", self.index);
+      println!("Updated {uid} stats");
       return Ok(());
     }
-    println!(
-      "Idx: {}  Unit: {}  Class: {}",
-      self.index, u.unit_id, u.class_id.0
-    );
+    println!("Unit: {}  Class: {}", u.unit_id, u.class_id.0);
     println!(
       "HP:  {:2}  Str: {:2}  Mag: {:2}  Skl: {:2}",
       u.stats.hp, u.stats.strength, u.stats.magic, u.stats.skill
