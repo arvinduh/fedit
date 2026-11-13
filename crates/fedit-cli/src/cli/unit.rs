@@ -49,6 +49,17 @@ pub struct UnitArgs {
   pub output: Option<path::PathBuf>,
 }
 
+/// Clamps and assigns an optional stat value, returning whether it was set.
+#[expect(dead_code, reason = "used by stat mutation")]
+fn clamp_stat(opt: Option<u8>, min: u8, max: u8, target: &mut u8) -> bool {
+  if let Some(v) = opt {
+    *target = v.clamp(min, max);
+    true
+  } else {
+    false
+  }
+}
+
 impl UnitArgs {
   /// Executes the unit command.
   pub fn run(self) -> Result<(), error::Error> {
