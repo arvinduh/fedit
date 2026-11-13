@@ -13,11 +13,8 @@ use crate::cli::error;
 /// Arguments for the `convoy` subcommand.
 #[derive(Debug, clap::Args)]
 pub struct ConvoyArgs {
-  /// Path to save file or archive directory.
+  /// Path to save slot file.
   pub file: path::PathBuf,
-  /// Target chapter index when inspecting an archive directory (0..=2).
-  #[arg(long)]
-  pub chapter: Option<usize>,
   /// Target convoy slot index to mutate.
   #[arg(long)]
   pub slot: Option<usize>,
@@ -42,7 +39,7 @@ impl ConvoyArgs {
     if let (Some(target), Some(uses)) = (self.slot, self.uses) {
       if self.file.is_dir() {
         let mut a = fedit_core::SaveArchive::open(&self.file)?;
-        let c = self.chapter.unwrap_or(0);
+        let c = 0;
         let s = a.chapters[c].as_mut().ok_or_else(|| {
           fedit_core::Error::SlotNotFound {
             slot: format!("Chapter{c}"),
@@ -71,14 +68,14 @@ impl ConvoyArgs {
           let bak = self.file.with_extension("bak");
           fs::copy(&self.file, &bak)?;
         }
-        fedit_core::atomic::write_atomic(&self.file, &s.to_bytes()?)?;
+        crate::atomic::write_atomic(&self.file, &s.to_bytes()?)?;
       }
       println!("Updated convoy slot {target} uses to {uses}");
       return Ok(());
     }
     let slot = if self.file.is_dir() {
       let a = fedit_core::SaveArchive::open(&self.file)?;
-      let c = self.chapter.unwrap_or(0);
+      let c = 0;
       a.chapters[c]
         .clone()
         .ok_or_else(|| fedit_core::Error::SlotNotFound {
