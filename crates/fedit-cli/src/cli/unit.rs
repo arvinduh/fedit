@@ -108,7 +108,7 @@ impl UnitArgs {
     }
     println!(
       "Idx: {}  Unit: {}  Class: {}",
-      self.index, u.unit_id.0, u.class_id.0
+      self.index, u.unit_id, u.class_id.0
     );
     println!(
       "HP:  {:2}  Str: {:2}  Mag: {:2}  Skl: {:2}",

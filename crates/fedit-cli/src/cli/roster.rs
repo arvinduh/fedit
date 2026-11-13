@@ -51,6 +51,7 @@ impl RosterArgs {
           serde_json::json!({
             "index": i,
             "unit_id": u.unit_id.0,
+            "name": u.unit_id.name(),
             "class_id": u.class_id.0,
             "hp": s.hp,
             "strength": s.strength,
@@ -66,13 +67,15 @@ impl RosterArgs {
       println!("{}", serde_json::to_string_pretty(&rows)?);
       return Ok(());
     }
-    println!("Idx  Unit Class  HP Str Mag Skl Spd Lck Def Res");
-    println!("----------------------------------------------");
+    println!("Idx  Unit Name            Class  HP Str Mag Skl Spd Lck Def Res");
+    println!("---------------------------------------------------------------");
     for (i, u) in slot.roster.iter().enumerate() {
       let s = u.stats;
+      let name = u.unit_id.name().unwrap_or("Unknown");
       println!(
-        "{i:3}  {:4} {:5} {:3} {:3} {:3} {:3} {:3} {:3} {:3} {:3}",
+        "{i:3}  {:4} {:<15} {:5} {:3} {:3} {:3} {:3} {:3} {:3} {:3} {:3}",
         u.unit_id.0,
+        name,
         u.class_id.0,
         s.hp,
         s.strength,
