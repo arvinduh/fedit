@@ -23,6 +23,7 @@ pub use types::Difficulty;
 pub use types::GameMode;
 pub use types::ItemId;
 pub use types::UnitId;
+pub use unit::UnitIter;
 pub use unit::UnitRef;
 pub use user::MAX_GOLD;
 pub use user::UserMut;

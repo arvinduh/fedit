@@ -93,3 +93,50 @@ impl<'a> UnitRef<'a> {
     }
   }
 }
+
+/// Iterator over character units within a TINU block.
+#[derive(Debug, Clone)]
+pub struct UnitIter<'a> {
+  /// Backing TINU byte slice.
+  raw: &'a [u8],
+  /// Current search byte offset.
+  pos: usize,
+}
+
+impl<'a> UnitIter<'a> {
+  /// Creates a new unit iterator over a TINU block slice.
+  #[must_use]
+  pub fn new(raw: &'a [u8]) -> Self {
+    Self { raw, pos: 0 }
+  }
+}
+
+impl<'a> Iterator for UnitIter<'a> {
+  type Item = UnitRef<'a>;
+
+  fn next(&mut self) -> Option<Self::Item> {
+    while self.pos + 32 <= self.raw.len() {
+      let i = self.pos;
+      let uid = u16::from_le_bytes([self.raw[i], self.raw[i + 1]]);
+      let cid = self.raw[i + 2];
+      let hp = self.raw[i + 8];
+      let has_empty = (0..5).any(|s| {
+        let it = u16::from_le_bytes([
+          self.raw[i + 16 + s * 2],
+          self.raw[i + 17 + s * 2],
+        ]);
+        it == 0xffff
+      });
+      if (1..=60).contains(&uid)
+        && (1..=80).contains(&cid)
+        && (10..=99).contains(&hp)
+        && has_empty
+      {
+        self.pos += 180;
+        return Some(UnitRef::new(&self.raw[i..]));
+      }
+      self.pos += 1;
+    }
+    None
+  }
+}
