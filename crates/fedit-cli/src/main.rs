@@ -4,6 +4,7 @@
 //! process exit codes. Subcommands and domain logic are delegated to child
 //! modules and library crates.
 
+mod atomic;
 mod cli;
 
 use std::process;

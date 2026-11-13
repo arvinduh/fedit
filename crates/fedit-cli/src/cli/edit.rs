@@ -81,7 +81,7 @@ impl EditArgs {
           slot: format!("Chapter{ch_idx}"),
         })?;
       if let Some(gold) = self.gold {
-        slot.set_gold(gold);
+        slot.set_gold(gold)?;
       }
       if let Some(ref name) = self.avatar_name {
         slot.preview_mut().set_avatar_name(name);
@@ -103,7 +103,7 @@ impl EditArgs {
     let mut slot = fe13::SaveSlot::from_bytes(&bytes)?;
 
     if let Some(gold) = self.gold {
-      slot.set_gold(gold);
+      slot.set_gold(gold)?;
     }
     if let Some(ref name) = self.avatar_name {
       slot.preview_mut().set_avatar_name(name);
@@ -124,7 +124,7 @@ impl EditArgs {
       fs::copy(&self.file, &bak)?;
       println!("Backup created at {}", bak.display());
     }
-    fedit_core::atomic::write_atomic(out_path, &packed)?;
+    crate::atomic::write_atomic(out_path, &packed)?;
     Ok(())
   }
 }
