@@ -127,20 +127,8 @@ impl UnitArgs {
     }
     let uid = u.unit_id;
     if m {
-      if let Some(ar) = a {
-        ar.save_archive(self.backup)?;
-      } else {
-        let dest = self.output.as_ref().unwrap_or(&self.file);
-        if self.backup
-          && (self.output.is_none() || self.output.as_ref() == Some(&self.file))
-        {
-          fs::copy(&self.file, self.file.with_extension("bak"))?;
-        }
-        crate::atomic::write_atomic(
-          dest,
-          &f_slot.expect("f_slot").to_bytes()?,
-        )?;
-      }
+      let dest = self.output.as_ref().unwrap_or(&self.file);
+      crate::atomic::write_atomic(dest, &slot.to_bytes()?)?;
       println!("Updated {uid} stats");
       return Ok(());
     }
