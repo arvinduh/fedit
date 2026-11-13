@@ -6,6 +6,7 @@ use std::path;
 use clap;
 use fe13;
 use fedit_core;
+use serde_json;
 
 use crate::cli::error;
 
@@ -17,6 +18,9 @@ pub struct RosterArgs {
   /// Target chapter index when inspecting an archive directory (0..=2).
   #[arg(long)]
   pub chapter: Option<usize>,
+  /// Output roster as JSON.
+  #[arg(long)]
+  pub json: bool,
 }
 
 impl RosterArgs {
@@ -37,6 +41,31 @@ impl RosterArgs {
     } else {
       fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?
     };
+    if self.json {
+      let rows: Vec<serde_json::Value> = slot
+        .roster
+        .iter()
+        .enumerate()
+        .map(|(i, u)| {
+          let s = u.stats;
+          serde_json::json!({
+            "index": i,
+            "unit_id": u.unit_id.0,
+            "class_id": u.class_id.0,
+            "hp": s.hp,
+            "strength": s.strength,
+            "magic": s.magic,
+            "skill": s.skill,
+            "speed": s.speed,
+            "luck": s.luck,
+            "defense": s.defense,
+            "resistance": s.resistance,
+          })
+        })
+        .collect();
+      println!("{}", serde_json::to_string_pretty(&rows)?);
+      return Ok(());
+    }
     println!("Idx  Unit Class  HP Str Mag Skl Spd Lck Def Res");
     println!("----------------------------------------------");
     for (i, u) in slot.roster.iter().enumerate() {
