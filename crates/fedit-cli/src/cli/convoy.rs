@@ -37,39 +37,21 @@ impl ConvoyArgs {
   /// Returns an error if the save file cannot be read or parsed.
   pub fn run(self) -> Result<(), error::Error> {
     if let (Some(target), Some(uses)) = (self.slot, self.uses) {
-      if self.file.is_dir() {
-        let mut a = fedit_core::SaveArchive::open(&self.file)?;
-        let c = 0;
-        let s = a.chapters[c].as_mut().ok_or_else(|| {
-          fedit_core::Error::SlotNotFound {
-            slot: format!("Chapter{c}"),
-          }
-        })?;
-        let it = s
-          .convoy
-          .iter_mut()
-          .find(|it| it.slot == target)
-          .ok_or_else(|| fedit_core::Error::SlotNotFound {
-            slot: format!("Convoy slot {target}"),
-          })?;
-        it.uses = uses;
-        a.save_archive(self.backup)?;
-      } else {
-        let mut s = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
-        let it = s
-          .convoy
-          .iter_mut()
-          .find(|it| it.slot == target)
-          .ok_or_else(|| fedit_core::Error::SlotNotFound {
-            slot: format!("Convoy slot {target}"),
-          })?;
-        it.uses = uses;
-        if self.backup {
-          let bak = self.file.with_extension("bak");
-          fs::copy(&self.file, &bak)?;
-        }
-        crate::atomic::write_atomic(&self.file, &s.to_bytes()?)?;
+      if self.backup {
+        let bak = self.file.with_extension("bak");
+        fs::copy(&self.file, &bak)?;
+        println!("Backup created at {}", bak.display());
       }
+      let mut s = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
+      let it = s
+        .convoy
+        .iter_mut()
+        .find(|it| it.slot == target)
+        .ok_or_else(|| fedit_core::Error::SlotNotFound {
+          slot: format!("Convoy slot {target}"),
+        })?;
+      it.uses = uses;
+      crate::atomic::write_atomic(&self.file, &s.to_bytes()?)?;
       println!("Updated convoy slot {target} uses to {uses}");
       return Ok(());
     }
