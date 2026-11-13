@@ -6,7 +6,6 @@ use std::path;
 
 use clap;
 use fe13;
-use fedit_core;
 
 use crate::cli::error;
 
@@ -77,21 +76,23 @@ impl UnitArgs {
     let mut slot = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
     let u = if let Some(idx) = self.index {
       slot.roster.get_mut(idx).ok_or_else(|| {
-        fedit_core::Error::SlotNotFound {
-          slot: format!("Unit index {idx}"),
-        }
+        io::Error::new(
+          io::ErrorKind::NotFound,
+          format!("unit index {idx} out of range"),
+        )
       })?
     } else if let Some(ref target) = self.name {
       slot.find_unit_by_name_mut(target).ok_or_else(|| {
-        fedit_core::Error::SlotNotFound {
-          slot: format!("Character '{target}'"),
+        fe13::Error::CharacterNotFound {
+          name: target.clone(),
         }
       })?
     } else {
       return Err(
-        fedit_core::Error::SlotNotFound {
-          slot: "Must specify --index or --name".to_string(),
-        }
+        io::Error::new(
+          io::ErrorKind::InvalidInput,
+          "must specify --index or --name",
+        )
         .into(),
       );
     };
