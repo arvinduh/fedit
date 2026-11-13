@@ -8,6 +8,6 @@ edition.workspace = true
 workspace = true
 
 [dependencies]
-fe-compress = { path = "../fe-compress" }
-fe13 = { path = "../fe13" }
-thiserror = "2"
+fe-compress.workspace = true
+fe13.workspace = true
+thiserror.workspace = true

@@ -169,6 +169,7 @@ dependencies = [
  "env_logger",
  "fe-compress",
  "fe13",
+ "fedit-core",
  "log",
  "serde",
  "serde_json",
