@@ -18,7 +18,10 @@ fn test_chapter0_save_slot_roundtrip() {
   assert_eq!(slot.convoy.len(), 29);
   assert_eq!(slot.gold(), 697_504);
 
-  slot.set_gold(999_999);
+  slot.set_gold(999_999).expect("set gold");
+  assert!(slot.set_gold(1_000_000).is_err());
+  let frederick = slot.find_unit_by_name("frederick").expect("frederick exists");
+  assert_eq!(frederick.unit_id.0, 3);
   slot.roster[0].stats.hp = 99;
   slot.roster[0].stats.strength = 50;
   slot.convoy[0].uses = 42;

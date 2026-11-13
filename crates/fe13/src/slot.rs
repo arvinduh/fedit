@@ -110,6 +110,28 @@ impl SaveSlot {
     unit::UnitIter::new(&self.payload[self.index.unit_offset..])
   }
 
+  /// Finds a unit in the roster by character name (case-insensitive).
+  pub fn find_unit_by_name_mut(
+    &mut self,
+    name: &str,
+  ) -> Option<&mut unit::Unit> {
+    self.roster.iter_mut().find(|u| {
+      u.unit_id
+        .name()
+        .is_some_and(|n| n.eq_ignore_ascii_case(name))
+    })
+  }
+
+  /// Finds a unit in the roster by character name (case-insensitive).
+  #[must_use]
+  pub fn find_unit_by_name(&self, name: &str) -> Option<&unit::Unit> {
+    self.roster.iter().find(|u| {
+      u.unit_id
+        .name()
+        .is_some_and(|n| n.eq_ignore_ascii_case(name))
+    })
+  }
+
   /// Returns a borrowed view over the NART convoy storage.
   #[must_use]
   pub fn convoy(&self) -> convoy::ConvoyRef<'_> {
@@ -131,9 +153,20 @@ impl SaveSlot {
     self.user().gold()
   }
 
-  /// Updates campaign gold clamped to maximum allowable gold.
-  pub fn set_gold(&mut self, amount: u32) {
+  /// Sets campaign gold amount.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`error::Error::GoldOutOfBounds`] if `amount > MAX_GOLD`.
+  pub fn set_gold(&mut self, amount: u32) -> Result<(), error::Error> {
+    if amount > user::MAX_GOLD {
+      return Err(error::Error::GoldOutOfBounds {
+        value: amount,
+        max: user::MAX_GOLD,
+      });
+    }
     self.user_mut().set_gold(amount);
+    Ok(())
   }
 
   /// Returns total play time duration.
