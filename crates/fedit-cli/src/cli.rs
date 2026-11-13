@@ -9,6 +9,7 @@ pub mod error;
 pub mod inspect;
 pub mod repack;
 pub mod roster;
+pub mod unit;
 pub mod unpack;
 
 use clap;
@@ -42,6 +43,8 @@ pub enum Args {
   Roster(roster::RosterArgs),
   /// Inspect and modify convoy inventory storage.
   Convoy(convoy::ConvoyArgs),
+  /// Inspect and modify character unit attributes and statistics.
+  Unit(unit::UnitArgs),
 }
 
 impl Args {
@@ -58,6 +61,7 @@ impl Args {
       Self::Edit(args) => args.run(),
       Self::Roster(args) => args.run(),
       Self::Convoy(args) => args.run(),
+      Self::Unit(args) => args.run(),
     }
   }
 }
