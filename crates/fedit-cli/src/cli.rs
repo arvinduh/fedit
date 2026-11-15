@@ -3,10 +3,12 @@
 //! Subcommands and arguments for inspecting, unpacking, repacking, and
 //! editing Nintendo 3DS Fire Emblem: Awakening save files.
 
+pub mod backup;
 pub mod convoy;
 pub mod edit;
 pub mod inspect;
 pub mod repack;
+pub mod restore;
 pub mod roster;
 pub mod unit;
 pub mod unpack;
@@ -60,6 +62,10 @@ pub enum Command {
   Convoy(convoy::ConvoyArgs),
   /// Inspect and modify character unit attributes and statistics.
   Unit(unit::UnitArgs),
+  /// Create a snapshot backup of a save file in `AppData` storage.
+  Backup(backup::BackupArgs),
+  /// Restore a save file from `AppData` snapshot storage.
+  Restore(restore::RestoreArgs),
 }
 
 impl Command {
@@ -77,6 +83,8 @@ impl Command {
       Self::Roster(args) => args.run(),
       Self::Convoy(args) => args.run(),
       Self::Unit(args) => args.run(),
+      Self::Backup(args) => args.run(),
+      Self::Restore(args) => args.run(),
     }
   }
 }

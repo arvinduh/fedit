@@ -7,6 +7,7 @@ use std::io;
 
 use awakening;
 use fe_compress;
+use fedit_core;
 use serde_json;
 use thiserror;
 
@@ -22,6 +23,9 @@ pub enum Error {
   /// Fire Emblem domain or save validation error occurred.
   #[error(transparent)]
   Awakening(#[from] awakening::Error),
+  /// Application core services error.
+  #[error(transparent)]
+  Core(#[from] fedit_core::Error),
   /// JSON serialization or deserialization error.
   #[error(transparent)]
   Json(#[from] serde_json::Error),
