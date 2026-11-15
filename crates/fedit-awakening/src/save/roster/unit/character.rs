@@ -476,6 +476,120 @@ impl Character {
       _ => None,
     }
   }
+
+  /// Character base stat additions (HP, Str, Mag, Skl, Spd, Lck, Def, Res).
+  #[must_use]
+  pub const fn additions(self) -> [i8; 8] {
+    match self {
+      Self::Robin => [3, 2, 2, 0, 1, 4, 1, 1],
+      Self::Chrom => [2, 1, 1, 3, 1, 5, 0, 1],
+      Self::Lissa => [1, 1, 2, 2, 0, 8, 2, -2],
+      Self::Frederick => [2, 2, 2, 6, 5, 6, 0, 2],
+      Self::Virion => [3, 1, 0, 1, -1, 7, 1, 1],
+      Self::Sully => [2, 1, 1, 3, 2, 6, 0, 2],
+      Self::Vaike => [4, 1, 0, 3, 1, 4, 1, 0],
+      Self::Stahl => [4, 2, 0, 2, 0, 5, 1, 1],
+      Self::Miriel => [2, 0, 2, 2, 3, 6, 1, 1],
+      Self::Kellam => [3, 2, 0, 3, 3, 3, 1, 2],
+      Self::Sumia => [2, 2, 1, 4, 3, 8, 1, 1],
+      Self::LonQu => [4, 2, 0, 3, 3, 7, 3, 1],
+      Self::Ricken => [4, 3, 4, 3, 1, 10, 4, 0],
+      Self::Maribelle => [2, 0, 2, 2, 1, 5, 2, 1],
+      Self::Panne => [10, 6, 1, 5, 5, 8, 4, 1],
+      Self::Gaius => [6, 4, 0, 7, 7, 6, 3, 2],
+      Self::Cordelia => [9, 5, 1, 6, 4, 9, 4, 2],
+      Self::Gregor => [12, 7, 0, 5, 4, 8, 5, 2],
+      Self::Nowi => [0, 2, 0, 1, 2, 8, 0, 0],
+      Self::Libra => [14, 9, 10, 8, 7, 10, 5, 10],
+      Self::Tharja => [7, 3, 8, 3, 9, 3, 6, 3],
+      Self::Olivia => [2, 2, 0, 3, 1, 5, 0, 1],
+      Self::Cherche => [11, 7, 1, 6, 6, 8, 7, 2],
+      Self::Henry => [10, 5, 10, 12, 5, 10, 8, 1],
+      Self::Lucina => [12, 5, 1, 8, 4, 13, 3, 3],
+      Self::SayRi => [19, 10, 5, 12, 13, 20, 6, 6],
+      Self::Basilio => [28, 18, 3, 17, 14, 18, 13, 5],
+      Self::Flavia => [26, 17, 4, 17, 16, 21, 15, 8],
+      Self::Donnel => [0, 3, 0, 1, 2, 11, 2, 0],
+      Self::Anna => [16, 8, 13, 12, 10, 25, 5, 5],
+      Self::Owain => [10, 4, 4, 5, 6, 9, 6, 5],
+      Self::Inigo => [11, 5, 2, 4, 9, 12, 4, 4],
+      Self::Brady => [9, 6, 5, 3, 2, 10, 7, 4],
+      Self::Kjelle => [10, 6, 2, 6, 5, 11, 3, 3],
+      Self::Cynthia => [7, 5, 2, 4, 10, 17, 6, 6],
+      Self::Severa => [8, 6, 1, 7, 6, 6, 6, 5],
+      Self::Gerome => [13, 8, 0, 4, 8, 5, 5, 1],
+      Self::Morgan => [9, 6, 8, 7, 6, 7, 3, 7],
+      Self::Yarne => [16, 9, 1, 4, 4, 13, 6, 1],
+      Self::Laurent => [10, 3, 7, 7, 4, 11, 4, 5],
+      Self::Noire => [8, 5, 3, 4, 7, 10, 4, 6],
+      Self::Nah => [5, 3, 3, 5, 6, 8, 3, 3],
+      Self::Tiki => [21, 16, 10, 13, 15, 18, 13, 10],
+      Self::Gangrel => [30, 17, 16, 19, 22, 15, 15, 12],
+      Self::Walhart => [47, 29, 13, 24, 24, 30, 23, 14],
+      Self::Emmeryn => [22, 4, 19, 18, 18, 13, 8, 15],
+      Self::YenFay => [40, 23, 3, 28, 27, 28, 15, 14],
+      Self::Aversa => [36, 19, 25, 21, 22, 26, 16, 19],
+      Self::Priam => [52, 32, 2, 33, 28, 35, 31, 22],
+      Self::Unknown(_) => [0; 8],
+    }
+  }
+
+  /// Character stat modifiers (HP, Str, Mag, Skl, Spd, Lck, Def, Res).
+  #[must_use]
+  pub const fn modifiers(self) -> [i8; 8] {
+    match self {
+      Self::Chrom => [0, 1, 0, 1, 1, 1, -1, -1],
+      Self::Lissa => [0, -2, 2, -1, 0, 2, -1, 1],
+      Self::Frederick => [0, 2, -2, 2, -2, 0, 2, 0],
+      Self::Virion => [0, 0, 0, 2, 2, -1, -2, 0],
+      Self::Sully => [0, -1, -1, 2, 2, 0, -1, 0],
+      Self::Vaike => [0, 3, -2, 1, 1, -1, 0, -2],
+      Self::Stahl => [0, 2, -1, 1, 0, -2, 2, -1],
+      Self::Miriel => [0, -2, 3, 1, 1, 0, -2, 0],
+      Self::Kellam => [0, 1, 0, 1, -2, -2, 3, 0],
+      Self::Sumia => [0, -2, 0, 2, 3, 0, -2, 1],
+      Self::LonQu => [0, 0, 0, 3, 3, 0, -2, -2],
+      Self::Ricken => [0, -1, 2, 0, 0, 1, -1, 0],
+      Self::Maribelle => [0, -3, 2, 1, 0, 3, -3, 2],
+      Self::Panne => [0, 2, -1, 2, 3, -1, 1, -1],
+      Self::Gaius => [0, 1, -1, 2, 2, -2, -1, 0],
+      Self::Cordelia => [0, 1, -1, 2, 2, -1, 0, -1],
+      Self::Gregor => [0, 2, -1, 2, 0, -1, 1, -2],
+      Self::Nowi => [0, 1, 1, -1, -2, 1, 3, 2],
+      Self::Libra => [0, 0, 1, 1, 0, -1, 0, 1],
+      Self::Tharja => [0, 0, 3, -1, 1, -3, 1, 0],
+      Self::Olivia => [0, 0, 0, 1, 1, 0, -1, -1],
+      Self::Cherche => [0, 3, 0, -1, -1, 0, 2, -2],
+      Self::Henry => [0, 1, 1, 2, 0, -2, 1, -1],
+      Self::SayRi => [0, 1, -1, 1, 1, -1, 0, 1],
+      Self::Basilio => [0, 3, -2, 1, 1, -1, 1, -1],
+      Self::Flavia => [0, 1, -1, 2, 1, 0, -1, 0],
+      Self::Donnel => [0, 1, -1, -1, -1, 3, 1, -1],
+      Self::Anna => [0, -1, 0, 1, 0, 3, -1, 0],
+      Self::Tiki => [0, 0, -1, 0, 1, 2, 1, 2],
+      Self::Gangrel => [0, -2, 0, 3, 3, -1, -1, 0],
+      Self::Walhart => [0, 4, -2, 0, -1, -1, 4, -2],
+      Self::Emmeryn => [0, -2, 4, 0, 1, 0, -2, 1],
+      Self::YenFay => [0, 1, -2, 2, 4, 0, -1, -2],
+      Self::Aversa => [0, -1, 3, 1, 1, -2, 0, 0],
+      Self::Priam => [0, 3, -2, 1, 0, 0, 2, -2],
+      Self::Robin
+      | Self::Lucina
+      | Self::Owain
+      | Self::Inigo
+      | Self::Brady
+      | Self::Kjelle
+      | Self::Cynthia
+      | Self::Severa
+      | Self::Gerome
+      | Self::Morgan
+      | Self::Yarne
+      | Self::Laurent
+      | Self::Noire
+      | Self::Nah
+      | Self::Unknown(_) => [0; 8],
+    }
+  }
 }
 
 /// Inherent biological gender of a character unit.
