@@ -6,7 +6,7 @@ use std::fs;
 use std::path;
 
 use clap;
-use fe_compress;
+use fedit_compress;
 
 use crate::cli::error;
 
@@ -35,7 +35,7 @@ impl RepackArgs {
       Some(ref p) => fs::read(p)?,
       None => Vec::new(),
     };
-    let packed = fe_compress::repack(&preview, &payload)?;
+    let packed = fedit_compress::repack(&preview, &payload)?;
     fs::write(&self.output, packed)?;
     Ok(())
   }

@@ -8,12 +8,16 @@
 
 pub mod error;
 pub mod global;
-pub mod slot;
+pub mod save;
 
 pub use error::Error;
 pub use global::GlobalSave;
-pub use slot::SaveSlot;
-pub use slot::convoy;
-pub use slot::roster;
-pub use slot::support;
-pub use slot::types;
+pub use save::SaveSlot;
+pub use save::avatar;
+pub use save::convoy;
+pub use save::paralogue;
+pub use save::roster;
+pub use save::support;
+pub use save::types;
+
+pub use save as slot;

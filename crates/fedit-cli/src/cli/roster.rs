@@ -46,7 +46,7 @@ impl RosterArgs {
           let s = u.stats;
           serde_json::json!({
             "index": i,
-            "unit_id": u.character().raw_id(),
+            "unit_id": u.raw_id(),
             "name": u.name(),
             "class_id": u.class().raw_id(),
             "class": u.class().name(),
@@ -76,7 +76,7 @@ impl RosterArgs {
       let class_name = u.class().name();
       println!(
         "{i:3}  {:4} {:<15} {:<14} {:3} {:3} {:3} {:3} {:3} {:3} {:3} {:3}",
-        u.character().raw_id(),
+        u.raw_id(),
         name,
         class_name,
         s.hp,

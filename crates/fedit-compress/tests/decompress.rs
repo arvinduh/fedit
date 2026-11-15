@@ -1,7 +1,7 @@
 //! Integration tests for decompression on real fixtures.
 
-use fe_compress::huffman;
-use fe_compress::pmoc;
+use fedit_compress::huffman;
+use fedit_compress::pmoc;
 
 const CHAPTER0: &[u8] =
   include_bytes!("../../../tests/fixtures/20200831-225628/Chapter0");

@@ -2,7 +2,7 @@
 //!
 //! Owns the [`GlobalSave`] aggregate containing shared system records.
 
-use fe_compress;
+use fedit_compress;
 
 use crate::error;
 
@@ -20,7 +20,7 @@ impl GlobalSave {
   ///
   /// Fails if container is invalid or decompression fails.
   pub fn from_bytes(raw: &[u8]) -> Result<Self, error::Error> {
-    let container = fe_compress::unpack(raw)?;
+    let container = fedit_compress::unpack(raw)?;
     Ok(Self {
       payload: container.payload,
     })
@@ -32,7 +32,7 @@ impl GlobalSave {
   ///
   /// Fails on compression error.
   pub fn to_bytes(&self) -> Result<Vec<u8>, error::Error> {
-    Ok(fe_compress::repack(&[], &self.payload)?)
+    Ok(fedit_compress::repack(&[], &self.payload)?)
   }
 
   /// Returns the decompressed payload length in bytes.

@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
-  "crates/fe-compress",
+  "crates/fedit-compress",
   "crates/fedit-awakening",
   "crates/fedit-core",
   "crates/fedit-cli",
@@ -12,7 +12,7 @@ members = [
 edition = "2024"
 
 [workspace.dependencies]
-fe-compress = { path = "crates/fe-compress" }
+fedit-compress = { path = "crates/fedit-compress" }
 awakening = { path = "crates/fedit-awakening", package = "fedit-awakening" }
 fedit-awakening = { path = "crates/fedit-awakening" }
 fedit-core = { path = "crates/fedit-core" }

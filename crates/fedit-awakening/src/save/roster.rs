@@ -9,11 +9,14 @@ use crate::error;
 
 pub mod unit;
 
+pub use unit::Availability;
+pub use unit::Character;
+pub use unit::Class;
+pub use unit::Gender;
+pub use unit::Skill;
 pub use unit::Unit;
 pub use unit::UnitStats;
 pub use unit::UnitStatus;
-pub use unit::character::Character;
-pub use unit::class::Class;
 
 /// Encapsulated army roster of story and recruited units.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
@@ -39,6 +42,11 @@ impl Roster {
   #[must_use]
   pub fn to_vec(&self) -> Vec<Unit> {
     self.units.clone()
+  }
+
+  /// Appends a new unit to the roster.
+  pub fn push(&mut self, unit: Unit) {
+    self.units.push(unit);
   }
 
   /// Number of characters currently in the roster.

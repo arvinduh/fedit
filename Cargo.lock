@@ -1147,18 +1147,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "fe-compress"
-version = "0.1.0"
-dependencies = [
- "crc32fast",
- "thiserror 2.0.21",
-]
-
-[[package]]
 name = "fedit-awakening"
 version = "0.1.0"
 dependencies = [
- "fe-compress",
+ "fedit-compress",
  "thiserror 2.0.21",
 ]
 
@@ -1168,12 +1160,20 @@ version = "0.1.0"
 dependencies = [
  "clap",
  "env_logger",
- "fe-compress",
  "fedit-awakening",
+ "fedit-compress",
  "fedit-core",
  "log",
  "serde",
  "serde_json",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "fedit-compress"
+version = "0.1.0"
+dependencies = [
+ "crc32fast",
  "thiserror 2.0.21",
 ]
 
@@ -1192,8 +1192,8 @@ dependencies = [
 name = "fedit-gui"
 version = "0.1.0"
 dependencies = [
- "fe-compress",
  "fedit-awakening",
+ "fedit-compress",
  "fedit-core",
  "iced",
 ]

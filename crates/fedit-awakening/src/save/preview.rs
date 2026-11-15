@@ -127,6 +127,11 @@ impl<'a> PreviewMut<'a> {
     self.raw[9] = mode as u8;
   }
 
+  /// Sets current chapter index.
+  pub fn set_chapter_id(&mut self, chapter_id: u16) {
+    self.raw[12..14].copy_from_slice(&chapter_id.to_le_bytes());
+  }
+
   /// Sets total play time duration.
   pub fn set_play_time(&mut self, time: time::PlayTime) {
     let raw = u32::try_from(time.as_secs())

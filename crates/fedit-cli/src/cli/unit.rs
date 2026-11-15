@@ -81,9 +81,10 @@ impl UnitArgs {
       })?
     } else if let Some(ref target) = self.name {
       slot.find_unit_by_name_mut(target).ok_or_else(|| {
-        awakening::Error::CharacterNotFound {
-          name: target.clone(),
-        }
+        io::Error::new(
+          io::ErrorKind::NotFound,
+          format!("character '{target}' not found in roster"),
+        )
       })?
     } else {
       return Err(

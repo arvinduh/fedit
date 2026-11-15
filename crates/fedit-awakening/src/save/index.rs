@@ -9,10 +9,6 @@ pub const PREVIEW_OFFSET: usize = 0xC0;
 
 /// Block offsets within a decompressed save payload.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[expect(
-  clippy::struct_field_names,
-  reason = "all fields represent byte offsets within the EDNI payload"
-)]
 pub struct EdniIndex {
   /// RESU user campaign state offset.
   pub user_offset: usize,

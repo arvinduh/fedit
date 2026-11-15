@@ -11,6 +11,9 @@ const TIME_OFFSET: usize = 0x05;
 /// Byte offset of the campaign gold field relative to RESU start.
 const GOLD_OFFSET: usize = 0x09;
 
+/// Byte offset of the current chapter field relative to RESU start.
+const CURRENT_CHAPTER_OFFSET: usize = 0x0F;
+
 /// Borrowed view over the RESU campaign state block.
 #[derive(Debug, Clone, Copy)]
 pub struct UserRef<'a> {
@@ -52,6 +55,15 @@ impl<'a> UserRef<'a> {
       self.raw[GOLD_OFFSET + 3],
     ])
   }
+
+  /// Current campaign chapter index.
+  #[must_use]
+  pub fn current_chapter(&self) -> u8 {
+    if self.raw.len() <= CURRENT_CHAPTER_OFFSET {
+      return 0;
+    }
+    self.raw[CURRENT_CHAPTER_OFFSET]
+  }
 }
 
 /// Mutable view over the RESU campaign state block.
@@ -65,6 +77,13 @@ impl<'a> UserMut<'a> {
   /// Wraps a mutable RESU block byte slice.
   pub fn new(raw: &'a mut [u8]) -> Self {
     Self { raw }
+  }
+
+  /// Sets current chapter index.
+  pub fn set_current_chapter(&mut self, chapter: u8) {
+    if self.raw.len() > CURRENT_CHAPTER_OFFSET {
+      self.raw[CURRENT_CHAPTER_OFFSET] = chapter;
+    }
   }
 
   /// Sets play time duration in seconds.

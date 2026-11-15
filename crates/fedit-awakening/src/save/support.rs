@@ -44,11 +44,7 @@ struct PairKey(roster::Character, roster::Character);
 impl PairKey {
   /// Creates a canonical unordered pair key.
   fn new(a: roster::Character, b: roster::Character) -> Self {
-    if a.raw_id() <= b.raw_id() {
-      Self(a, b)
-    } else {
-      Self(b, a)
-    }
+    if a <= b { Self(a, b) } else { Self(b, a) }
   }
 }
 
@@ -165,7 +161,7 @@ mod tests {
     let mut table = SupportTable::new();
     let chrom = roster::Character::Chrom;
     let sumia = roster::Character::Sumia;
-    let robin = roster::Character::RobinF;
+    let robin = roster::Character::Robin;
 
     assert_eq!(table.rank_between(chrom, sumia), SupportRank::None);
     assert_eq!(table.spouse_of(chrom), None);

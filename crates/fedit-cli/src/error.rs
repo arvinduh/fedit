@@ -6,7 +6,7 @@
 use std::io;
 
 use awakening;
-use fe_compress;
+use fedit_compress;
 use fedit_core;
 use serde_json;
 use thiserror;
@@ -19,7 +19,7 @@ pub enum Error {
   Io(#[from] io::Error),
   /// Compression or container error occurred.
   #[error(transparent)]
-  Compress(#[from] fe_compress::Error),
+  Compress(#[from] fedit_compress::Error),
   /// Fire Emblem domain or save validation error occurred.
   #[error(transparent)]
   Awakening(#[from] awakening::Error),

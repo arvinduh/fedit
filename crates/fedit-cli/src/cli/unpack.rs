@@ -6,7 +6,7 @@ use std::fs;
 use std::path;
 
 use clap;
-use fe_compress;
+use fedit_compress;
 use serde;
 use serde_json;
 
@@ -47,7 +47,7 @@ impl UnpackArgs {
   /// Returns an error if the file cannot be read or decompressed.
   pub fn run(self) -> Result<(), error::Error> {
     let bytes = fs::read(&self.file)?;
-    let container = fe_compress::unpack(&bytes)?;
+    let container = fedit_compress::unpack(&bytes)?;
     let out_path = self
       .output
       .unwrap_or_else(|| self.file.with_extension("bin"));

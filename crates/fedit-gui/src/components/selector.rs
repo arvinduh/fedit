@@ -126,25 +126,19 @@ mod tests {
 
   #[test]
   fn test_selector_with_units() {
-    let units = vec![make_mock_unit(1), make_mock_unit(2)];
+    let units = vec![make_mock_unit(3), make_mock_unit(4)];
     let selector = UnitSelector::new(units);
     assert_eq!(selector.selected, Some(0));
-    assert_eq!(
-      selector.selected_unit().map(|u| u.character().raw_id()),
-      Some(1)
-    );
+    assert_eq!(selector.selected_unit().map(roster::Unit::raw_id), Some(3));
   }
 
   #[test]
   fn test_selector_update_selection() {
-    let units = vec![make_mock_unit(1), make_mock_unit(2)];
+    let units = vec![make_mock_unit(3), make_mock_unit(4)];
     let mut selector = UnitSelector::new(units);
     selector.update(UnitSelectorMessage::Selected(1));
     assert_eq!(selector.selected, Some(1));
-    assert_eq!(
-      selector.selected_unit().map(|u| u.character().raw_id()),
-      Some(2)
-    );
+    assert_eq!(selector.selected_unit().map(roster::Unit::raw_id), Some(4));
   }
 
   #[test]

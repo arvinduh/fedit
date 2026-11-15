@@ -10,7 +10,7 @@ path = "src/main.rs"
 [dependencies]
 clap.workspace = true
 env_logger.workspace = true
-fe-compress.workspace = true
+fedit-compress.workspace = true
 awakening.workspace = true
 fedit-core.workspace = true
 log.workspace = true
