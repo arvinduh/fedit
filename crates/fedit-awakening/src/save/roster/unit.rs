@@ -50,6 +50,8 @@ pub struct Unit {
   equipped_slot: Option<usize>,
   /// Equipped skills (up to 5 skills).
   skills: [Skill; 5],
+  /// Learned skill repertoire.
+  repertoire: Vec<Skill>,
   /// Operational deployment status.
   status: UnitStatus,
   /// Byte offset of this unit entry within the TINU block.
@@ -78,6 +80,7 @@ impl Unit {
       inventory: [None, None, None, None, None],
       equipped_slot: None,
       skills: [Skill::None; 5],
+      repertoire: Vec::new(),
       status: UnitStatus::Active,
       offset,
     }
@@ -117,6 +120,16 @@ impl Unit {
         Skill::from_raw(r.skill_id(3)),
         Skill::from_raw(r.skill_id(4)),
       ],
+      repertoire: {
+        let mut rep = Vec::new();
+        for i in 0..5 {
+          let s = Skill::from_raw(r.skill_id(i));
+          if s != Skill::None && !rep.contains(&s) {
+            rep.push(s);
+          }
+        }
+        rep
+      },
       status: r.status(mode),
       offset,
     }
@@ -255,6 +268,8 @@ impl Unit {
 
   /// Sets the skill at the specified slot index (0..5).
   ///
+  /// Also ensures the assigned skill is added to the learned skill repertoire.
+  ///
   /// # Errors
   ///
   /// Returns [`error::Error::SlotOutOfBounds`] if `slot >= 5`.
@@ -267,7 +282,39 @@ impl Unit {
       return Err(error::Error::SlotOutOfBounds { slot });
     }
     self.skills[slot] = skill;
+    if skill != Skill::None && !self.repertoire.contains(&skill) {
+      self.repertoire.push(skill);
+    }
     Ok(())
+  }
+
+  /// Returns the learned skill repertoire.
+  #[must_use]
+  pub fn repertoire(&self) -> &[Skill] {
+    &self.repertoire
+  }
+
+  /// Adds a skill directly to the unit's learned skill repertoire.
+  pub fn learn_skill(&mut self, skill: Skill) {
+    if skill != Skill::None && !self.repertoire.contains(&skill) {
+      self.repertoire.push(skill);
+    }
+  }
+
+  /// Removes a skill from the learned repertoire and unequips it if active.
+  pub fn unlearn_skill(&mut self, skill: Skill) {
+    self.repertoire.retain(|&s| s != skill);
+    for slot in &mut self.skills {
+      if *slot == skill {
+        *slot = Skill::None;
+      }
+    }
+  }
+
+  /// Returns true if the skill is currently learned in the repertoire.
+  #[must_use]
+  pub fn has_learned(&self, skill: Skill) -> bool {
+    self.repertoire.contains(&skill)
   }
 
   /// Changes the unit's class with biological gender eligibility enforcement.
@@ -669,6 +716,17 @@ impl Unit {
     if slice.len() >= 66 {
       slice[60..66].copy_from_slice(&self.weapon_ranks);
     }
+
+    // Learned skill bitfield flags
+    for &sk in &self.repertoire {
+      let id = usize::from(sk.raw_id());
+      if id > 0 {
+        let byte_idx = 66 + (id / 8);
+        if byte_idx < slice.len() {
+          slice[byte_idx] |= 1 << (id % 8);
+        }
+      }
+    }
   }
 }
 
@@ -860,12 +918,24 @@ mod tests {
     assert!(robin.set_skill(4, Skill::LimitBreaker).is_ok());
     assert_eq!(robin.skills()[0], Skill::Veteran);
     assert_eq!(robin.skills()[4], Skill::LimitBreaker);
+    assert!(robin.has_learned(Skill::Veteran));
+    assert!(robin.has_learned(Skill::LimitBreaker));
+    assert_eq!(robin.repertoire().len(), 5);
 
-    let mut slice = [0u8; 60];
+    robin.learn_skill(Skill::Aether);
+    assert!(robin.has_learned(Skill::Aether));
+    assert_eq!(robin.repertoire().len(), 6);
+
+    robin.unlearn_skill(Skill::Veteran);
+    assert!(!robin.has_learned(Skill::Veteran));
+    assert_eq!(robin.skills()[0], Skill::None);
+    assert_eq!(robin.repertoire().len(), 5);
+
+    let mut slice = [0u8; 80];
     robin.write_back(&mut slice);
     assert_eq!(
       u16::from_le_bytes([slice[50], slice[51]]),
-      Skill::Veteran.raw_id()
+      Skill::None.raw_id()
     );
     assert_eq!(
       u16::from_le_bytes([slice[58], slice[59]]),
