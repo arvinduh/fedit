@@ -82,8 +82,13 @@ cargo run -p fedit-cli -- repack payload.bin -p preview.bin -o repacked.sav
 
 ## Workspace Architecture
 
-- `crates/fe-compress`: Zero-I/O Nintendo 0x28 Huffman codec, PMOC container,
+- `crates/fedit-compress`: Zero-I/O Nintendo 0x28 Huffman codec, PMOC container,
   CRC-32.
-- `crates/fe13`: In-memory domain models (`SaveSlot`, `GlobalSave`, `Preview`,
-  `EDNI`, `Unit`, `Convoy`).
+- `crates/fedit-core`: Shared types, asset resolution, and save directory
+  abstractions.
+- `crates/fedit-awakening`: FE13 domain models (`SaveSlot`, `GlobalSave`,
+  `Preview`, `EDNI`, `Unit`, `Convoy`, `Paralogue`, `AvatarCustomization`).
 - `crates/fedit-cli`: Subcommand CLI host and atomic file persistence.
+- `crates/fedit-gui`: Desktop graphical interface built on iced.
+- `docs/invariants.md`: System-wide invariants, data constraints, and domain
+  rules.
