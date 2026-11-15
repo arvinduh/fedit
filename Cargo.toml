@@ -5,6 +5,7 @@ members = [
   "crates/fedit-awakening",
   "crates/fedit-core",
   "crates/fedit-cli",
+  "crates/fedit-gui",
 ]
 
 [workspace.package]
@@ -23,6 +24,7 @@ log = "0.4"
 env_logger = "0.11"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+iced = "0.14.0"
 
 [workspace.lints.rust]
 missing_docs = "warn"

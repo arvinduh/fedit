@@ -1,0 +1,13 @@
+[package]
+name = "fedit-gui"
+version = "0.1.0"
+edition.workspace = true
+
+[dependencies]
+fe-compress = { workspace = true }
+awakening = { workspace = true }
+fedit-core = { workspace = true }
+iced = { workspace = true, features = ["image"] }
+
+[lints]
+workspace = true
