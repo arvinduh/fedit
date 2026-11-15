@@ -68,6 +68,42 @@ pub fn portable_portraits_dir() -> path::PathBuf {
   path::PathBuf::from("assets").join("portraits")
 }
 
+/// Directory path for cached skill icons.
+#[must_use]
+pub fn skills_dir() -> path::PathBuf {
+  data_dir().join("assets").join("skills")
+}
+
+/// Portable local skill icons directory adjacent to executable or workspace.
+#[must_use]
+pub fn portable_skills_dir() -> path::PathBuf {
+  path::PathBuf::from("assets").join("skills")
+}
+
+/// Directory path for cached item and weapon icons.
+#[must_use]
+pub fn items_dir() -> path::PathBuf {
+  data_dir().join("assets").join("items")
+}
+
+/// Portable local item icons directory adjacent to executable or workspace.
+#[must_use]
+pub fn portable_items_dir() -> path::PathBuf {
+  path::PathBuf::from("assets").join("items")
+}
+
+/// Directory path for cached animated class map sprites.
+#[must_use]
+pub fn sprites_dir() -> path::PathBuf {
+  data_dir().join("assets").join("sprites")
+}
+
+/// Portable local map sprites directory adjacent to executable or workspace.
+#[must_use]
+pub fn portable_sprites_dir() -> path::PathBuf {
+  path::PathBuf::from("assets").join("sprites")
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
