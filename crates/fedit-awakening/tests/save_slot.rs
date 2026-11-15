@@ -17,6 +17,15 @@ fn test_chapter0_save_slot_roundtrip() {
     Some(awakening::types::Difficulty::Hard)
   );
   assert_eq!(slot.roster.len(), 25);
+  let sayri = slot.find_unit_by_name("say'ri").expect("say'ri exists");
+  assert_eq!(sayri.stats.hp, 43);
+  assert_eq!(sayri.stats.strength, 19);
+  assert_eq!(sayri.stats.magic, 8);
+  assert_eq!(sayri.stats.skill, 26);
+  assert_eq!(sayri.stats.speed, 29);
+  assert_eq!(sayri.stats.luck, 22);
+  assert_eq!(sayri.stats.defense, 14);
+  assert_eq!(sayri.stats.resistance, 12);
   assert_eq!(slot.convoy.len(), 29);
   assert_eq!(slot.gold(), 697_504);
 
@@ -50,7 +59,7 @@ fn test_chapter0_save_slot_roundtrip() {
   assert_eq!(olivia.status(), awakening::roster::UnitStatus::Active);
 
   slot.roster[0].stats.hp = 99;
-  slot.roster[0].stats.strength = 50;
+  slot.roster[0].stats.strength = 44;
   slot.convoy[0].uses = 42;
   assert_eq!(slot.gold(), 999_999);
   assert_eq!(slot.user().gold(), 999_999);
@@ -71,7 +80,7 @@ fn test_chapter0_save_slot_roundtrip() {
   assert_eq!(reloaded.user().gold(), 999_999);
   assert_eq!(reloaded.roster.len(), 25);
   assert_eq!(reloaded.roster[0].stats.hp, 99);
-  assert_eq!(reloaded.roster[0].stats.strength, 50);
+  assert_eq!(reloaded.roster[0].stats.strength, 44);
   assert_eq!(reloaded.convoy.len(), 29);
   assert_eq!(reloaded.convoy[0].uses, 42);
 }

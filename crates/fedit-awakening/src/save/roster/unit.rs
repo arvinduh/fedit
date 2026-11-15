@@ -380,14 +380,29 @@ impl Unit {
   /// Modifies all 8 stat growth attributes and corresponding stats to 255.
   pub fn max_growths(&mut self) {
     self.growths.fill(255);
-    self.stats.hp = 255;
-    self.stats.strength = 255;
-    self.stats.magic = 255;
-    self.stats.skill = 255;
-    self.stats.speed = 255;
-    self.stats.luck = 255;
-    self.stats.defense = 255;
-    self.stats.resistance = 255;
+    for i in 0..8 {
+      let base = i16::from(self.class.base_stats()[i])
+        + i16::from(self.character.additions()[i]);
+      let max = if i == 0 {
+        99
+      } else {
+        (i16::from(self.class.max_stats()[i])
+          + i16::from(self.character.modifiers()[i]))
+        .max(0)
+      };
+      let total = u8::try_from((base + 255).clamp(0, max)).unwrap_or(0);
+      match i {
+        0 => self.stats.hp = total,
+        1 => self.stats.strength = total,
+        2 => self.stats.magic = total,
+        3 => self.stats.skill = total,
+        4 => self.stats.speed = total,
+        5 => self.stats.luck = total,
+        6 => self.stats.defense = total,
+        7 => self.stats.resistance = total,
+        _ => {}
+      }
+    }
   }
 
   /// Sets all weapon proficiencies to maximum Rank A (90).
@@ -417,15 +432,26 @@ impl Unit {
       return Err(error::Error::SlotOutOfBounds { slot: stat_index });
     }
     self.growths[stat_index] = value;
+    let base = i16::from(self.class.base_stats()[stat_index])
+      + i16::from(self.character.additions()[stat_index]);
+    let max = if stat_index == 0 {
+      99
+    } else {
+      (i16::from(self.class.max_stats()[stat_index])
+        + i16::from(self.character.modifiers()[stat_index]))
+      .max(0)
+    };
+    let total =
+      u8::try_from((base + i16::from(value)).clamp(0, max)).unwrap_or(0);
     match stat_index {
-      0 => self.stats.hp = value,
-      1 => self.stats.strength = value,
-      2 => self.stats.magic = value,
-      3 => self.stats.skill = value,
-      4 => self.stats.speed = value,
-      5 => self.stats.luck = value,
-      6 => self.stats.defense = value,
-      7 => self.stats.resistance = value,
+      0 => self.stats.hp = total,
+      1 => self.stats.strength = total,
+      2 => self.stats.magic = total,
+      3 => self.stats.skill = total,
+      4 => self.stats.speed = total,
+      5 => self.stats.luck = total,
+      6 => self.stats.defense = total,
+      7 => self.stats.resistance = total,
       _ => {}
     }
     Ok(())
@@ -571,17 +597,43 @@ impl Unit {
     let pid = self.raw_id();
     slice[0..2].copy_from_slice(&pid.to_le_bytes());
     slice[2] = self.class.raw_id_for_gender(self.gender);
-    slice[8] = self.stats.hp;
-    slice[9] = self.stats.strength;
-    slice[10] = self.stats.magic;
-    slice[11] = self.stats.skill;
-    slice[12] = self.stats.speed;
-    slice[13] = self.stats.luck;
-    slice[14] = self.stats.defense;
-    slice[15] = self.stats.resistance;
-    if slice.len() >= 18 {
-      slice[16] = self.level;
-      slice[17] = self.exp;
+    for i in 0..8 {
+      if slice.len() > 9 + i {
+        let base = i16::from(self.class.base_stats()[i])
+          + i16::from(self.character.additions()[i]);
+        let max = if i == 0 {
+          99
+        } else {
+          (i16::from(self.class.max_stats()[i])
+            + i16::from(self.character.modifiers()[i]))
+          .max(0)
+        };
+        let stat_val = match i {
+          0 => self.stats.hp,
+          1 => self.stats.strength,
+          2 => self.stats.magic,
+          3 => self.stats.skill,
+          4 => self.stats.speed,
+          5 => self.stats.luck,
+          6 => self.stats.defense,
+          7 => self.stats.resistance,
+          _ => 0,
+        };
+        let calc_from_growth =
+          u8::try_from((base + i16::from(self.growths[i])).clamp(0, max))
+            .unwrap_or(0);
+        let growth_to_write = if stat_val == calc_from_growth {
+          self.growths[i]
+        } else {
+          u8::try_from((i16::from(stat_val) - base).clamp(0, 255)).unwrap_or(0)
+        };
+        slice[9 + i] = growth_to_write;
+      }
+    }
+    if slice.len() >= 20 {
+      slice[17] = self.level;
+      slice[18] = self.exp;
+      slice[19] = self.stats.hp;
     }
 
     // Inventory records at offsets 25..50 (5 slots * 5 bytes)
