@@ -1,0 +1,5623 @@
+[
+  {
+    "id": 0,
+    "name": "Avatar (M)",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [
+      2,
+      5
+    ],
+    "additions": {
+      "hp": 3,
+      "str": 2,
+      "mag": 2,
+      "skl": 0,
+      "spd": 1,
+      "lck": 4,
+      "def": 1,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      4
+    ],
+    "fClasses": [
+      5
+    ],
+    "skills": [
+      13
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 3,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 8,
+        "type": 0
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 6,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 5,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 9,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 11,
+        "type": 0
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 13,
+        "type": 0
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 14,
+        "type": 0
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 21,
+        "type": 0
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 17,
+        "type": 0
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 19,
+        "type": 0
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 25,
+        "type": 0
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 30,
+        "type": 0
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 32,
+        "type": 0
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 33,
+        "type": 0
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 34,
+        "type": 0
+      },
+      {
+        "id": 16,
+        "partnerUnitId": 38,
+        "type": 0
+      },
+      {
+        "id": 17,
+        "partnerUnitId": 41,
+        "type": 0
+      },
+      {
+        "id": 18,
+        "partnerUnitId": 42,
+        "type": 0
+      },
+      {
+        "id": 19,
+        "partnerUnitId": 51,
+        "type": 0
+      },
+      {
+        "id": 20,
+        "partnerUnitId": 46,
+        "type": 0
+      },
+      {
+        "id": 21,
+        "partnerUnitId": 47,
+        "type": 0
+      },
+      {
+        "id": 22,
+        "partnerUnitId": 49,
+        "type": 0
+      },
+      {
+        "id": 23,
+        "partnerUnitId": 28,
+        "type": 0
+      },
+      {
+        "id": 24,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 25,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 26,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 27,
+        "partnerUnitId": 12,
+        "type": 1
+      },
+      {
+        "id": 28,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 29,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 30,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 31,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 32,
+        "partnerUnitId": 22,
+        "type": 1
+      },
+      {
+        "id": 33,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 34,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 35,
+        "partnerUnitId": 26,
+        "type": 1
+      },
+      {
+        "id": 36,
+        "partnerUnitId": 27,
+        "type": 1
+      },
+      {
+        "id": 37,
+        "partnerUnitId": 35,
+        "type": 1
+      },
+      {
+        "id": 38,
+        "partnerUnitId": 36,
+        "type": 1
+      },
+      {
+        "id": 39,
+        "partnerUnitId": 37,
+        "type": 1
+      },
+      {
+        "id": 40,
+        "partnerUnitId": 43,
+        "type": 1
+      },
+      {
+        "id": 41,
+        "partnerUnitId": 44,
+        "type": 1
+      },
+      {
+        "id": 42,
+        "partnerUnitId": 45,
+        "type": 1
+      },
+      {
+        "id": 43,
+        "partnerUnitId": 31,
+        "type": 1
+      },
+      {
+        "id": 44,
+        "partnerUnitId": 50,
+        "type": 1
+      },
+      {
+        "id": 45,
+        "partnerUnitId": 48,
+        "type": 1
+      },
+      {
+        "id": 46,
+        "partnerUnitId": 29,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Avatar (F)",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0,
+      2,
+      5
+    ],
+    "additions": {
+      "hp": 3,
+      "str": 2,
+      "mag": 2,
+      "skl": 0,
+      "spd": 1,
+      "lck": 4,
+      "def": 1,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      4
+    ],
+    "fClasses": [
+      5
+    ],
+    "skills": [
+      23
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 4,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 12,
+        "type": 0
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 10,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 7,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 15,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 16,
+        "type": 0
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 18,
+        "type": 0
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 20,
+        "type": 0
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 22,
+        "type": 0
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 23,
+        "type": 0
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 24,
+        "type": 0
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 26,
+        "type": 0
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 27,
+        "type": 0
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 35,
+        "type": 0
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 36,
+        "type": 0
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 37,
+        "type": 0
+      },
+      {
+        "id": 16,
+        "partnerUnitId": 43,
+        "type": 0
+      },
+      {
+        "id": 17,
+        "partnerUnitId": 44,
+        "type": 0
+      },
+      {
+        "id": 18,
+        "partnerUnitId": 45,
+        "type": 0
+      },
+      {
+        "id": 19,
+        "partnerUnitId": 31,
+        "type": 0
+      },
+      {
+        "id": 20,
+        "partnerUnitId": 50,
+        "type": 0
+      },
+      {
+        "id": 21,
+        "partnerUnitId": 48,
+        "type": 0
+      },
+      {
+        "id": 22,
+        "partnerUnitId": 29,
+        "type": 0
+      },
+      {
+        "id": 23,
+        "partnerUnitId": 3,
+        "type": 1
+      },
+      {
+        "id": 24,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 25,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 26,
+        "partnerUnitId": 8,
+        "type": 1
+      },
+      {
+        "id": 27,
+        "partnerUnitId": 9,
+        "type": 1
+      },
+      {
+        "id": 28,
+        "partnerUnitId": 11,
+        "type": 1
+      },
+      {
+        "id": 29,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 30,
+        "partnerUnitId": 14,
+        "type": 1
+      },
+      {
+        "id": 31,
+        "partnerUnitId": 21,
+        "type": 1
+      },
+      {
+        "id": 32,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 33,
+        "partnerUnitId": 19,
+        "type": 1
+      },
+      {
+        "id": 34,
+        "partnerUnitId": 25,
+        "type": 1
+      },
+      {
+        "id": 35,
+        "partnerUnitId": 30,
+        "type": 1
+      },
+      {
+        "id": 36,
+        "partnerUnitId": 32,
+        "type": 1
+      },
+      {
+        "id": 37,
+        "partnerUnitId": 33,
+        "type": 1
+      },
+      {
+        "id": 38,
+        "partnerUnitId": 34,
+        "type": 1
+      },
+      {
+        "id": 39,
+        "partnerUnitId": 38,
+        "type": 1
+      },
+      {
+        "id": 40,
+        "partnerUnitId": 41,
+        "type": 1
+      },
+      {
+        "id": 41,
+        "partnerUnitId": 42,
+        "type": 1
+      },
+      {
+        "id": 42,
+        "partnerUnitId": 51,
+        "type": 1
+      },
+      {
+        "id": 43,
+        "partnerUnitId": 46,
+        "type": 1
+      },
+      {
+        "id": 44,
+        "partnerUnitId": 47,
+        "type": 1
+      },
+      {
+        "id": 45,
+        "partnerUnitId": 49,
+        "type": 1
+      },
+      {
+        "id": 46,
+        "partnerUnitId": 28,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Logbook Unit",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [
+      23
+    ],
+    "additions": {
+      "hp": 3,
+      "str": 2,
+      "mag": 2,
+      "skl": 0,
+      "spd": 1,
+      "lck": 4,
+      "def": 1,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      4
+    ],
+    "fClasses": [
+      5
+    ],
+    "skills": [
+      23
+    ],
+    "supports": []
+  },
+  {
+    "id": 3,
+    "name": "Chrom",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [
+      1,
+      5
+    ],
+    "additions": {
+      "hp": 2,
+      "str": 1,
+      "mag": 1,
+      "skl": 3,
+      "spd": 1,
+      "lck": 5,
+      "def": 0,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": 0,
+      "skl": 1,
+      "spd": 1,
+      "lck": 1,
+      "def": -1,
+      "res": -1,
+      "mov": 0
+    },
+    "mClasses": [
+      0,
+      8,
+      22
+    ],
+    "fClasses": [
+      1,
+      9,
+      23
+    ],
+    "skills": [
+      18
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 4,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 8,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 17,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 12,
+        "type": 3
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 7,
+        "type": 2
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 15,
+        "type": 2
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 5,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Lissa",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 1,
+      "str": 1,
+      "mag": 2,
+      "skl": 2,
+      "spd": 0,
+      "lck": 8,
+      "def": 2,
+      "res": -2,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -2,
+      "mag": 2,
+      "skl": -1,
+      "spd": 0,
+      "lck": 2,
+      "def": -1,
+      "res": 1,
+      "mov": 0
+    },
+    "mClasses": [
+      52,
+      32,
+      18
+    ],
+    "fClasses": [
+      53,
+      42,
+      51
+    ],
+    "skills": [
+      82
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 3,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 15,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 5,
+        "type": 2
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 9,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 11,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 14,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 8,
+        "type": 3
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 21,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 19,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 25,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Frederick",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 2,
+      "str": 2,
+      "mag": 2,
+      "skl": 6,
+      "spd": 5,
+      "lck": 6,
+      "def": 0,
+      "res": 2,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 2,
+      "mag": -2,
+      "skl": 2,
+      "spd": -2,
+      "lck": 0,
+      "def": 2,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      8,
+      10,
+      45
+    ],
+    "fClasses": [
+      9,
+      11,
+      46
+    ],
+    "skills": [
+      15,
+      27
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 25,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 6,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 12,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 4,
+        "type": 2
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 15,
+        "type": 3
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 22,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 3,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Virion",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 3,
+      "str": 1,
+      "mag": 0,
+      "skl": 1,
+      "spd": -1,
+      "lck": 7,
+      "def": 1,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 2,
+      "spd": 2,
+      "lck": -1,
+      "def": -2,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      22,
+      45,
+      54
+    ],
+    "fClasses": [
+      23,
+      46,
+      55
+    ],
+    "skills": [
+      4
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 21,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 5,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 24,
+        "type": 3
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 22,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Sully",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 2,
+      "str": 1,
+      "mag": 1,
+      "skl": 3,
+      "spd": 2,
+      "lck": 6,
+      "def": 0,
+      "res": 2,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -1,
+      "mag": -1,
+      "skl": 2,
+      "spd": 2,
+      "lck": 0,
+      "def": -1,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      9,
+      33,
+      46
+    ],
+    "skills": [
+      15
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 10,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 12,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 3,
+        "type": 2
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 9,
+        "type": 2
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 11,
+        "type": 3
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 14,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 8,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 21,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 19,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 25,
+        "type": 1
+      },
+      {
+        "id": 16,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Vaike",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 4,
+      "str": 1,
+      "mag": 0,
+      "skl": 3,
+      "spd": 1,
+      "lck": 4,
+      "def": 1,
+      "res": 0,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 3,
+      "mag": -2,
+      "skl": 1,
+      "spd": 1,
+      "lck": -1,
+      "def": 0,
+      "res": -2,
+      "mov": 0
+    },
+    "mClasses": [
+      19,
+      18,
+      34
+    ],
+    "fClasses": [
+      11,
+      21,
+      35
+    ],
+    "skills": [
+      1
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 13,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 3,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 4,
+        "type": 3
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 20,
+        "type": 2
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 22,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Stahl",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 4,
+      "str": 2,
+      "mag": 0,
+      "skl": 2,
+      "spd": 0,
+      "lck": 5,
+      "def": 1,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 2,
+      "mag": -1,
+      "skl": 1,
+      "spd": 0,
+      "lck": -2,
+      "def": 2,
+      "res": -1,
+      "mov": 0
+    },
+    "mClasses": [
+      8,
+      32,
+      22
+    ],
+    "fClasses": [
+      9,
+      33,
+      23
+    ],
+    "skills": [
+      15
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 30,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 11,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 7,
+        "type": 2
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 10,
+        "type": 3
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 22,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Miriel",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 2,
+      "str": 0,
+      "mag": 2,
+      "skl": 2,
+      "spd": 3,
+      "lck": 6,
+      "def": 1,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -2,
+      "mag": 3,
+      "skl": 1,
+      "spd": 1,
+      "lck": 0,
+      "def": -2,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      54,
+      18,
+      56
+    ],
+    "fClasses": [
+      55,
+      51,
+      57
+    ],
+    "skills": [
+      3
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 7,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 24,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 9,
+        "type": 3
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 11,
+        "type": 2
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 14,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 8,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 21,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 19,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 25,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Kellam",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 3,
+      "str": 2,
+      "mag": 0,
+      "skl": 3,
+      "spd": 3,
+      "lck": 3,
+      "def": 1,
+      "res": 2,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": 0,
+      "skl": 1,
+      "spd": -2,
+      "lck": -2,
+      "def": 3,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      10,
+      34,
+      52
+    ],
+    "fClasses": [
+      11,
+      35,
+      53
+    ],
+    "skills": [
+      6
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 30,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 9,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 7,
+        "type": 3
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 10,
+        "type": 2
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 22,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Sumia",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 2,
+      "str": 2,
+      "mag": 1,
+      "skl": 4,
+      "spd": 3,
+      "lck": 8,
+      "def": 1,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -2,
+      "mag": 0,
+      "skl": 2,
+      "spd": 3,
+      "lck": 0,
+      "def": -2,
+      "res": 1,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      42,
+      11,
+      53
+    ],
+    "skills": [
+      5
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 7,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 18,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 3,
+        "type": 3
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 25,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Lon'qu",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 4,
+      "str": 2,
+      "mag": 0,
+      "skl": 3,
+      "spd": 3,
+      "lck": 7,
+      "def": 3,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 3,
+      "spd": 3,
+      "lck": 0,
+      "def": -2,
+      "res": -2,
+      "mov": 0
+    },
+    "mClasses": [
+      32,
+      34,
+      45
+    ],
+    "fClasses": [
+      33,
+      35,
+      46
+    ],
+    "skills": [
+      10
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 8,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 19,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 22,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Ricken",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 4,
+      "str": 3,
+      "mag": 4,
+      "skl": 3,
+      "spd": 1,
+      "lck": 10,
+      "def": 4,
+      "res": 0,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -1,
+      "mag": 2,
+      "skl": 0,
+      "spd": 0,
+      "lck": 1,
+      "def": -1,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      54,
+      8,
+      22
+    ],
+    "fClasses": [
+      55,
+      9,
+      23
+    ],
+    "skills": [
+      3
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 19,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 25,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 16,
+        "type": 3
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 24,
+        "type": 2
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 22,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Maribelle",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 2,
+      "str": 0,
+      "mag": 2,
+      "skl": 2,
+      "spd": 1,
+      "lck": 5,
+      "def": 2,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -3,
+      "mag": 2,
+      "skl": 1,
+      "spd": 0,
+      "lck": 3,
+      "def": -3,
+      "res": 2,
+      "mov": 0
+    },
+    "mClasses": [
+      52,
+      8,
+      54
+    ],
+    "fClasses": [
+      51,
+      42,
+      55
+    ],
+    "skills": [
+      7
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 23,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 4,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 3,
+        "type": 2
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 5,
+        "type": 3
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 9,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 11,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 14,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 8,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 21,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 19,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 25,
+        "type": 1
+      },
+      {
+        "id": 16,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Panne",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0,
+      17
+    ],
+    "additions": {
+      "hp": 10,
+      "str": 6,
+      "mag": 1,
+      "skl": 5,
+      "spd": 5,
+      "lck": 8,
+      "def": 4,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 2,
+      "mag": -1,
+      "skl": 2,
+      "spd": 3,
+      "lck": -1,
+      "def": 1,
+      "res": -1,
+      "mov": 0
+    },
+    "mClasses": [
+      69,
+      18,
+      34
+    ],
+    "fClasses": [
+      70,
+      46,
+      35
+    ],
+    "skills": [
+      22
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 18,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 23,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 9,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 11,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 14,
+        "type": 3
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 8,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 21,
+        "type": 2
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 19,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 25,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Gaius",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 6,
+      "str": 4,
+      "mag": 0,
+      "skl": 7,
+      "spd": 7,
+      "lck": 6,
+      "def": 3,
+      "res": 2,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": -1,
+      "skl": 2,
+      "spd": 2,
+      "lck": -2,
+      "def": -1,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      34,
+      32,
+      19
+    ],
+    "fClasses": [
+      35,
+      33,
+      42
+    ],
+    "skills": [
+      12
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 21,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 3,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 12,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 18,
+        "type": 2
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 22,
+        "type": 3
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Cordelia",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 9,
+      "str": 5,
+      "mag": 1,
+      "skl": 6,
+      "spd": 4,
+      "lck": 9,
+      "def": 4,
+      "res": 2,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": -1,
+      "skl": 2,
+      "spd": 2,
+      "lck": -1,
+      "def": 0,
+      "res": -1,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      42,
+      21,
+      57
+    ],
+    "skills": [
+      5
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 16,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 12,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 9,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 11,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 14,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 8,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 21,
+        "type": 3
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 19,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 17,
+        "type": 2
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 25,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Gregor",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 12,
+      "str": 7,
+      "mag": 0,
+      "skl": 5,
+      "spd": 4,
+      "lck": 8,
+      "def": 5,
+      "res": 2,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 2,
+      "mag": -1,
+      "skl": 2,
+      "spd": 0,
+      "lck": -1,
+      "def": 1,
+      "res": -2,
+      "mov": 0
+    },
+    "mClasses": [
+      20,
+      18,
+      32
+    ],
+    "fClasses": [
+      21,
+      51,
+      33
+    ],
+    "skills": [
+      16,
+      34
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 14,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 13,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 20,
+        "type": 3
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 23,
+        "type": 2
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 22,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Nowi",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0,
+      16
+    ],
+    "additions": {
+      "hp": 0,
+      "str": 2,
+      "mag": 0,
+      "skl": 1,
+      "spd": 2,
+      "lck": 8,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": 1,
+      "skl": -1,
+      "spd": -2,
+      "lck": 1,
+      "def": 3,
+      "res": 2,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      68,
+      46,
+      55
+    ],
+    "skills": [
+      21
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 24,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 22,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 9,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 11,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 14,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 8,
+        "type": 2
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 21,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 19,
+        "type": 3
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 25,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Libra",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 14,
+      "str": 9,
+      "mag": 10,
+      "skl": 8,
+      "spd": 7,
+      "lck": 10,
+      "def": 5,
+      "res": 10,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 1,
+      "skl": 1,
+      "spd": 0,
+      "lck": -1,
+      "def": 0,
+      "res": 1,
+      "mov": 0
+    },
+    "mClasses": [
+      52,
+      54,
+      56
+    ],
+    "fClasses": [
+      53,
+      55,
+      57
+    ],
+    "skills": [
+      82,
+      41
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 6,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 17,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 18,
+        "type": 3
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 16,
+        "type": 2
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 22,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Tharja",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 7,
+      "str": 3,
+      "mag": 8,
+      "skl": 3,
+      "spd": 9,
+      "lck": 3,
+      "def": 6,
+      "res": 3,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 3,
+      "skl": -1,
+      "spd": 1,
+      "lck": -3,
+      "def": 1,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      57,
+      23,
+      11
+    ],
+    "skills": [
+      39,
+      40
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 20,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 9,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 11,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 14,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 8,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 21,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 19,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 17,
+        "type": 3
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 25,
+        "type": 2
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Olivia",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 2,
+      "str": 2,
+      "mag": 0,
+      "skl": 3,
+      "spd": 1,
+      "lck": 5,
+      "def": 0,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 1,
+      "spd": 1,
+      "lck": 0,
+      "def": -1,
+      "res": -1,
+      "mov": 0
+    },
+    "mClasses": [
+      20,
+      18,
+      32
+    ],
+    "fClasses": [
+      67,
+      42,
+      33
+    ],
+    "skills": [
+      53
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 15,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 16,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 3,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 9,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 11,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 14,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 8,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 21,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 19,
+        "type": 2
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 6,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 25,
+        "type": 3
+      },
+      {
+        "id": 16,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Cherche",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 11,
+      "str": 7,
+      "mag": 1,
+      "skl": 6,
+      "spd": 6,
+      "lck": 8,
+      "def": 7,
+      "res": 2,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 3,
+      "mag": 0,
+      "skl": -1,
+      "spd": -1,
+      "lck": 0,
+      "def": 2,
+      "res": -2,
+      "mov": 0
+    },
+    "mClasses": [
+      45,
+      19,
+      52
+    ],
+    "fClasses": [
+      46,
+      51,
+      53
+    ],
+    "skills": [
+      2,
+      29
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 20,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 10,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 5,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 9,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 11,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 14,
+        "type": 2
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 8,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 21,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 13,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 19,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 17,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 6,
+        "type": 3
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 25,
+        "type": 1
+      },
+      {
+        "id": 15,
+        "partnerUnitId": 30,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Henry",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 10,
+      "str": 5,
+      "mag": 10,
+      "skl": 12,
+      "spd": 5,
+      "lck": 10,
+      "def": 8,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": 1,
+      "skl": 2,
+      "spd": 0,
+      "lck": -2,
+      "def": 1,
+      "res": -1,
+      "mov": 0
+    },
+    "mClasses": [
+      56,
+      18,
+      34
+    ],
+    "fClasses": [
+      57,
+      51,
+      35
+    ],
+    "skills": [
+      39,
+      40
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 5,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 14,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 12,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 23,
+        "type": 3
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 14,
+        "partnerUnitId": 22,
+        "type": 2
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Lucina",
+    "pid": "",
+    "parent": "3",
+    "isFemale": true,
+    "flags": [
+      0,
+      12
+    ],
+    "additions": {
+      "hp": 12,
+      "str": 5,
+      "mag": 1,
+      "skl": 8,
+      "spd": 4,
+      "lck": 13,
+      "def": 3,
+      "res": 3,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      1
+    ],
+    "skills": [
+      18,
+      36
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 35,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 45,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 36,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 38,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 32,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 33,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 34,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 41,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 42,
+        "type": 3
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 39,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Say'ri",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 19,
+      "str": 10,
+      "mag": 5,
+      "skl": 12,
+      "spd": 13,
+      "lck": 20,
+      "def": 6,
+      "res": 6,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": -1,
+      "skl": 1,
+      "spd": 1,
+      "lck": -1,
+      "def": 0,
+      "res": 1,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      33,
+      46,
+      42
+    ],
+    "skills": [
+      10,
+      78
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 45,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Basilio",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 28,
+      "str": 18,
+      "mag": 3,
+      "skl": 17,
+      "spd": 14,
+      "lck": 18,
+      "def": 13,
+      "res": 5,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 3,
+      "mag": -2,
+      "skl": 1,
+      "spd": 1,
+      "lck": -1,
+      "def": 1,
+      "res": -1,
+      "mov": 0
+    },
+    "mClasses": [
+      19,
+      10,
+      18
+    ],
+    "fClasses": [],
+    "skills": [
+      1,
+      31,
+      55
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 29,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Flavia",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 26,
+      "str": 17,
+      "mag": 4,
+      "skl": 17,
+      "spd": 16,
+      "lck": 21,
+      "def": 15,
+      "res": 8,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": -1,
+      "skl": 2,
+      "spd": 1,
+      "lck": 0,
+      "def": -1,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      21,
+      35,
+      11
+    ],
+    "skills": [
+      16,
+      34,
+      74
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 28,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Donnel",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 0,
+      "str": 3,
+      "mag": 0,
+      "skl": 1,
+      "spd": 2,
+      "lck": 11,
+      "def": 2,
+      "res": 0,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": -1,
+      "skl": -1,
+      "spd": -1,
+      "lck": 3,
+      "def": 1,
+      "res": -1,
+      "mov": 0
+    },
+    "mClasses": [
+      72,
+      19,
+      20
+    ],
+    "fClasses": [
+      51,
+      42,
+      21
+    ],
+    "skills": [
+      14
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 9,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 11,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 4,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 7,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 15,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 18,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 16,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 20,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 23,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 24,
+        "type": 1
+      },
+      {
+        "id": 12,
+        "partnerUnitId": 10,
+        "type": 1
+      },
+      {
+        "id": 13,
+        "partnerUnitId": 22,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Anna",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 16,
+      "str": 8,
+      "mag": 13,
+      "skl": 12,
+      "spd": 10,
+      "lck": 25,
+      "def": 5,
+      "res": 5,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -1,
+      "mag": 0,
+      "skl": 1,
+      "spd": 0,
+      "lck": 3,
+      "def": -1,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      35,
+      23,
+      55
+    ],
+    "skills": [
+      12,
+      11
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 45,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Owain",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [
+      15
+    ],
+    "additions": {
+      "hp": 10,
+      "str": 4,
+      "mag": 4,
+      "skl": 5,
+      "spd": 6,
+      "lck": 9,
+      "def": 6,
+      "res": 5,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      32
+    ],
+    "fClasses": [],
+    "skills": [
+      10,
+      78
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 33,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 39,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 34,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 26,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 35,
+        "type": 3
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 36,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 37,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 43,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 44,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 40,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Inigo",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 11,
+      "str": 5,
+      "mag": 2,
+      "skl": 4,
+      "spd": 9,
+      "lck": 12,
+      "def": 4,
+      "res": 4,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      20
+    ],
+    "fClasses": [],
+    "skills": [
+      16,
+      34
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 38,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 34,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 32,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 26,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 35,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 36,
+        "type": 3
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 37,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 43,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 44,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 40,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Brady",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 9,
+      "str": 6,
+      "mag": 5,
+      "skl": 3,
+      "spd": 2,
+      "lck": 10,
+      "def": 7,
+      "res": 4,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      52
+    ],
+    "fClasses": [],
+    "skills": [
+      82,
+      41
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 41,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 33,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 32,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 26,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 35,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 36,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 37,
+        "type": 3
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 43,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 44,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 40,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Kjelle",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 10,
+      "str": 6,
+      "mag": 2,
+      "skl": 6,
+      "spd": 5,
+      "lck": 11,
+      "def": 3,
+      "res": 3,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      11
+    ],
+    "skills": [
+      6,
+      28
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 37,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 26,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 38,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 32,
+        "type": 3
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 33,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 34,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 41,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 42,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 39,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Cynthia",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 7,
+      "str": 5,
+      "mag": 2,
+      "skl": 4,
+      "spd": 10,
+      "lck": 17,
+      "def": 6,
+      "res": 6,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      42
+    ],
+    "skills": [
+      5,
+      42
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 44,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 37,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 26,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 38,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 32,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 33,
+        "type": 3
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 34,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 41,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 42,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 39,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Severa",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 8,
+      "str": 6,
+      "mag": 1,
+      "skl": 7,
+      "spd": 6,
+      "lck": 6,
+      "def": 6,
+      "res": 5,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      21
+    ],
+    "skills": [
+      16,
+      34
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 35,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 36,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 43,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 38,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 32,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 33,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 34,
+        "type": 3
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 41,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 42,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 39,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Gerome",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 13,
+      "str": 8,
+      "mag": 0,
+      "skl": 4,
+      "spd": 8,
+      "lck": 5,
+      "def": 5,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      45
+    ],
+    "fClasses": [],
+    "skills": [
+      2,
+      29
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 42,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 33,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 26,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 35,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 36,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 37,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 43,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 44,
+        "type": 3
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 40,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Morgan (M)",
+    "pid": "",
+    "parent": "0",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 9,
+      "str": 6,
+      "mag": 8,
+      "skl": 7,
+      "spd": 6,
+      "lck": 7,
+      "def": 3,
+      "res": 7,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [],
+    "skills": [],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 32,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 35,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 26,
+        "type": 1
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 41,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 36,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 37,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 43,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 44,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Morgan (F)",
+    "pid": "",
+    "parent": "1",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 9,
+      "str": 6,
+      "mag": 8,
+      "skl": 7,
+      "spd": 6,
+      "lck": 7,
+      "def": 3,
+      "res": 7,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [],
+    "skills": [],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 43,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 32,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 38,
+        "type": 1
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 44,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 33,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 34,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 41,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 42,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Yarne",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [
+      17
+    ],
+    "additions": {
+      "hp": 16,
+      "str": 9,
+      "mag": 1,
+      "skl": 4,
+      "spd": 4,
+      "lck": 13,
+      "def": 6,
+      "res": 1,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      69
+    ],
+    "fClasses": [],
+    "skills": [
+      22
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 34,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 39,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 42,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 26,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 35,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 36,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 37,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 43,
+        "type": 3
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 44,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 40,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Laurent",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 10,
+      "str": 3,
+      "mag": 7,
+      "skl": 7,
+      "spd": 4,
+      "lck": 11,
+      "def": 4,
+      "res": 5,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      54
+    ],
+    "fClasses": [],
+    "skills": [
+      3,
+      30
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 38,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 41,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 26,
+        "type": 3
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 35,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 36,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 37,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 43,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 44,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 40,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Noire",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 8,
+      "str": 5,
+      "mag": 3,
+      "skl": 4,
+      "spd": 7,
+      "lck": 10,
+      "def": 4,
+      "res": 6,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      23
+    ],
+    "skills": [
+      4,
+      33
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 37,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 40,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 38,
+        "type": 1
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 32,
+        "type": 1
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 33,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 34,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 41,
+        "type": 3
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 42,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 39,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Nah",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0,
+      16
+    ],
+    "additions": {
+      "hp": 5,
+      "str": 3,
+      "mag": 3,
+      "skl": 5,
+      "spd": 6,
+      "lck": 8,
+      "def": 3,
+      "res": 3,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      68
+    ],
+    "skills": [
+      21
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 40,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 45,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 36,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 38,
+        "type": 3
+      },
+      {
+        "id": 6,
+        "partnerUnitId": 32,
+        "type": 1
+      },
+      {
+        "id": 7,
+        "partnerUnitId": 33,
+        "type": 1
+      },
+      {
+        "id": 8,
+        "partnerUnitId": 34,
+        "type": 1
+      },
+      {
+        "id": 9,
+        "partnerUnitId": 41,
+        "type": 1
+      },
+      {
+        "id": 10,
+        "partnerUnitId": 42,
+        "type": 1
+      },
+      {
+        "id": 11,
+        "partnerUnitId": 39,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Tiki",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0,
+      16,
+      27
+    ],
+    "additions": {
+      "hp": 21,
+      "str": 16,
+      "mag": 10,
+      "skl": 13,
+      "spd": 15,
+      "lck": 18,
+      "def": 13,
+      "res": 10,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": -1,
+      "skl": 0,
+      "spd": 1,
+      "lck": 2,
+      "def": 1,
+      "res": 2,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      68,
+      46,
+      55
+    ],
+    "skills": [
+      21,
+      69
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      },
+      {
+        "id": 2,
+        "partnerUnitId": 26,
+        "type": 0
+      },
+      {
+        "id": 3,
+        "partnerUnitId": 31,
+        "type": 0
+      },
+      {
+        "id": 4,
+        "partnerUnitId": 44,
+        "type": 0
+      },
+      {
+        "id": 5,
+        "partnerUnitId": 27,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Gangrel",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 30,
+      "str": 17,
+      "mag": 16,
+      "skl": 19,
+      "spd": 22,
+      "lck": 15,
+      "def": 15,
+      "res": 12,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -2,
+      "mag": 0,
+      "skl": 3,
+      "spd": 3,
+      "lck": -1,
+      "def": -1,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      34,
+      18,
+      56
+    ],
+    "fClasses": [],
+    "skills": [
+      12,
+      11,
+      25,
+      46
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Walhart",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [
+      13
+    ],
+    "additions": {
+      "hp": 47,
+      "str": 29,
+      "mag": 13,
+      "skl": 24,
+      "spd": 24,
+      "lck": 30,
+      "def": 23,
+      "res": 14,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 4,
+      "mag": -2,
+      "skl": 0,
+      "spd": -1,
+      "lck": -1,
+      "def": 4,
+      "res": -2,
+      "mov": 0
+    },
+    "mClasses": [
+      76,
+      10,
+      45
+    ],
+    "fClasses": [],
+    "skills": [
+      86
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Emmeryn",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 22,
+      "str": 4,
+      "mag": 19,
+      "skl": 18,
+      "spd": 18,
+      "lck": 13,
+      "def": 8,
+      "res": 15,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -2,
+      "mag": 4,
+      "skl": 0,
+      "spd": 1,
+      "lck": 0,
+      "def": -2,
+      "res": 1,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      53,
+      51,
+      42
+    ],
+    "skills": [
+      3,
+      30,
+      56
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Yen'fay",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 40,
+      "str": 23,
+      "mag": 3,
+      "skl": 28,
+      "spd": 27,
+      "lck": 28,
+      "def": 15,
+      "res": 14,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 1,
+      "mag": -2,
+      "skl": 2,
+      "spd": 4,
+      "lck": 0,
+      "def": -1,
+      "res": -2,
+      "mov": 0
+    },
+    "mClasses": [
+      32,
+      45,
+      22
+    ],
+    "fClasses": [],
+    "skills": [
+      10,
+      78,
+      73,
+      48
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Aversa",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0,
+      14
+    ],
+    "additions": {
+      "hp": 36,
+      "str": 19,
+      "mag": 25,
+      "skl": 21,
+      "spd": 22,
+      "lck": 26,
+      "def": 16,
+      "res": 19,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": -1,
+      "mag": 3,
+      "skl": 1,
+      "spd": 1,
+      "lck": -2,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [
+      42,
+      46,
+      57
+    ],
+    "skills": [
+      87,
+      5,
+      42,
+      62,
+      84
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 1,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 0,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Priam",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 52,
+      "str": 32,
+      "mag": 2,
+      "skl": 33,
+      "spd": 28,
+      "lck": 35,
+      "def": 31,
+      "res": 22,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 3,
+      "mag": -2,
+      "skl": 1,
+      "spd": 0,
+      "lck": 0,
+      "def": 2,
+      "res": -2,
+      "mov": 0
+    },
+    "mClasses": [
+      20,
+      19,
+      32
+    ],
+    "fClasses": [],
+    "skills": [
+      64,
+      65,
+      66,
+      74,
+      75
+    ],
+    "supports": [
+      {
+        "id": 0,
+        "partnerUnitId": 0,
+        "type": 0
+      },
+      {
+        "id": 1,
+        "partnerUnitId": 1,
+        "type": 1
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Marth",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [
+      23,
+      24
+    ],
+    "additions": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [
+      77,
+      4
+    ],
+    "fClasses": [],
+    "skills": [],
+    "supports": []
+  },
+  {
+    "id": 53,
+    "name": "Dummy/Maiden",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [],
+    "skills": [],
+    "supports": []
+  },
+  {
+    "id": 54,
+    "name": "Risen",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": -2,
+      "res": 0,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [],
+    "skills": [],
+    "supports": []
+  },
+  {
+    "id": 55,
+    "name": "Risen (+)",
+    "pid": "",
+    "parent": "",
+    "isFemale": false,
+    "flags": [],
+    "additions": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": -1,
+      "res": 0,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [],
+    "skills": [],
+    "supports": []
+  },
+  {
+    "id": 56,
+    "name": "Merchant",
+    "pid": "",
+    "parent": "",
+    "isFemale": true,
+    "flags": [
+      0
+    ],
+    "additions": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 2,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "modifiers": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0,
+      "mov": 0
+    },
+    "mClasses": [],
+    "fClasses": [],
+    "skills": [],
+    "supports": []
+  }
+]

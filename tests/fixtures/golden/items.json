@@ -1,0 +1,4648 @@
+[
+  {
+    "id": 0,
+    "name": "None",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 1,
+    "name": "Bronze Sword",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 50,
+      "might": 3,
+      "hit": 100,
+      "crit": 0
+    }
+  },
+  {
+    "id": 2,
+    "name": "Iron Sword",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 40,
+      "might": 5,
+      "hit": 95,
+      "crit": 0
+    }
+  },
+  {
+    "id": 3,
+    "name": "Steel Sword",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 8,
+      "hit": 90,
+      "crit": 0
+    }
+  },
+  {
+    "id": 4,
+    "name": "Silver Sword",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 11,
+      "hit": 85,
+      "crit": 0
+    }
+  },
+  {
+    "id": 5,
+    "name": "Brave Sword",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 9,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 6,
+    "name": "Armorslayer",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 8,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 7,
+    "name": "Wyrmslayer",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 8,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 8,
+    "name": "Killing Edge",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 9,
+      "hit": 90,
+      "crit": 30
+    }
+  },
+  {
+    "id": 9,
+    "name": "Levin Sword",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 10,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 10,
+    "name": "Rapier",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 5,
+      "hit": 90,
+      "crit": 10
+    }
+  },
+  {
+    "id": 11,
+    "name": "Noble Rapier",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 8,
+      "hit": 85,
+      "crit": 10
+    }
+  },
+  {
+    "id": 12,
+    "name": "Missiletainn",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 1,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 8,
+      "hit": 85,
+      "crit": 10
+    }
+  },
+  {
+    "id": 13,
+    "name": "Sol",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 12,
+      "hit": 85,
+      "crit": 5
+    }
+  },
+  {
+    "id": 14,
+    "name": "Amatsu",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 12,
+      "hit": 60,
+      "crit": 5
+    }
+  },
+  {
+    "id": 15,
+    "name": "Falchion",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 5,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 16,
+    "name": "Exalted Falchion",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 15,
+      "hit": 80,
+      "crit": 10
+    }
+  },
+  {
+    "id": 17,
+    "name": "Parallel Falchion",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 12,
+      "hit": 80,
+      "crit": 5
+    }
+  },
+  {
+    "id": 18,
+    "name": "Mercurius",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 17,
+      "hit": 95,
+      "crit": 5
+    }
+  },
+  {
+    "id": 19,
+    "name": "Tyrfing",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 5
+    },
+    "stats": {
+      "uses": 25,
+      "might": 15,
+      "hit": 85,
+      "crit": 10
+    }
+  },
+  {
+    "id": 20,
+    "name": "Mystletainn",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 5,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 14,
+      "hit": 85,
+      "crit": 15
+    }
+  },
+  {
+    "id": 21,
+    "name": "Balmung",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 5,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 13,
+      "hit": 90,
+      "crit": 10
+    }
+  },
+  {
+    "id": 22,
+    "name": "Sol Katti",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 5
+    },
+    "stats": {
+      "uses": 25,
+      "might": 8,
+      "hit": 100,
+      "crit": 50
+    }
+  },
+  {
+    "id": 23,
+    "name": "Ragnell",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 5,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 15,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 24,
+    "name": "Ragnell (Inf. Uses)",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 5,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 15,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 25,
+    "name": "Tree Branch",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 1,
+      "hit": 100,
+      "crit": 0
+    }
+  },
+  {
+    "id": 26,
+    "name": "Soothing Sword",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 8,
+      "hit": 85,
+      "crit": 0
+    }
+  },
+  {
+    "id": 27,
+    "name": "Glass Sword",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 11,
+      "hit": 85,
+      "crit": 0
+    }
+  },
+  {
+    "id": 28,
+    "name": "Superior Edge",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 11,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 29,
+    "name": "Eliwood's Blade",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 10,
+      "hit": 85,
+      "crit": 5
+    }
+  },
+  {
+    "id": 30,
+    "name": "Roy's Blade",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 8,
+      "hit": 95,
+      "crit": 5
+    }
+  },
+  {
+    "id": 31,
+    "name": "Alm's Blade",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 15,
+      "hit": 75,
+      "crit": 10
+    }
+  },
+  {
+    "id": 32,
+    "name": "Leif's Blade",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 4,
+      "hit": 95,
+      "crit": 30
+    }
+  },
+  {
+    "id": 33,
+    "name": "Eirika's Blade",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 6,
+      "hit": 95,
+      "crit": 10
+    }
+  },
+  {
+    "id": 34,
+    "name": "Seliph's Blade",
+    "type1": 0,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 2,
+      "lck": 0,
+      "def": 0,
+      "res": 2
+    },
+    "stats": {
+      "uses": 15,
+      "might": 12,
+      "hit": 90,
+      "crit": 15
+    }
+  },
+  {
+    "id": 35,
+    "name": "Bronze Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 50,
+      "might": 3,
+      "hit": 90,
+      "crit": 0
+    }
+  },
+  {
+    "id": 36,
+    "name": "Iron Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 40,
+      "might": 6,
+      "hit": 85,
+      "crit": 0
+    }
+  },
+  {
+    "id": 37,
+    "name": "Steel Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 9,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 38,
+    "name": "Silver Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 13,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 39,
+    "name": "Brave Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 10,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 40,
+    "name": "Javelin",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 2,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 41,
+    "name": "Short Spear",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 5,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 42,
+    "name": "Spear",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 8,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 43,
+    "name": "Beast Killer",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 9,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 44,
+    "name": "Blessed Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 11,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 45,
+    "name": "Killer Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 10,
+      "hit": 80,
+      "crit": 30
+    }
+  },
+  {
+    "id": 46,
+    "name": "Luna",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 14,
+      "hit": 80,
+      "crit": 5
+    }
+  },
+  {
+    "id": 47,
+    "name": "Gradivus",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 19,
+      "hit": 85,
+      "crit": 5
+    }
+  },
+  {
+    "id": 48,
+    "name": "Gungnir",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 5,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 16,
+      "hit": 70,
+      "crit": 10
+    }
+  },
+  {
+    "id": 49,
+    "name": "Gae Bolg",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 15,
+      "hit": 75,
+      "crit": 10
+    }
+  },
+  {
+    "id": 50,
+    "name": "Log",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 1,
+      "hit": 90,
+      "crit": 0
+    }
+  },
+  {
+    "id": 51,
+    "name": "Miniature Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 1,
+      "hit": 55,
+      "crit": 35
+    }
+  },
+  {
+    "id": 52,
+    "name": "Shockstick",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 11,
+      "hit": 85,
+      "crit": 10
+    }
+  },
+  {
+    "id": 53,
+    "name": "Glass Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 13,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 54,
+    "name": "Superior Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 13,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 55,
+    "name": "Sigurd's Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 15,
+      "might": 14,
+      "hit": 85,
+      "crit": 15
+    }
+  },
+  {
+    "id": 56,
+    "name": "Ephraim's Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 2,
+      "mag": 0,
+      "skl": 0,
+      "spd": 2,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 11,
+      "hit": 80,
+      "crit": 10
+    }
+  },
+  {
+    "id": 57,
+    "name": "Finn's Lance",
+    "type1": 1,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 2,
+      "def": 2,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 8,
+      "hit": 85,
+      "crit": 10
+    }
+  },
+  {
+    "id": 58,
+    "name": "Bronze Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 50,
+      "might": 4,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 59,
+    "name": "Iron Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 40,
+      "might": 7,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 60,
+    "name": "Steel Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 11,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 61,
+    "name": "Silver Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 15,
+      "hit": 65,
+      "crit": 0
+    }
+  },
+  {
+    "id": 62,
+    "name": "Brave Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 12,
+      "hit": 60,
+      "crit": 0
+    }
+  },
+  {
+    "id": 63,
+    "name": "Hand Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 3,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 64,
+    "name": "Short Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 7,
+      "hit": 65,
+      "crit": 0
+    }
+  },
+  {
+    "id": 65,
+    "name": "Tomahawk",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 10,
+      "hit": 60,
+      "crit": 0
+    }
+  },
+  {
+    "id": 66,
+    "name": "Hammer",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 10,
+      "hit": 60,
+      "crit": 0
+    }
+  },
+  {
+    "id": 67,
+    "name": "Bolt Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 14,
+      "hit": 70,
+      "crit": 5
+    }
+  },
+  {
+    "id": 68,
+    "name": "Killer Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 12,
+      "hit": 70,
+      "crit": 30
+    }
+  },
+  {
+    "id": 69,
+    "name": "Vengeance",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 16,
+      "hit": 75,
+      "crit": 5
+    }
+  },
+  {
+    "id": 70,
+    "name": "Wolf Berg",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 18,
+      "hit": 75,
+      "crit": 5
+    }
+  },
+  {
+    "id": 71,
+    "name": "Hauteclere",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 21,
+      "hit": 70,
+      "crit": 5
+    }
+  },
+  {
+    "id": 72,
+    "name": "Helswath",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 5,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 18,
+      "hit": 70,
+      "crit": 10
+    }
+  },
+  {
+    "id": 73,
+    "name": "Armads",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 5,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 17,
+      "hit": 80,
+      "crit": 10
+    }
+  },
+  {
+    "id": 74,
+    "name": "Ladle",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 1,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 75,
+    "name": "Imposing Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 14,
+      "hit": 35,
+      "crit": 10
+    }
+  },
+  {
+    "id": 76,
+    "name": "Volant Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 8,
+      "hit": 55,
+      "crit": 0
+    }
+  },
+  {
+    "id": 77,
+    "name": "Glass Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 15,
+      "hit": 65,
+      "crit": 0
+    }
+  },
+  {
+    "id": 78,
+    "name": "Superior Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 15,
+      "hit": 60,
+      "crit": 0
+    }
+  },
+  {
+    "id": 79,
+    "name": "Titania's Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 12,
+      "hit": 80,
+      "crit": 10
+    }
+  },
+  {
+    "id": 80,
+    "name": "Orsin's Hatchet",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 4,
+      "hit": 85,
+      "crit": 5
+    }
+  },
+  {
+    "id": 81,
+    "name": "Hector's Axe",
+    "type1": 2,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 2,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 2,
+      "res": 0
+    },
+    "stats": {
+      "uses": 15,
+      "might": 15,
+      "hit": 75,
+      "crit": 15
+    }
+  },
+  {
+    "id": 82,
+    "name": "Bronze Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 50,
+      "might": 3,
+      "hit": 90,
+      "crit": 0
+    }
+  },
+  {
+    "id": 83,
+    "name": "Iron Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 40,
+      "might": 6,
+      "hit": 85,
+      "crit": 0
+    }
+  },
+  {
+    "id": 84,
+    "name": "Steel Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 9,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 85,
+    "name": "Silver Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 13,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 86,
+    "name": "Brave Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 10,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 87,
+    "name": "Blessed Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 11,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 88,
+    "name": "Killer Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 10,
+      "hit": 80,
+      "crit": 30
+    }
+  },
+  {
+    "id": 89,
+    "name": "Long Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 9,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 90,
+    "name": "Astra",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 14,
+      "hit": 75,
+      "crit": 5
+    }
+  },
+  {
+    "id": 91,
+    "name": "Parthia",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 5
+    },
+    "stats": {
+      "uses": 25,
+      "might": 19,
+      "hit": 95,
+      "crit": 5
+    }
+  },
+  {
+    "id": 92,
+    "name": "Yewfelle",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 5,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 15,
+      "hit": 85,
+      "crit": 10
+    }
+  },
+  {
+    "id": 93,
+    "name": "Nidhogg",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 10,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 16,
+      "hit": 75,
+      "crit": 10
+    }
+  },
+  {
+    "id": 94,
+    "name": "Double Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 13,
+      "hit": 70,
+      "crit": 10
+    }
+  },
+  {
+    "id": 95,
+    "name": "Slack Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 1,
+      "hit": 90,
+      "crit": 0
+    }
+  },
+  {
+    "id": 96,
+    "name": "Towering Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 3,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 97,
+    "name": "Underdog Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 15,
+      "might": 9,
+      "hit": 75,
+      "crit": 5
+    }
+  },
+  {
+    "id": 98,
+    "name": "Glass Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 13,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 99,
+    "name": "Superior Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 13,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 100,
+    "name": "Wolt's Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 10,
+      "hit": 85,
+      "crit": 5
+    }
+  },
+  {
+    "id": 101,
+    "name": "Innes' Bow",
+    "type1": 3,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 15,
+      "might": 13,
+      "hit": 115,
+      "crit": 10
+    }
+  },
+  {
+    "id": 102,
+    "name": "Fire",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 45,
+      "might": 2,
+      "hit": 90,
+      "crit": 0
+    }
+  },
+  {
+    "id": 103,
+    "name": "Elfire",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 5,
+      "hit": 85,
+      "crit": 0
+    }
+  },
+  {
+    "id": 104,
+    "name": "Arcfire",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 8,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 105,
+    "name": "Bolganone",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 12,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 106,
+    "name": "Valflame",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 5,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 16,
+      "hit": 80,
+      "crit": 10
+    }
+  },
+  {
+    "id": 107,
+    "name": "Thunder",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 45,
+      "might": 3,
+      "hit": 80,
+      "crit": 5
+    }
+  },
+  {
+    "id": 108,
+    "name": "Elthunder",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 6,
+      "hit": 75,
+      "crit": 5
+    }
+  },
+  {
+    "id": 109,
+    "name": "Arcthunder",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 10,
+      "hit": 70,
+      "crit": 10
+    }
+  },
+  {
+    "id": 110,
+    "name": "Thoron",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 14,
+      "hit": 65,
+      "crit": 10
+    }
+  },
+  {
+    "id": 111,
+    "name": "Mjollnir",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 5,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 18,
+      "hit": 70,
+      "crit": 20
+    }
+  },
+  {
+    "id": 112,
+    "name": "Wind",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 45,
+      "might": 1,
+      "hit": 100,
+      "crit": 0
+    }
+  },
+  {
+    "id": 113,
+    "name": "Elwind",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 35,
+      "might": 4,
+      "hit": 95,
+      "crit": 0
+    }
+  },
+  {
+    "id": 114,
+    "name": "Arcwind",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 6,
+      "hit": 90,
+      "crit": 0
+    }
+  },
+  {
+    "id": 115,
+    "name": "Rexcalibur",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 10,
+      "hit": 85,
+      "crit": 0
+    }
+  },
+  {
+    "id": 116,
+    "name": "Forseti",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 5,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 14,
+      "hit": 90,
+      "crit": 10
+    }
+  },
+  {
+    "id": 117,
+    "name": "Excalibur",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 13,
+      "hit": 100,
+      "crit": 30
+    }
+  },
+  {
+    "id": 118,
+    "name": "Book of Naga",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 5,
+      "res": 5
+    },
+    "stats": {
+      "uses": 25,
+      "might": 15,
+      "hit": 80,
+      "crit": 15
+    }
+  },
+  {
+    "id": 119,
+    "name": "Flux",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 45,
+      "might": 5,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 120,
+    "name": "Nosferatu",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 7,
+      "hit": 65,
+      "crit": 0
+    }
+  },
+  {
+    "id": 121,
+    "name": "Ruin",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 4,
+      "hit": 60,
+      "crit": 50
+    }
+  },
+  {
+    "id": 122,
+    "name": "Waste",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 10,
+      "hit": 45,
+      "crit": 0
+    }
+  },
+  {
+    "id": 123,
+    "name": "Goetia",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 25,
+      "might": 19,
+      "hit": 75,
+      "crit": 10
+    }
+  },
+  {
+    "id": 124,
+    "name": "Grima's Truth",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 12,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 125,
+    "name": "Mire",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 10,
+      "hit": 65,
+      "crit": 0
+    }
+  },
+  {
+    "id": 126,
+    "name": "Dying Blaze",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 10,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 127,
+    "name": "Micaiah's Pyre",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 2,
+      "res": 2
+    },
+    "stats": {
+      "uses": 15,
+      "might": 13,
+      "hit": 85,
+      "crit": 5
+    }
+  },
+  {
+    "id": 128,
+    "name": "Superior Jolt",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 14,
+      "hit": 60,
+      "crit": 15
+    }
+  },
+  {
+    "id": 129,
+    "name": "Katarina's Bolt",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 11,
+      "hit": 75,
+      "crit": 30
+    }
+  },
+  {
+    "id": 130,
+    "name": "Wilderwind",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 5,
+      "might": 2,
+      "hit": 70,
+      "crit": 35
+    }
+  },
+  {
+    "id": 131,
+    "name": "Celica's Gale",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 4,
+      "hit": 80,
+      "crit": 5
+    }
+  },
+  {
+    "id": 132,
+    "name": "Aversa's Night",
+    "type1": 4,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 15,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 133,
+    "name": "Heal",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 30,
+      "might": 8,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 134,
+    "name": "Mend",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 15,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 135,
+    "name": "Physic",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 10,
+      "might": 8,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 136,
+    "name": "Recover",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 15,
+      "might": 99,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 137,
+    "name": "Fortify",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 5,
+      "might": 8,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 138,
+    "name": "Goddess Staff",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 99,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 139,
+    "name": "Rescue",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 5,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 140,
+    "name": "Ward",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 5,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 141,
+    "name": "Hammerne",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 142,
+    "name": "Kneader",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 20,
+      "might": 1,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 143,
+    "name": "Balmwood Staff",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 15,
+      "might": 15,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 144,
+    "name": "Catharsis",
+    "type1": 5,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 5,
+      "might": 15,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 145,
+    "name": "Dragonstone",
+    "type1": 6,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 8,
+      "mag": 5,
+      "skl": 3,
+      "spd": 2,
+      "lck": 0,
+      "def": 10,
+      "res": 7
+    },
+    "stats": {
+      "uses": 50,
+      "might": 8,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 146,
+    "name": "Dragonstone+",
+    "type1": 6,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 11,
+      "mag": 6,
+      "skl": 5,
+      "spd": 4,
+      "lck": 0,
+      "def": 13,
+      "res": 9
+    },
+    "stats": {
+      "uses": 35,
+      "might": 12,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 147,
+    "name": "Beaststone",
+    "type1": 7,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 3,
+      "mag": 0,
+      "skl": 5,
+      "spd": 5,
+      "lck": 4,
+      "def": 1,
+      "res": 0
+    },
+    "stats": {
+      "uses": 50,
+      "might": 6,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 148,
+    "name": "Beaststone+",
+    "type1": 7,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 5,
+      "mag": 0,
+      "skl": 8,
+      "spd": 8,
+      "lck": 6,
+      "def": 4,
+      "res": 2
+    },
+    "stats": {
+      "uses": 35,
+      "might": 10,
+      "hit": 70,
+      "crit": 0
+    }
+  },
+  {
+    "id": 149,
+    "name": "Blighted Claws",
+    "type1": 8,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 12,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 150,
+    "name": "Blighted Talons",
+    "type1": 8,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 16,
+      "hit": 75,
+      "crit": 0
+    }
+  },
+  {
+    "id": 151,
+    "name": "Expiration",
+    "type1": 9,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 20,
+      "hit": 80,
+      "crit": 0
+    }
+  },
+  {
+    "id": 152,
+    "name": "Vulnerary",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 153,
+    "name": "Concoction",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 154,
+    "name": "Elixer",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 155,
+    "name": "Pure Water",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 156,
+    "name": "HP Tonic",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 157,
+    "name": "Strength Tonic",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 158,
+    "name": "Magic Tonic",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 159,
+    "name": "Skill Tonic",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 160,
+    "name": "Speed Tonic",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 161,
+    "name": "Luck Tonic",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 162,
+    "name": "Defense Tonic",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 163,
+    "name": "Resistance Tonic",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 164,
+    "name": "Door Key",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 165,
+    "name": "Chest Key",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 166,
+    "name": "Master Key",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 167,
+    "name": "Seraph Robe",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 168,
+    "name": "Energy Drop",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 169,
+    "name": "Spirit Dust",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 170,
+    "name": "Secret Book",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 171,
+    "name": "Speedwing",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 172,
+    "name": "Goddess Icon",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 173,
+    "name": "Dracoshield",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 174,
+    "name": "Talisman",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 175,
+    "name": "Naga's Tear",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 176,
+    "name": "Boots",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 177,
+    "name": "Arms Scroll",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 178,
+    "name": "Master Seal",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 179,
+    "name": "Second Seal",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 180,
+    "name": "Bullion (S)",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 181,
+    "name": "Bullion (M)",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 182,
+    "name": "Bullion (L)",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 183,
+    "name": "Sweet Tincture",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 3,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 184,
+    "name": "Gaius' Confect",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 5,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 185,
+    "name": "Kris' Confect",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 5,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 186,
+    "name": "Tiki's Tear",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 187,
+    "name": "Seed of Trust",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 188,
+    "name": "Reeking Box",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 189,
+    "name": "Rift Door",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 190,
+    "name": "Supreme Emblem",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 191,
+    "name": "All Stats +2",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 192,
+    "name": "Paragon",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 193,
+    "name": "Iote's Shield",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 194,
+    "name": "Limit Breaker",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 195,
+    "name": "Silver Card",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 196,
+    "name": "Dread Scroll",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 197,
+    "name": "Wedding Bouquet",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 1,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 198,
+    "name": "1,000 Gold",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 199,
+    "name": "3,000 Gold",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 200,
+    "name": "5,000 Gold",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  },
+  {
+    "id": 201,
+    "name": "7,000 Gold",
+    "type1": 10,
+    "type2": 0,
+    "price": 0,
+    "buffs": {
+      "hp": 0,
+      "str": 0,
+      "mag": 0,
+      "skl": 0,
+      "spd": 0,
+      "lck": 0,
+      "def": 0,
+      "res": 0
+    },
+    "stats": {
+      "uses": 0,
+      "might": 0,
+      "hit": 0,
+      "crit": 0
+    }
+  }
+]
