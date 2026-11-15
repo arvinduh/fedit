@@ -1,2 +1,11 @@
 /target
 /worktrees
+
+# Assets and extraction output (Nintendo copyrighted material is stored in AppData, not git)
+/assets/
+crates/fedit-gui/ui/public/portraits/
+
+# Tauri build and web frontend artifacts
+crates/fedit-gui/gen/
+crates/fedit-gui/ui/dist/
+crates/fedit-gui/ui/node_modules/
