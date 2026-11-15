@@ -50,73 +50,91 @@ impl<'a> UnitRef<'a> {
   /// Character experience level.
   #[must_use]
   pub fn level(&self) -> u8 {
-    if self.raw.len() > 16 { self.raw[16] } else { 1 }
+    if self.raw.len() > 17 { self.raw[17] } else { 1 }
   }
 
   /// Character experience points progress.
   #[must_use]
   pub fn exp(&self) -> u8 {
-    if self.raw.len() > 17 { self.raw[17] } else { 0 }
+    if self.raw.len() > 18 { self.raw[18] } else { 0 }
+  }
+
+  /// Level-up stat growth bonus attributes (HP, Str, Mag, Skl, Spd, Lck, Def, Res).
+  #[must_use]
+  pub fn growths(&self) -> [u8; 8] {
+    if self.raw.len() >= 17 {
+      let mut g = [0u8; 8];
+      g.copy_from_slice(&self.raw[9..17]);
+      g
+    } else {
+      [0u8; 8]
+    }
+  }
+
+  /// Helper to calculate combat attributes from class base, additions, and growths.
+  fn calc_stat(&self, idx: usize) -> u8 {
+    let character = self.character();
+    let class = self.class();
+    let growths = self.growths();
+    let base = i16::from(class.base_stats()[idx])
+      + i16::from(character.additions()[idx]);
+    let max = if idx == 0 {
+      99
+    } else {
+      (i16::from(class.max_stats()[idx])
+        + i16::from(character.modifiers()[idx]))
+      .max(0)
+    };
+    let total = base + i16::from(growths[idx]);
+    u8::try_from(total.clamp(0, max)).unwrap_or(0)
   }
 
   /// Maximum hit points stat.
   #[must_use]
   pub fn hp(&self) -> u8 {
-    self.raw[8]
+    self.calc_stat(0)
   }
 
   /// Strength stat.
   #[must_use]
   pub fn strength(&self) -> u8 {
-    self.raw[9]
+    self.calc_stat(1)
   }
 
   /// Magic stat.
   #[must_use]
   pub fn magic(&self) -> u8 {
-    self.raw[10]
+    self.calc_stat(2)
   }
 
   /// Skill stat.
   #[must_use]
   pub fn skill(&self) -> u8 {
-    self.raw[11]
+    self.calc_stat(3)
   }
 
   /// Speed stat.
   #[must_use]
   pub fn speed(&self) -> u8 {
-    self.raw[12]
+    self.calc_stat(4)
   }
 
   /// Luck stat.
   #[must_use]
   pub fn luck(&self) -> u8 {
-    self.raw[13]
+    self.calc_stat(5)
   }
 
   /// Defense stat.
   #[must_use]
   pub fn defense(&self) -> u8 {
-    self.raw[14]
+    self.calc_stat(6)
   }
 
   /// Resistance stat.
   #[must_use]
   pub fn resistance(&self) -> u8 {
-    self.raw[15]
-  }
-
-  /// Level-up stat growth bonus attributes.
-  #[must_use]
-  pub fn growths(&self) -> [u8; 8] {
-    if self.raw.len() >= 16 {
-      let mut g = [0u8; 8];
-      g.copy_from_slice(&self.raw[8..16]);
-      g
-    } else {
-      [0u8; 8]
-    }
+    self.calc_stat(7)
   }
 
   /// Weapon proficiency ranks (Sword, Lance, Axe, Bow, Tome, Staff).
@@ -236,8 +254,8 @@ impl<'a> Iterator for UnitIter<'a> {
       let i = self.pos;
       let uid = u16::from_le_bytes([self.raw[i], self.raw[i + 1]]);
       let cid = self.raw[i + 2];
-      let lvl = self.raw[i + 16];
-      let exp = self.raw[i + 17];
+      let lvl = self.raw[i + 17];
+      let exp = self.raw[i + 18];
       let has_items_pattern = self.raw[i + 25] == 0x04
         && self.raw[i + 30] == 0x04
         && self.raw[i + 35] == 0x04

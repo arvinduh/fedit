@@ -24,5 +24,5 @@ fn test_roster_table_and_json() {
   let js = String::from_utf8_lossy(&json_out.stdout);
   assert!(js.contains("\"name\": \"Frederick\""), "contains name");
   assert!(js.contains("\"unit_id\": 3"), "contains unit id 3");
-  assert!(js.contains("\"hp\": 75"), "contains hp 75");
+  assert!(js.contains("\"hp\": 60"), "contains hp 60");
 }
