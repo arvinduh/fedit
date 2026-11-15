@@ -80,6 +80,33 @@ cargo run -p fedit-cli -- unpack Chapter0 -o payload.bin -p preview.bin --json
 cargo run -p fedit-cli -- repack payload.bin -p preview.bin -o repacked.sav
 ```
 
+### Launch Desktop Graphical Interface
+
+Launch the Tauri desktop UI to visually inspect and edit campaign saves:
+
+```bash
+# Launch empty interface (use Open Folder / Open File in toolbar)
+cargo run -p fedit-gui
+```
+
+### Visual Assets & Custom Sprites
+
+The desktop application resolves visual assets from either a portable local
+`./assets/` folder (adjacent to the executable or repository root) or the system
+data directory (`%LOCALAPPDATA%\fedit\assets` on Windows,
+`~/.local/share/fedit/assets` on Linux,
+`~/Library/Application Support/fedit/assets` on macOS):
+
+- `assets/portraits/{slug}.png`: Character portrait avatars (e.g. `chrom.png`).
+- `assets/skills/{slug}.png`: Skill badges (e.g. `aether.png`, `hp_plus_5.png`).
+- `assets/items/{slug}.png`: Weapon and item icons (e.g. `falchion.png`,
+  `sword.png`).
+- `assets/sprites/{slug}_{m|f}.png`: Class map sprites (e.g. `lord_m.png`),
+  recolored dynamically with the character's or Avatar's custom hair RGB.
+
+If assets are not present on disk, the interface gracefully falls back to
+clean vector initials badges and category glyphs.
+
 ## Workspace Architecture
 
 - `crates/fedit-compress`: Zero-I/O Nintendo 0x28 Huffman codec, PMOC container,
@@ -89,6 +116,7 @@ cargo run -p fedit-cli -- repack payload.bin -p preview.bin -o repacked.sav
 - `crates/fedit-awakening`: FE13 domain models (`SaveSlot`, `GlobalSave`,
   `Preview`, `EDNI`, `Unit`, `Convoy`, `Paralogue`, `AvatarCustomization`).
 - `crates/fedit-cli`: Subcommand CLI host and atomic file persistence.
-- `crates/fedit-gui`: Desktop graphical interface built on iced.
+- `crates/fedit-gui`: Desktop graphical interface built on Tauri v2 and Svelte 5
+  with Material 3 Expressive motion and typography.
 - `docs/invariants.md`: System-wide invariants, data constraints, and domain
   rules.
