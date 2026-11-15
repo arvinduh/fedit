@@ -4,8 +4,8 @@ use std::fs;
 use std::io;
 use std::path;
 
+use awakening;
 use clap;
-use fe13;
 
 use crate::cli::error;
 
@@ -71,7 +71,7 @@ impl UnitArgs {
       fs::copy(&self.file, &bak)?;
       println!("Backup created at {}", bak.display());
     }
-    let mut slot = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
+    let mut slot = awakening::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
     let u = if let Some(idx) = self.index {
       slot.roster.get_mut(idx).ok_or_else(|| {
         io::Error::new(
@@ -81,7 +81,7 @@ impl UnitArgs {
       })?
     } else if let Some(ref target) = self.name {
       slot.find_unit_by_name_mut(target).ok_or_else(|| {
-        fe13::Error::CharacterNotFound {
+        awakening::Error::CharacterNotFound {
           name: target.clone(),
         }
       })?
@@ -127,14 +127,14 @@ impl UnitArgs {
       u.stats.set_combat_stat("resistance", v)?;
       m = true;
     }
-    let uid = u.unit_id;
+    let character = u.character();
     if m {
       let dest = self.output.as_ref().unwrap_or(&self.file);
       crate::atomic::write_atomic(dest, &slot.to_bytes()?)?;
-      println!("Updated {uid} stats");
+      println!("Updated {character} stats");
       return Ok(());
     }
-    println!("Unit: {}  Class: {}", u.unit_id, u.class_id.0);
+    println!("Unit: {}  Class: {}", u.character(), u.class());
     println!(
       "HP:  {:2}  Str: {:2}  Mag: {:2}  Skl: {:2}",
       u.stats.hp, u.stats.strength, u.stats.magic, u.stats.skill

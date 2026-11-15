@@ -2,11 +2,17 @@
 //!
 //! Resolves block offsets for subsystem data within the save payload.
 
+use crate::error;
+
 /// Preview offset subtracted from table entries.
 pub const PREVIEW_OFFSET: usize = 0xC0;
 
 /// Block offsets within a decompressed save payload.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[expect(
+  clippy::struct_field_names,
+  reason = "all fields represent byte offsets within the EDNI payload"
+)]
 pub struct EdniIndex {
   /// RESU user campaign state offset.
   pub user_offset: usize,
@@ -32,9 +38,9 @@ impl EdniIndex {
   /// # Errors
   ///
   /// Returns an error if magic is invalid or offsets exceed bounds.
-  pub fn parse(payload: &[u8]) -> Result<Self, crate::error::Error> {
+  pub fn parse(payload: &[u8]) -> Result<Self, error::Error> {
     if payload.len() < 0x20 || &payload[0..4] != b"EDNI" {
-      return Err(crate::error::Error::InvalidEdniMagic);
+      return Err(error::Error::InvalidEdniMagic);
     }
     let (mut user, mut pamg, mut unit, mut ifer) = (None, None, None, None);
     let (mut convoy, mut convoy_end, mut d62, mut tsve) =
@@ -47,13 +53,13 @@ impl EdniIndex {
         break;
       }
       let off = raw.checked_sub(PREVIEW_OFFSET).ok_or(
-        crate::error::Error::OffsetOutOfBounds {
+        error::Error::OffsetOutOfBounds {
           offset: raw,
           len: payload.len(),
         },
       )?;
       if off + 4 > payload.len() {
-        return Err(crate::error::Error::OffsetOutOfBounds {
+        return Err(error::Error::OffsetOutOfBounds {
           offset: off,
           len: payload.len(),
         });
@@ -74,14 +80,14 @@ impl EdniIndex {
       idx += 1;
     }
     Ok(Self {
-      user_offset: user.ok_or(crate::error::Error::InvalidEdniMagic)?,
-      pamg_offset: pamg.ok_or(crate::error::Error::InvalidEdniMagic)?,
-      unit_offset: unit.ok_or(crate::error::Error::InvalidEdniMagic)?,
-      ifer_offset: ifer.ok_or(crate::error::Error::InvalidEdniMagic)?,
-      convoy_offset: convoy.ok_or(crate::error::Error::InvalidEdniMagic)?,
+      user_offset: user.ok_or(error::Error::InvalidEdniMagic)?,
+      pamg_offset: pamg.ok_or(error::Error::InvalidEdniMagic)?,
+      unit_offset: unit.ok_or(error::Error::InvalidEdniMagic)?,
+      ifer_offset: ifer.ok_or(error::Error::InvalidEdniMagic)?,
+      convoy_offset: convoy.ok_or(error::Error::InvalidEdniMagic)?,
       convoy_end_offset: convoy_end.unwrap_or(0),
-      d62_offset: d62.ok_or(crate::error::Error::InvalidEdniMagic)?,
-      tsve_offset: tsve.ok_or(crate::error::Error::InvalidEdniMagic)?,
+      d62_offset: d62.ok_or(error::Error::InvalidEdniMagic)?,
+      tsve_offset: tsve.ok_or(error::Error::InvalidEdniMagic)?,
     })
   }
 }
@@ -124,7 +130,7 @@ mod tests {
     let payload = b"BADM0000000000000000000000000000";
     assert!(matches!(
       EdniIndex::parse(payload),
-      Err(crate::error::Error::InvalidEdniMagic)
+      Err(error::Error::InvalidEdniMagic)
     ));
   }
 }

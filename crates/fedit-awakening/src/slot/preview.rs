@@ -2,9 +2,9 @@
 //!
 //! Owns accessors for the 192-byte uncompressed save slot preview header.
 
-use crate::text;
-use crate::time;
-use crate::types;
+use crate::slot::text;
+use crate::slot::time;
+use crate::slot::types;
 
 /// Expected byte length of the uncompressed slot preview header.
 pub const PREVIEW_LEN: usize = 0xC0;
@@ -141,7 +141,7 @@ mod tests {
   use super::*;
 
   const CHAPTER0: &[u8] =
-    include_bytes!("../../../tests/fixtures/20200831-225628/Chapter0");
+    include_bytes!("../../../../tests/fixtures/20200831-225628/Chapter0");
 
   #[test]
   fn test_preview_header_parsing() {

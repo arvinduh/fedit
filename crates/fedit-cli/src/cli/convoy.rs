@@ -4,8 +4,8 @@ use std::fs;
 use std::io;
 use std::path;
 
+use awakening;
 use clap;
-use fe13;
 use serde_json;
 
 use crate::cli::error;
@@ -51,7 +51,7 @@ impl ConvoyArgs {
         fs::copy(&self.file, &bak)?;
         println!("Backup created at {}", bak.display());
       }
-      let mut s = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
+      let mut s = awakening::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
       let it = s
         .convoy
         .iter_mut()
@@ -67,7 +67,7 @@ impl ConvoyArgs {
       println!("Updated convoy slot {target} uses to {uses}");
       return Ok(());
     }
-    let slot = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
+    let slot = awakening::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
     if self.json {
       let rows: Vec<serde_json::Value> = slot
         .convoy
@@ -75,7 +75,8 @@ impl ConvoyArgs {
         .map(|it| {
           serde_json::json!({
             "slot": it.slot,
-            "item_id": it.item_id.0,
+            "item_id": it.item.raw_id(),
+            "name": it.item.name(),
             "uses": it.uses,
           })
         })
@@ -83,10 +84,16 @@ impl ConvoyArgs {
       println!("{}", serde_json::to_string_pretty(&rows)?);
       return Ok(());
     }
-    println!("Slot  Item ID  Uses");
-    println!("-------------------");
+    println!("Slot  Item ID  Uses  Name");
+    println!("-----------------------------------");
     for it in &slot.convoy {
-      println!("{:4}    {:5}   {:4}", it.slot, it.item_id.0, it.uses);
+      println!(
+        "{:4}    {:5}   {:4}  {}",
+        it.slot,
+        it.item.raw_id(),
+        it.uses,
+        it.item.name()
+      );
     }
     Ok(())
   }

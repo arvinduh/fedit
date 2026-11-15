@@ -10,6 +10,7 @@ pub mod error;
 
 use std::process;
 
+use clap;
 use clap::Parser;
 use env_logger;
 use log;

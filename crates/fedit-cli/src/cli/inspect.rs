@@ -7,8 +7,8 @@ use std::fs;
 use std::io;
 use std::path;
 
+use awakening;
 use clap;
-use fe13;
 
 use crate::cli::error;
 
@@ -37,14 +37,14 @@ impl InspectArgs {
     }
     let bytes = fs::read(&self.file)?;
     if bytes.starts_with(b"PMOC") {
-      let global = fe13::GlobalSave::from_bytes(&bytes)?;
+      let global = awakening::GlobalSave::from_bytes(&bytes)?;
       println!("Container Kind:    Global");
       println!("Decompressed Size: {} bytes", global.payload_len());
       println!("CRC-32:            Valid");
       return Ok(());
     }
 
-    let slot = fe13::SaveSlot::from_bytes(&bytes)?;
+    let slot = awakening::SaveSlot::from_bytes(&bytes)?;
     let p = slot.preview();
     let fields = [
       ("Container Kind:", "Slot Save".to_string()),
@@ -62,7 +62,7 @@ impl InspectArgs {
       ),
       ("Gold:", slot.gold().to_string()),
       ("Play Time:", p.play_time().to_string()),
-      ("Roster Count:", slot.units().count().to_string()),
+      ("Roster Count:", slot.roster.len().to_string()),
       ("CRC-32:", "Valid".to_string()),
     ];
     for (k, v) in fields {

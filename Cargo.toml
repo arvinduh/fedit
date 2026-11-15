@@ -2,17 +2,17 @@
 resolver = "2"
 members = [
   "crates/fe-compress",
-  "crates/fe13",
+  "crates/fedit-awakening",
   "crates/fedit-cli",
 ]
 
 [workspace.package]
-version = "0.1.0"
 edition = "2024"
 
 [workspace.dependencies]
-fe-compress = { path = "crates/fe-compress", version = "0.1.0" }
-fe13 = { path = "crates/fe13", version = "0.1.0" }
+fe-compress = { path = "crates/fe-compress" }
+awakening = { path = "crates/fedit-awakening", package = "fedit-awakening" }
+fedit-awakening = { path = "crates/fedit-awakening" }
 thiserror = "2"
 crc32fast = "1.4"
 clap = { version = "4.5", features = ["derive"] }

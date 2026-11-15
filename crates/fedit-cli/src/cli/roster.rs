@@ -4,8 +4,8 @@ use std::fs;
 use std::io;
 use std::path;
 
+use awakening;
 use clap;
-use fe13;
 use serde_json;
 
 use crate::cli::error;
@@ -36,7 +36,7 @@ impl RosterArgs {
         .into(),
       );
     }
-    let slot = fe13::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
+    let slot = awakening::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
     if self.json {
       let rows: Vec<serde_json::Value> = slot
         .roster
@@ -46,9 +46,10 @@ impl RosterArgs {
           let s = u.stats;
           serde_json::json!({
             "index": i,
-            "unit_id": u.unit_id.0,
-            "name": u.unit_id.name(),
-            "class_id": u.class_id.0,
+            "unit_id": u.character().raw_id(),
+            "name": u.name(),
+            "class_id": u.class().raw_id(),
+            "class": u.class().name(),
             "hp": s.hp,
             "strength": s.strength,
             "magic": s.magic,
@@ -63,16 +64,21 @@ impl RosterArgs {
       println!("{}", serde_json::to_string_pretty(&rows)?);
       return Ok(());
     }
-    println!("Idx  Unit Name            Class  HP Str Mag Skl Spd Lck Def Res");
-    println!("---------------------------------------------------------------");
+    println!(
+      "Idx  Unit Name            Class          HP Str Mag Skl Spd Lck Def Res"
+    );
+    println!(
+      "--------------------------------------------------------------------------"
+    );
     for (i, u) in slot.roster.iter().enumerate() {
       let s = u.stats;
-      let name = u.unit_id.name().unwrap_or("Unknown");
+      let name = u.name();
+      let class_name = u.class().name();
       println!(
-        "{i:3}  {:4} {:<15} {:5} {:3} {:3} {:3} {:3} {:3} {:3} {:3} {:3}",
-        u.unit_id.0,
+        "{i:3}  {:4} {:<15} {:<14} {:3} {:3} {:3} {:3} {:3} {:3} {:3} {:3}",
+        u.character().raw_id(),
         name,
-        u.class_id.0,
+        class_name,
         s.hp,
         s.strength,
         s.magic,

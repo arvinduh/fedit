@@ -1,37 +1,12 @@
-//! Domain identifier newtypes and game configuration enumerations.
+//! Domain identifier types and game configuration enumerations.
 //!
-//! Owns typed wrappers for unit, class, item IDs, difficulty, and mode.
+//! Owns typed difficulty and mode configurations for save slots.
 
 use std::fmt;
 
-/// Unique identifier for a character unit slot or prototype.
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub struct UnitId(pub u16);
+use crate::slot::time;
 
-impl UnitId {
-  /// Canonical character name for the unit identifier.
-  #[must_use]
-  pub const fn name(&self) -> Option<&'static str> {
-    crate::names::character_name(self.0)
-  }
-}
-
-impl fmt::Display for UnitId {
-  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    match self.name() {
-      Some(name) => write!(f, "{name}"),
-      None => write!(f, "Unit({})", self.0),
-    }
-  }
-}
-
-/// Unique identifier for a unit class.
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub struct ClassId(pub u8);
-
-/// Unique identifier for an inventory or convoy item.
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub struct ItemId(pub u16);
+pub use time::PlayTime;
 
 /// Game difficulty setting.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

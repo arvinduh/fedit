@@ -4,13 +4,18 @@
 
 use fe_compress;
 
-use crate::convoy;
 use crate::error;
-use crate::index;
-use crate::preview;
-use crate::time;
-use crate::unit;
-use crate::user;
+
+pub mod convoy;
+pub mod roster;
+pub mod support;
+pub mod types;
+
+mod index;
+mod preview;
+mod text;
+mod time;
+mod user;
 
 /// An uncompressed, editable Fire Emblem Awakening save slot.
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -21,10 +26,12 @@ pub struct SaveSlot {
   payload: Vec<u8>,
   /// Resolved subsystem block index table.
   index: index::EdniIndex,
-  /// Owned unit roster.
-  pub roster: Vec<unit::Unit>,
+  /// Encapsulated unit roster.
+  pub roster: roster::Roster,
   /// Owned convoy storage items.
   pub convoy: Vec<convoy::ConvoyItem>,
+  /// Army-wide support tracking table.
+  pub supports: support::SupportTable,
 }
 
 impl SaveSlot {
@@ -43,19 +50,22 @@ impl SaveSlot {
         }
       })?;
     let index = index::EdniIndex::parse(&container.payload)?;
-    let roster = unit::UnitIter::collect_units(
+    let units = roster::unit::UnitIter::collect_units(
       &container.payload[index.unit_offset..index.ifer_offset],
     );
+    let roster = roster::Roster::new(units);
     let convoy = convoy::ConvoyRef::new(
       &container.payload[index.convoy_offset..index.convoy_end_offset],
     )
     .items();
+    let supports = support::SupportTable::new();
     Ok(Self {
       preview,
       payload: container.payload,
       index,
       roster,
       convoy,
+      supports,
     })
   }
 
@@ -67,7 +77,7 @@ impl SaveSlot {
   pub fn to_bytes(&self) -> Result<Vec<u8>, error::Error> {
     let mut payload = self.payload.clone();
     for u in &self.roster {
-      let base = self.index.unit_offset + u.offset;
+      let base = self.index.unit_offset + u.offset();
       if base + 32 <= payload.len() {
         u.write_back(&mut payload[base..]);
       }
@@ -75,7 +85,8 @@ impl SaveSlot {
     for item in &self.convoy {
       let off = self.index.convoy_offset + 8 + item.slot * 4;
       if off + 4 <= payload.len() {
-        payload[off..off + 2].copy_from_slice(&item.item_id.0.to_be_bytes());
+        payload[off..off + 2]
+          .copy_from_slice(&item.item.raw_id().to_be_bytes());
         payload[off + 2..off + 4].copy_from_slice(&item.uses.to_be_bytes());
       }
     }
@@ -104,47 +115,18 @@ impl SaveSlot {
     user::UserMut::new(&mut self.payload[self.index.user_offset..])
   }
 
-  /// Returns an iterator over unit character slots in the TINU roster.
-  #[must_use]
-  pub fn units(&self) -> unit::UnitIter<'_> {
-    unit::UnitIter::new(&self.payload[self.index.unit_offset..])
-  }
-
   /// Finds a unit in the roster by character name (case-insensitive).
   pub fn find_unit_by_name_mut(
     &mut self,
     name: &str,
-  ) -> Option<&mut unit::Unit> {
-    self.roster.iter_mut().find(|u| {
-      u.unit_id
-        .name()
-        .is_some_and(|n| n.eq_ignore_ascii_case(name))
-    })
+  ) -> Option<&mut roster::Unit> {
+    self.roster.find_by_name_mut(name)
   }
 
   /// Finds a unit in the roster by character name (case-insensitive).
   #[must_use]
-  pub fn find_unit_by_name(&self, name: &str) -> Option<&unit::Unit> {
-    self.roster.iter().find(|u| {
-      u.unit_id
-        .name()
-        .is_some_and(|n| n.eq_ignore_ascii_case(name))
-    })
-  }
-
-  /// Returns a borrowed view over the NART convoy storage.
-  #[must_use]
-  pub fn convoy(&self) -> convoy::ConvoyRef<'_> {
-    convoy::ConvoyRef::new(
-      &self.payload[self.index.convoy_offset..self.index.convoy_end_offset],
-    )
-  }
-
-  /// Returns a mutable view over the NART convoy storage.
-  pub fn convoy_mut(&mut self) -> convoy::ConvoyMut<'_> {
-    convoy::ConvoyMut::new(
-      &mut self.payload[self.index.convoy_offset..self.index.convoy_end_offset],
-    )
+  pub fn find_unit_by_name(&self, name: &str) -> Option<&roster::Unit> {
+    self.roster.find_by_name(name)
   }
 
   /// Returns campaign gold.
