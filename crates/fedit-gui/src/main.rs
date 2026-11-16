@@ -342,6 +342,27 @@ fn save_slot(
 fn main() {
   tauri::Builder::default()
     .manage(AppState(sync::Mutex::new(SessionState::default())))
+    .setup(|app| {
+      #[cfg(debug_assertions)]
+      {
+        use tauri::Manager;
+        let addr = std::net::SocketAddr::from(([127, 0, 0, 1], 5173));
+        let timeout = std::time::Duration::from_millis(50);
+        let is_dev =
+          std::net::TcpStream::connect_timeout(&addr, timeout).is_ok();
+        let maybe_win = if is_dev {
+          app.get_webview_window("main")
+        } else {
+          None
+        };
+        if let (Some(win), Ok(url)) =
+          (maybe_win, "http://localhost:5173".parse::<tauri::Url>())
+        {
+          let _ = win.navigate(url);
+        }
+      }
+      Ok(())
+    })
     .invoke_handler(tauri::generate_handler![
       open_save_path,
       get_roster,
