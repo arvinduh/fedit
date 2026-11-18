@@ -67,7 +67,7 @@ pub const fn item_kind_slug(kind: convoy::ItemKind) -> &'static str {
 
 /// Converts a concrete item into a filesystem slug.
 #[must_use]
-pub fn item_slug(item: convoy::Item) -> String {
+pub fn item_slug(item: convoy::ItemType) -> String {
   slugify(item.name())
 }
 
@@ -94,6 +94,30 @@ pub fn resolve_portrait(character: roster::Character) -> Option<path::PathBuf> {
   let user = paths::portraits_dir().join(&filename);
   if user.exists() {
     return Some(user);
+  }
+
+  if slug == "morgan_m" || slug == "morgan_f" {
+    let fallback = "morgan.png";
+    let p = paths::portable_portraits_dir().join(fallback);
+    if p.exists() {
+      return Some(p);
+    }
+    let u = paths::portraits_dir().join(fallback);
+    if u.exists() {
+      return Some(u);
+    }
+  }
+
+  if slug == "robin_m" || slug == "robin_f" {
+    let fallback = "robin.png";
+    let p = paths::portable_portraits_dir().join(fallback);
+    if p.exists() {
+      return Some(p);
+    }
+    let u = paths::portraits_dir().join(fallback);
+    if u.exists() {
+      return Some(u);
+    }
   }
 
   None
@@ -128,7 +152,7 @@ pub fn resolve_skill_icon(skill: roster::Skill) -> Option<path::PathBuf> {
 /// Looks first for the specific item slug in `./assets/items/{slug}.png`,
 /// then falls back to category icon `./assets/items/{category}.png`.
 #[must_use]
-pub fn resolve_item_icon(item: convoy::Item) -> Option<path::PathBuf> {
+pub fn resolve_item_icon(item: convoy::ItemType) -> Option<path::PathBuf> {
   let slug = item_slug(item);
   let filename = format!("{slug}.png");
 

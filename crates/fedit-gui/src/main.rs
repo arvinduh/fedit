@@ -12,20 +12,18 @@ use std::path;
 use std::sync;
 
 use awakening::roster;
-use fedit_core::SaveSet;
-use serde::Deserialize;
-use serde::Serialize;
+use fedit_core::saveset;
 
 #[derive(Default)]
 struct SessionState {
-  saveset: Option<SaveSet>,
+  saveset: Option<saveset::SaveSet>,
   active_slot_index: usize,
-  loaded_slots: [Option<awakening::SaveSlot>; 3],
+  loaded_slots: [Option<awakening::Save>; 3],
 }
 
 struct AppState(sync::Mutex<SessionState>);
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 struct ItemDto {
   name: String,
@@ -36,7 +34,7 @@ struct ItemDto {
   forge_mt: Option<u8>,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 struct SkillDto {
   id: u16,
@@ -44,7 +42,7 @@ struct SkillDto {
   description: String,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 struct UnitDto {
   id: usize,
@@ -67,7 +65,7 @@ struct UnitDto {
   repertoire: Vec<SkillDto>,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 struct SlotSummaryDto {
   slot_index: usize,
@@ -86,13 +84,13 @@ fn map_unit_to_dto(idx: usize, u: &roster::Unit) -> UnitDto {
 
   let mut inventory = Vec::new();
   for slot_idx in 0..5 {
-    if let Some(item_slot) = u.item(slot_idx) {
+    if let Some(item) = u.item(slot_idx) {
       let is_eq = u.equipped_slot() == Some(slot_idx);
       inventory.push(ItemDto {
-        name: item_slot.item().name().to_string(),
-        kind: format!("{:?}", item_slot.item().kind()),
-        uses: item_slot.uses(),
-        max_uses: u16::from(item_slot.item().max_durability().unwrap_or(1)),
+        name: item.item_type().name().to_string(),
+        kind: format!("{:?}", item.item_type().kind()),
+        uses: item.durability(),
+        max_uses: u16::from(item.item_type().max_durability().unwrap_or(1)),
         is_equipped: is_eq,
         forge_mt: None,
       });
@@ -103,7 +101,7 @@ fn map_unit_to_dto(idx: usize, u: &roster::Unit) -> UnitDto {
   for &sk in &u.skills() {
     if sk != roster::Skill::None {
       skills.push(SkillDto {
-        id: sk.raw_id(),
+        id: sk.id(),
         name: sk.name().to_string(),
         description: String::new(),
       });
@@ -114,7 +112,7 @@ fn map_unit_to_dto(idx: usize, u: &roster::Unit) -> UnitDto {
   for &sk in u.repertoire() {
     if sk != roster::Skill::None {
       repertoire.push(SkillDto {
-        id: sk.raw_id(),
+        id: sk.id(),
         name: sk.name().to_string(),
         description: String::new(),
       });
@@ -127,25 +125,25 @@ fn map_unit_to_dto(idx: usize, u: &roster::Unit) -> UnitDto {
     name: char_id.name().to_string(),
     title: char_id.name().to_string(),
     class_name: class_id.name().to_string(),
-    level: u.level,
-    exp: u.exp,
-    cur_hp: u.stats.hp,
-    max_hp: u.stats.hp,
-    boots: 0,
+    level: u.level(),
+    exp: u.exp(),
+    cur_hp: u.hp.total(),
+    max_hp: u.hp.total(),
+    boots: u.boots_movement(),
     stats: [
-      u.stats.hp,
-      u.stats.strength,
-      u.stats.magic,
-      u.stats.skill,
-      u.stats.speed,
-      u.stats.luck,
-      u.stats.defense,
-      u.stats.resistance,
+      u.hp.total(),
+      u.strength.total(),
+      u.magic.total(),
+      u.skill.total(),
+      u.speed.total(),
+      u.luck.total(),
+      u.defense.total(),
+      u.resistance.total(),
     ],
     caps: class_id.max_stats(),
     bases: class_id.base_stats(),
     additions: char_id.additions(),
-    growths: u.growths,
+    growths: u.growths(),
     inventory,
     skills,
     repertoire,
@@ -159,7 +157,8 @@ fn open_save_path(
 ) -> Result<Vec<SlotSummaryDto>, String> {
   let mut session = state.0.lock().map_err(|e| e.to_string())?;
   let p = path::PathBuf::from(&target_path);
-  let (saveset, _target) = SaveSet::open_path(p).map_err(|e| e.to_string())?;
+  let (saveset, _target) =
+    saveset::SaveSet::open_path(p).map_err(|e| e.to_string())?;
 
   let mut summaries = Vec::new();
   for (idx, slot_sum) in saveset.slots().iter().enumerate() {
@@ -258,7 +257,7 @@ fn learn_unit_skill(
     .get_mut(unit_index)
     .ok_or_else(|| "Unit out of bounds".to_string())?;
 
-  let skill = roster::Skill::from_raw(skill_id);
+  let skill = roster::Skill::from_id(skill_id);
   unit.learn_skill(skill);
 
   Ok(map_unit_to_dto(unit_index, unit))
@@ -283,7 +282,7 @@ fn unlearn_unit_skill(
     .get_mut(unit_index)
     .ok_or_else(|| "Unit out of bounds".to_string())?;
 
-  let skill = roster::Skill::from_raw(skill_id);
+  let skill = roster::Skill::from_id(skill_id);
   unit.unlearn_skill(skill);
 
   Ok(map_unit_to_dto(unit_index, unit))
@@ -309,7 +308,7 @@ fn equip_unit_skill(
     .get_mut(unit_index)
     .ok_or_else(|| "Unit out of bounds".to_string())?;
 
-  let skill = roster::Skill::from_raw(skill_id);
+  let skill = roster::Skill::from_id(skill_id);
   unit.set_skill(slot_pos, skill).map_err(|e| e.to_string())?;
 
   Ok(map_unit_to_dto(unit_index, unit))

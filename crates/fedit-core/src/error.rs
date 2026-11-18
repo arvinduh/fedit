@@ -28,6 +28,14 @@ pub enum Error {
   #[error(transparent)]
   Awakening(#[from] awakening::Error),
 
+  /// Fire Emblem save campaign error.
+  #[error(transparent)]
+  AwakeningSave(#[from] awakening::save::Error),
+
+  /// Fire Emblem global save error.
+  #[error(transparent)]
+  AwakeningGlobal(#[from] awakening::global::Error),
+
   /// Save set directory not found or not a directory.
   #[error("Path '{path}' is not a valid directory")]
   NotADirectory {

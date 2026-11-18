@@ -8,6 +8,10 @@ use std::fmt;
 /// Canonical character unit identifier for Fire Emblem: Awakening.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
 pub enum Character {
+  /// Robin (Male) avatar tactician.
+  RobinM,
+  /// Robin (Female) avatar tactician.
+  RobinF,
   /// Chrom, Prince of Ylisse.
   Chrom,
   /// Lissa, Princess of Ylisse.
@@ -82,8 +86,10 @@ pub enum Character {
   Severa,
   /// Gerome, masked wyvern rider.
   Gerome,
-  /// Morgan, tactician in training.
-  Morgan,
+  /// Morgan (Male) tactician in training.
+  MorganM,
+  /// Morgan (Female) tactician in training.
+  MorganF,
   /// Yarne, timid taguel survivor.
   Yarne,
   /// Laurent, observant mage scholar.
@@ -104,18 +110,29 @@ pub enum Character {
   Aversa,
   /// Priam, Radiant Hero descendant.
   Priam,
-  /// Robin, amnesiac tactician avatar.
-  Robin,
   /// Unknown or custom DLC unit identifier.
   Unknown(u16),
 }
 
 impl Character {
+  /// Canonical character cast identifier.
+  #[must_use]
+  pub const fn id(self) -> u16 {
+    self.raw_id()
+  }
+
+  /// Resolves a character from its canonical identifier.
+  #[must_use]
+  pub const fn from_id(id: u16) -> Self {
+    Self::from_raw(id)
+  }
+
   /// Converts a raw 16-bit identifier into a [`Character`] variant.
   #[must_use]
-  pub const fn from_raw(raw: u16) -> Self {
+  pub(crate) const fn from_raw(raw: u16) -> Self {
     match raw {
-      0 | 1 => Self::Robin,
+      0 => Self::RobinM,
+      1 => Self::RobinF,
       3 => Self::Chrom,
       4 => Self::Lissa,
       5 => Self::Frederick,
@@ -152,7 +169,8 @@ impl Character {
       36 => Self::Cynthia,
       37 => Self::Severa,
       38 => Self::Gerome,
-      39 | 40 => Self::Morgan,
+      39 => Self::MorganM,
+      40 => Self::MorganF,
       41 => Self::Yarne,
       42 => Self::Laurent,
       43 => Self::Noire,
@@ -168,113 +186,113 @@ impl Character {
     }
   }
 
-  /// Converts a raw 16-bit identifier into a [`Character`] variant and its encoded [`Gender`].
-  ///
-  /// The returned [`Gender`] represents the unit's own concrete biological gender decoded
-  /// directly from the raw game save identifier (e.g. 0 -> Robin Male, 1 -> Robin Female,
-  /// 39 -> Morgan Male, 40 -> Morgan Female).
+  /// Converts a [`Character`] variant back into its exact raw 16-bit identifier.
   #[must_use]
-  pub const fn from_raw_with_gender(raw: u16) -> (Self, Gender) {
-    match raw {
-      0 => (Self::Robin, Gender::Male),
-      1 => (Self::Robin, Gender::Female),
-      39 => (Self::Morgan, Gender::Male),
-      40 => (Self::Morgan, Gender::Female),
-      other => {
-        let ch = Self::from_raw(other);
-        let g = ch.default_gender();
-        (ch, g)
-      }
-    }
-  }
-
-  /// Converts a [`Character`] variant back into its raw 16-bit identifier if fixed.
-  ///
-  /// Returns `None` for variable-gender characters (Robin and Morgan), whose raw IDs
-  /// differ by gender (0/1 and 39/40). Use [`Character::raw_id_for_avatar_gender`]
-  /// or [`Unit::raw_id`].
-  #[must_use]
-  pub const fn raw_id(self) -> Option<u16> {
+  pub(crate) const fn raw_id(self) -> u16 {
     match self {
-      Self::Robin | Self::Morgan => None,
-      Self::Chrom => Some(3),
-      Self::Lissa => Some(4),
-      Self::Frederick => Some(5),
-      Self::Virion => Some(6),
-      Self::Sully => Some(7),
-      Self::Vaike => Some(8),
-      Self::Stahl => Some(9),
-      Self::Miriel => Some(10),
-      Self::Kellam => Some(11),
-      Self::Sumia => Some(12),
-      Self::LonQu => Some(13),
-      Self::Ricken => Some(14),
-      Self::Maribelle => Some(15),
-      Self::Panne => Some(16),
-      Self::Gaius => Some(17),
-      Self::Cordelia => Some(18),
-      Self::Gregor => Some(19),
-      Self::Nowi => Some(20),
-      Self::Libra => Some(21),
-      Self::Tharja => Some(22),
-      Self::Olivia => Some(23),
-      Self::Cherche => Some(24),
-      Self::Henry => Some(25),
-      Self::Lucina => Some(26),
-      Self::SayRi => Some(27),
-      Self::Basilio => Some(28),
-      Self::Flavia => Some(29),
-      Self::Donnel => Some(30),
-      Self::Anna => Some(31),
-      Self::Owain => Some(32),
-      Self::Inigo => Some(33),
-      Self::Brady => Some(34),
-      Self::Kjelle => Some(35),
-      Self::Cynthia => Some(36),
-      Self::Severa => Some(37),
-      Self::Gerome => Some(38),
-      Self::Yarne => Some(41),
-      Self::Laurent => Some(42),
-      Self::Noire => Some(43),
-      Self::Nah => Some(44),
-      Self::Tiki => Some(45),
-      Self::Gangrel => Some(46),
-      Self::Walhart => Some(47),
-      Self::Emmeryn => Some(48),
-      Self::YenFay => Some(49),
-      Self::Aversa => Some(50),
-      Self::Priam => Some(51),
-      Self::Unknown(id) => Some(id),
+      Self::RobinM => 0,
+      Self::RobinF => 1,
+      Self::Chrom => 3,
+      Self::Lissa => 4,
+      Self::Frederick => 5,
+      Self::Virion => 6,
+      Self::Sully => 7,
+      Self::Vaike => 8,
+      Self::Stahl => 9,
+      Self::Miriel => 10,
+      Self::Kellam => 11,
+      Self::Sumia => 12,
+      Self::LonQu => 13,
+      Self::Ricken => 14,
+      Self::Maribelle => 15,
+      Self::Panne => 16,
+      Self::Gaius => 17,
+      Self::Cordelia => 18,
+      Self::Gregor => 19,
+      Self::Nowi => 20,
+      Self::Libra => 21,
+      Self::Tharja => 22,
+      Self::Olivia => 23,
+      Self::Cherche => 24,
+      Self::Henry => 25,
+      Self::Lucina => 26,
+      Self::SayRi => 27,
+      Self::Basilio => 28,
+      Self::Flavia => 29,
+      Self::Donnel => 30,
+      Self::Anna => 31,
+      Self::Owain => 32,
+      Self::Inigo => 33,
+      Self::Brady => 34,
+      Self::Kjelle => 35,
+      Self::Cynthia => 36,
+      Self::Severa => 37,
+      Self::Gerome => 38,
+      Self::MorganM => 39,
+      Self::MorganF => 40,
+      Self::Yarne => 41,
+      Self::Laurent => 42,
+      Self::Noire => 43,
+      Self::Nah => 44,
+      Self::Tiki => 45,
+      Self::Gangrel => 46,
+      Self::Walhart => 47,
+      Self::Emmeryn => 48,
+      Self::YenFay => 49,
+      Self::Aversa => 50,
+      Self::Priam => 51,
+      Self::Unknown(id) => id,
     }
   }
 
-  /// Converts a [`Character`] variant and the avatar's (Robin's) biological gender
-  /// into its exact raw identifier.
-  ///
-  /// For Robin, the avatar's gender is used directly (Male -> 0, Female -> 1).
-  /// For Morgan, their biological gender is strictly the inverse of the avatar's
-  /// gender (Avatar Male -> Morgan Female 40; Avatar Female -> Morgan Male 39).
-  /// For all other characters, returns their fixed raw identifier.
+  /// Returns true if this character variant is Robin (Male or Female).
   #[must_use]
-  pub const fn raw_id_for_avatar_gender(self, avatar_gender: Gender) -> u16 {
-    match (self, avatar_gender) {
-      (Self::Robin, Gender::Male) => 0,
-      (Self::Robin, Gender::Female) => 1,
-      (Self::Morgan, Gender::Male) => 40,
-      (Self::Morgan, Gender::Female) => 39,
-      _ => match self.raw_id() {
-        Some(id) => id,
-        None => 0,
-      },
-    }
-  }
-
-  /// Returns the immutable biological gender if fixed, or None for avatar/Morgan.
-  #[must_use]
-  pub const fn fixed_gender(self) -> Option<Gender> {
+  pub const fn is_robin(self) -> bool {
     match self {
-      Self::Robin | Self::Morgan => None,
-      _ => Some(self.default_gender()),
+      Self::RobinM | Self::RobinF => true,
+      _ => false,
+    }
+  }
+
+  /// Returns true if this character variant is Morgan (Male or Female).
+  #[must_use]
+  pub const fn is_morgan(self) -> bool {
+    match self {
+      Self::MorganM | Self::MorganF => true,
+      _ => false,
+    }
+  }
+
+  /// Returns the inherent biological gender of the character.
+  #[must_use]
+  pub const fn gender(self) -> Gender {
+    match self {
+      Self::RobinF
+      | Self::MorganF
+      | Self::Lissa
+      | Self::Sully
+      | Self::Miriel
+      | Self::Sumia
+      | Self::Maribelle
+      | Self::Panne
+      | Self::Cordelia
+      | Self::Nowi
+      | Self::Tharja
+      | Self::Anna
+      | Self::Olivia
+      | Self::Cherche
+      | Self::SayRi
+      | Self::Tiki
+      | Self::Flavia
+      | Self::Lucina
+      | Self::Kjelle
+      | Self::Cynthia
+      | Self::Severa
+      | Self::Noire
+      | Self::Nah
+      | Self::Emmeryn
+      | Self::Aversa => Gender::Female,
+      _ => Gender::Male,
     }
   }
 
@@ -282,6 +300,8 @@ impl Character {
   #[must_use]
   pub const fn name(self) -> &'static str {
     match self {
+      Self::RobinM | Self::RobinF => "Robin",
+      Self::MorganM | Self::MorganF => "Morgan",
       Self::Chrom => "Chrom",
       Self::Lissa => "Lissa",
       Self::Frederick => "Frederick",
@@ -319,7 +339,6 @@ impl Character {
       Self::Cynthia => "Cynthia",
       Self::Severa => "Severa",
       Self::Gerome => "Gerome",
-      Self::Morgan => "Morgan",
       Self::Yarne => "Yarne",
       Self::Laurent => "Laurent",
       Self::Noire => "Noire",
@@ -330,7 +349,6 @@ impl Character {
       Self::YenFay => "Yen'fay",
       Self::Aversa => "Aversa",
       Self::Priam => "Priam",
-      Self::Robin => "Robin",
       Self::Unknown(_) => "Unknown",
     }
   }
@@ -339,6 +357,10 @@ impl Character {
   #[must_use]
   pub const fn slug(self) -> &'static str {
     match self {
+      Self::RobinM => "robin_m",
+      Self::RobinF => "robin_f",
+      Self::MorganM => "morgan_m",
+      Self::MorganF => "morgan_f",
       Self::Chrom => "chrom",
       Self::Lissa => "lissa",
       Self::Frederick => "frederick",
@@ -376,7 +398,6 @@ impl Character {
       Self::Cynthia => "cynthia",
       Self::Severa => "severa",
       Self::Gerome => "gerome",
-      Self::Morgan => "morgan",
       Self::Yarne => "yarne",
       Self::Laurent => "laurent",
       Self::Noire => "noire",
@@ -387,7 +408,6 @@ impl Character {
       Self::YenFay => "yen_fay",
       Self::Aversa => "aversa",
       Self::Priam => "priam",
-      Self::Robin => "robin",
       Self::Unknown(_) => "unknown",
     }
   }
@@ -398,60 +418,45 @@ impl Character {
   /// core story cutscenes and game-over trigger checks.
   #[must_use]
   pub const fn is_story_anchor(self) -> bool {
-    matches!(self, Self::Chrom | Self::Robin | Self::Lucina)
+    match self {
+      Self::Chrom | Self::RobinM | Self::RobinF | Self::Lucina => true,
+      _ => false,
+    }
   }
 
   /// Returns true if this character is a mandatory force-deploy in main chapters.
   #[must_use]
   pub const fn is_force_deployed(self) -> bool {
-    matches!(self, Self::Chrom | Self::Robin)
-  }
-
-  /// Returns the default or fixed biological gender of the character.
-  #[must_use]
-  pub const fn default_gender(self) -> Gender {
     match self {
-      Self::Lissa
-      | Self::Sully
-      | Self::Miriel
-      | Self::Sumia
-      | Self::Maribelle
-      | Self::Panne
-      | Self::Cordelia
-      | Self::Nowi
-      | Self::Tharja
-      | Self::Anna
-      | Self::Olivia
-      | Self::Cherche
-      | Self::SayRi
-      | Self::Tiki
-      | Self::Flavia
-      | Self::Lucina
-      | Self::Kjelle
-      | Self::Cynthia
-      | Self::Severa
-      | Self::Morgan
-      | Self::Noire
-      | Self::Nah
-      | Self::Emmeryn
-      | Self::Aversa => Gender::Female,
-      _ => Gender::Male,
+      Self::Chrom | Self::RobinM | Self::RobinF => true,
+      _ => false,
     }
   }
 
-  /// Returns the inherent biological gender of the character.
+  /// Returns true if this character represents a chapter story boss whose defeat trips event flags.
   #[must_use]
-  pub const fn gender(self) -> Gender {
-    self.default_gender()
+  pub const fn is_story_boss(self) -> bool {
+    match self {
+      Self::Gangrel | Self::Walhart | Self::Aversa | Self::YenFay => true,
+      _ => false,
+    }
   }
 
-  /// Returns the gender assignment rule for this character.
+  /// Returns true if this character begins as an enemy but can be recruited mid-battle.
   #[must_use]
-  pub const fn gender_rule(self) -> GenderRule {
+  pub const fn is_recruitable_enemy(self) -> bool {
     match self {
-      Self::Robin => GenderRule::Avatar,
-      Self::Morgan => GenderRule::OppositeAvatar,
-      other => GenderRule::Fixed(other.default_gender()),
+      Self::Tharja | Self::Gaius => true,
+      _ => false,
+    }
+  }
+
+  /// Returns true if this character represents a protected friendly NPC whose loss triggers game over.
+  #[must_use]
+  pub const fn is_protected_story_npc(self) -> bool {
+    match self {
+      Self::Emmeryn | Self::Tiki => true,
+      _ => false,
     }
   }
 
@@ -459,7 +464,11 @@ impl Character {
   #[must_use]
   pub const fn recruitment_chapter(self) -> Option<u8> {
     match self {
-      Self::Chrom | Self::Robin | Self::Lissa | Self::Frederick => Some(0),
+      Self::Chrom
+      | Self::RobinM
+      | Self::RobinF
+      | Self::Lissa
+      | Self::Frederick => Some(0),
       Self::Sully | Self::Virion => Some(1),
       Self::Stahl | Self::Vaike => Some(2),
       Self::Miriel | Self::Kellam => Some(3),
@@ -481,7 +490,8 @@ impl Character {
   #[must_use]
   pub const fn additions(self) -> [i8; 8] {
     match self {
-      Self::Robin => [3, 2, 2, 0, 1, 4, 1, 1],
+      Self::RobinM | Self::RobinF => [3, 2, 2, 0, 1, 4, 1, 1],
+      Self::MorganM | Self::MorganF => [9, 6, 8, 7, 6, 7, 3, 7],
       Self::Chrom => [2, 1, 1, 3, 1, 5, 0, 1],
       Self::Lissa => [1, 1, 2, 2, 0, 8, 2, -2],
       Self::Frederick => [2, 2, 2, 6, 5, 6, 0, 2],
@@ -518,7 +528,6 @@ impl Character {
       Self::Cynthia => [7, 5, 2, 4, 10, 17, 6, 6],
       Self::Severa => [8, 6, 1, 7, 6, 6, 6, 5],
       Self::Gerome => [13, 8, 0, 4, 8, 5, 5, 1],
-      Self::Morgan => [9, 6, 8, 7, 6, 7, 3, 7],
       Self::Yarne => [16, 9, 1, 4, 4, 13, 6, 1],
       Self::Laurent => [10, 3, 7, 7, 4, 11, 4, 5],
       Self::Noire => [8, 5, 3, 4, 7, 10, 4, 6],
@@ -573,7 +582,8 @@ impl Character {
       Self::YenFay => [0, 1, -2, 2, 4, 0, -1, -2],
       Self::Aversa => [0, -1, 3, 1, 1, -2, 0, 0],
       Self::Priam => [0, 3, -2, 1, 0, 0, 2, -2],
-      Self::Robin
+      Self::RobinM
+      | Self::RobinF
       | Self::Lucina
       | Self::Owain
       | Self::Inigo
@@ -582,7 +592,8 @@ impl Character {
       | Self::Cynthia
       | Self::Severa
       | Self::Gerome
-      | Self::Morgan
+      | Self::MorganM
+      | Self::MorganF
       | Self::Yarne
       | Self::Laurent
       | Self::Noire
@@ -590,10 +601,76 @@ impl Character {
       | Self::Unknown(_) => [0; 8],
     }
   }
+
+  /// Returns the canonical immutable mother or primary parent of this child unit.
+  ///
+  /// Returns `None` for non-child characters or characters with variable parentage.
+  #[must_use]
+  pub const fn primary_parent(self) -> Option<Self> {
+    match self {
+      Self::Lucina => Some(Self::Chrom),
+      Self::Owain => Some(Self::Lissa),
+      Self::Inigo => Some(Self::Olivia),
+      Self::Brady => Some(Self::Maribelle),
+      Self::Kjelle => Some(Self::Sully),
+      Self::Cynthia => Some(Self::Sumia),
+      Self::Severa => Some(Self::Cordelia),
+      Self::Gerome => Some(Self::Cherche),
+      Self::MorganM => Some(Self::RobinF),
+      Self::MorganF => Some(Self::RobinM),
+      Self::Yarne => Some(Self::Panne),
+      Self::Laurent => Some(Self::Miriel),
+      Self::Noire => Some(Self::Tharja),
+      Self::Nah => Some(Self::Nowi),
+      _ => None,
+    }
+  }
+
+  /// Returns the world map child paralogue chapter index associated with this character.
+  ///
+  /// Returns `None` if this character is not recruited via a child paralogue.
+  #[must_use]
+  pub const fn paralogue(self) -> Option<u8> {
+    match self {
+      Self::Owain => Some(5),
+      Self::Inigo => Some(6),
+      Self::Brady => Some(7),
+      Self::Kjelle => Some(8),
+      Self::Cynthia => Some(9),
+      Self::Severa => Some(10),
+      Self::Gerome => Some(11),
+      Self::MorganM => Some(12),
+      Self::Yarne => Some(13),
+      Self::Laurent => Some(14),
+      Self::Noire => Some(15),
+      Self::Nah => Some(16),
+      _ => None,
+    }
+  }
+
+  /// Resolves the canonical child character recruited in a world map paralogue chapter.
+  #[must_use]
+  pub const fn from_paralogue(paralogue: u8) -> Option<Self> {
+    match paralogue {
+      5 => Some(Self::Owain),
+      6 => Some(Self::Inigo),
+      7 => Some(Self::Brady),
+      8 => Some(Self::Kjelle),
+      9 => Some(Self::Cynthia),
+      10 => Some(Self::Severa),
+      11 => Some(Self::Gerome),
+      12 => Some(Self::MorganM),
+      13 => Some(Self::Yarne),
+      14 => Some(Self::Laurent),
+      15 => Some(Self::Noire),
+      16 => Some(Self::Nah),
+      _ => None,
+    }
+  }
 }
 
 /// Inherent biological gender of a character unit.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Gender {
   /// Male biological gender.
   Male,
@@ -610,17 +687,6 @@ impl Gender {
       Self::Female => Self::Male,
     }
   }
-}
-
-/// Gender assignment rule for a character.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
-pub enum GenderRule {
-  /// Biologically fixed gender.
-  Fixed(Gender),
-  /// Defined dynamically by Robin's avatar customization.
-  Avatar,
-  /// Invariant: strictly the opposite of Robin's gender.
-  OppositeAvatar,
 }
 
 impl fmt::Display for Gender {
@@ -648,28 +714,38 @@ mod tests {
   #[test]
   fn test_character_roundtrip() {
     assert_eq!(Character::from_raw(3), Character::Chrom);
-    assert_eq!(Character::Chrom.raw_id(), Some(3));
-    assert_eq!(Character::Robin.raw_id(), None);
-    assert_eq!(Character::Morgan.raw_id(), None);
+    assert_eq!(Character::Chrom.raw_id(), 3);
+    assert_eq!(Character::RobinM.raw_id(), 0);
+    assert_eq!(Character::RobinF.raw_id(), 1);
+    assert_eq!(Character::MorganM.raw_id(), 39);
+    assert_eq!(Character::MorganF.raw_id(), 40);
+
     assert_eq!(Character::Chrom.name(), "Chrom");
     assert_eq!(Character::Chrom.slug(), "chrom");
     assert!(Character::Chrom.is_story_anchor());
+    assert!(Character::RobinM.is_story_anchor());
+    assert!(Character::RobinF.is_story_anchor());
     assert!(Character::Lucina.is_story_anchor());
     assert!(!Character::Donnel.is_story_anchor());
 
-    assert_eq!(Character::from_raw(0), Character::Robin);
-    assert_eq!(Character::from_raw(1), Character::Robin);
-    assert_eq!(Character::from_raw(39), Character::Morgan);
-    assert_eq!(Character::from_raw(40), Character::Morgan);
-    assert_eq!(Character::Robin.raw_id_for_avatar_gender(Gender::Male), 0);
-    assert_eq!(Character::Robin.raw_id_for_avatar_gender(Gender::Female), 1);
-    assert_eq!(Character::Morgan.raw_id_for_avatar_gender(Gender::Male), 40);
-    assert_eq!(
-      Character::Morgan.raw_id_for_avatar_gender(Gender::Female),
-      39
-    );
-    assert_eq!(Character::Chrom.raw_id_for_avatar_gender(Gender::Male), 3);
-    assert_eq!(Character::Robin.gender_rule(), GenderRule::Avatar);
-    assert_eq!(Character::Morgan.gender_rule(), GenderRule::OppositeAvatar);
+    assert_eq!(Character::from_raw(0), Character::RobinM);
+    assert_eq!(Character::from_raw(1), Character::RobinF);
+    assert_eq!(Character::from_raw(39), Character::MorganM);
+    assert_eq!(Character::from_raw(40), Character::MorganF);
+
+    assert!(Character::RobinM.is_robin());
+    assert!(Character::RobinF.is_robin());
+    assert!(!Character::Chrom.is_robin());
+
+    assert!(Character::MorganM.is_morgan());
+    assert!(Character::MorganF.is_morgan());
+    assert!(!Character::Chrom.is_morgan());
+
+    assert_eq!(Character::RobinM.gender(), Gender::Male);
+    assert_eq!(Character::RobinF.gender(), Gender::Female);
+    assert_eq!(Character::MorganM.gender(), Gender::Male);
+    assert_eq!(Character::MorganF.gender(), Gender::Female);
+    assert_eq!(Character::Chrom.gender(), Gender::Male);
+    assert_eq!(Character::Lucina.gender(), Gender::Female);
   }
 }

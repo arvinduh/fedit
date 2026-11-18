@@ -44,7 +44,7 @@ impl InspectArgs {
       return Ok(());
     }
 
-    let slot = awakening::SaveSlot::from_bytes(&bytes)?;
+    let slot = awakening::Save::from_bytes(&bytes)?;
     let p = slot.preview();
     let fields = [
       ("Container Kind:", "Slot Save".to_string()),

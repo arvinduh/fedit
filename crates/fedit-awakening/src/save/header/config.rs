@@ -4,10 +4,6 @@
 
 use std::fmt;
 
-use crate::slot::time;
-
-pub use time::PlayTime;
-
 /// Game difficulty setting.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Difficulty {
@@ -24,7 +20,7 @@ pub enum Difficulty {
 impl Difficulty {
   /// Converts a raw byte to a difficulty variant.
   #[must_use]
-  pub const fn from_raw(raw: u8) -> Option<Self> {
+  pub(crate) const fn from_raw(raw: u8) -> Option<Self> {
     match raw {
       0 => Some(Self::Normal),
       1 => Some(Self::Hard),
@@ -47,7 +43,7 @@ pub enum GameMode {
 impl GameMode {
   /// Converts a raw byte to a game mode variant.
   #[must_use]
-  pub const fn from_raw(raw: u8) -> Option<Self> {
+  pub(crate) const fn from_raw(raw: u8) -> Option<Self> {
     match raw {
       0 => Some(Self::Classic),
       1 => Some(Self::Casual),

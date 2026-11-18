@@ -23,6 +23,21 @@ pub enum Error {
   /// Fire Emblem domain or save validation error occurred.
   #[error(transparent)]
   Awakening(#[from] awakening::Error),
+  /// Fire Emblem save campaign error occurred.
+  #[error(transparent)]
+  AwakeningSave(#[from] awakening::save::Error),
+  /// Fire Emblem global save error occurred.
+  #[error(transparent)]
+  AwakeningGlobal(#[from] awakening::global::Error),
+  /// Fire Emblem unit mutation error occurred.
+  #[error(transparent)]
+  AwakeningUnit(#[from] awakening::roster::UnitError),
+  /// Fire Emblem stat mutation error occurred.
+  #[error(transparent)]
+  AwakeningStat(#[from] awakening::roster::StatError),
+  /// Fire Emblem convoy item error occurred.
+  #[error(transparent)]
+  AwakeningItem(#[from] awakening::convoy::ItemError),
   /// Application core services error.
   #[error(transparent)]
   Core(#[from] fedit_core::Error),

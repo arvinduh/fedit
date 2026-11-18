@@ -15,9 +15,9 @@ use crate::cli::error;
 pub struct ConvoyArgs {
   /// Path to save slot file.
   pub file: path::PathBuf,
-  /// Target convoy slot index to mutate.
-  #[arg(long)]
-  pub slot: Option<usize>,
+  /// Target convoy item identifier to mutate.
+  #[arg(long, visible_alias = "slot", alias = "item-id")]
+  pub item: Option<usize>,
   /// New uses count for the target convoy item.
   #[arg(long)]
   pub uses: Option<u16>,
@@ -45,54 +45,44 @@ impl ConvoyArgs {
         .into(),
       );
     }
-    if let (Some(target), Some(uses)) = (self.slot, self.uses) {
+    if let (Some(target), Some(uses)) = (self.item, self.uses) {
       if self.backup {
         let bak = self.file.with_extension("bak");
         fs::copy(&self.file, &bak)?;
         println!("Backup created at {}", bak.display());
       }
-      let mut s = awakening::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
-      let it = s
-        .convoy
-        .iter_mut()
-        .find(|it| it.slot == target)
-        .ok_or_else(|| {
-          io::Error::new(
-            io::ErrorKind::NotFound,
-            format!("convoy slot {target} not found"),
-          )
-        })?;
-      it.uses = uses;
+      let mut s = awakening::Save::from_bytes(&fs::read(&self.file)?)?;
+      s.convoy.set_durability(target, uses).map_err(|e| {
+        io::Error::new(io::ErrorKind::InvalidInput, e.to_string())
+      })?;
       crate::atomic::write_atomic(&self.file, &s.to_bytes()?)?;
-      println!("Updated convoy slot {target} uses to {uses}");
+      println!("Updated convoy item {target} uses to {uses}");
       return Ok(());
     }
-    let slot = awakening::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
+    let slot = awakening::Save::from_bytes(&fs::read(&self.file)?)?;
     if self.json {
       let rows: Vec<serde_json::Value> = slot
         .convoy
         .iter()
         .map(|it| {
           serde_json::json!({
-            "slot": it.slot,
-            "item_id": it.item.raw_id(),
-            "name": it.item.name(),
-            "uses": it.uses,
+            "item_id": it.id(),
+            "name": it.item_type().name(),
+            "uses": it.durability(),
           })
         })
         .collect();
       println!("{}", serde_json::to_string_pretty(&rows)?);
       return Ok(());
     }
-    println!("Slot  Item ID  Uses  Name");
+    println!("Item ID  Uses  Name");
     println!("-----------------------------------");
     for it in &slot.convoy {
       println!(
-        "{:4}    {:5}   {:4}  {}",
-        it.slot,
-        it.item.raw_id(),
-        it.uses,
-        it.item.name()
+        "{:7}   {:4}  {}",
+        it.id(),
+        it.durability(),
+        it.item_type().name()
       );
     }
     Ok(())

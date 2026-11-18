@@ -6,12 +6,10 @@
 use std::fmt;
 
 /// Strongly typed skill enumeration for Fire Emblem: Awakening.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Skill {
   /// Empty or unassigned skill slot.
   None,
-
-  // Stat buffs & basics (0x01..=0x0F)
   /// HP +5.
   HpPlus5,
   /// Strength +2.
@@ -42,8 +40,6 @@ pub enum Skill {
   Aptitude,
   /// Discipline.
   Discipline,
-
-  // Class & combat skills (0x10..=0x2F)
   /// Armsthrift.
   Armsthrift,
   /// Dual Support+.
@@ -108,8 +104,6 @@ pub enum Skill {
   Acrobat,
   /// Pass.
   Pass,
-
-  // Faires, rallies & breakers (0x30..=0x47)
   /// Swordfaire.
   Swordfaire,
   /// Lancefaire.
@@ -158,8 +152,6 @@ pub enum Skill {
   Beastbane,
   /// Lethality.
   Lethality,
-
-  // Advanced & proc skills (0x48..=0x57)
   /// Aether.
   Aether,
   /// Astra.
@@ -192,8 +184,6 @@ pub enum Skill {
   Conquest,
   /// Shadowgift.
   Shadowgift,
-
-  // DLC & boss skills (0x58..=0xC1)
   /// All Stats +2.
   AllStatsPlus2,
   /// Limit Breaker.
@@ -218,7 +208,6 @@ pub enum Skill {
   Paragon,
   /// Iote's Shield.
   IotesShield,
-
   /// Unknown or unrecognized skill identifier.
   Unknown(u16),
 }
@@ -228,9 +217,9 @@ impl Skill {
   #[must_use]
   #[expect(
     clippy::too_many_lines,
-    reason = "exhaustive match over all FE13 skill variants"
+    reason = "exhaustive 1:1 binary ID decoding table"
   )]
-  pub const fn from_raw(raw: u16) -> Self {
+  pub(crate) const fn from_raw(raw: u16) -> Self {
     match raw {
       0 => Self::None,
       0x01 => Self::HpPlus5,
@@ -242,12 +231,12 @@ impl Skill {
       0x07 => Self::ResistancePlus2,
       0x08 => Self::HitRatePlus10,
       0x09 => Self::HitRatePlus20,
-      0x0A => Self::AvoidPlus10,
-      0x0B => Self::MovementPlus1,
-      0x0C => Self::Locktouch,
-      0x0D => Self::Veteran,
-      0x0E => Self::Aptitude,
-      0x0F => Self::Discipline,
+      0x0a => Self::AvoidPlus10,
+      0x0b => Self::MovementPlus1,
+      0x0c => Self::Locktouch,
+      0x0d => Self::Veteran,
+      0x0e => Self::Aptitude,
+      0x0f => Self::Discipline,
       0x10 => Self::Armsthrift,
       0x11 => Self::DualSupportPlus,
       0x12 => Self::DualStrikePlus,
@@ -258,12 +247,12 @@ impl Skill {
       0x17 => Self::QuickBurn,
       0x18 => Self::SlowBurn,
       0x19 => Self::LuckySeven,
-      0x1A => Self::Zeal,
-      0x1B => Self::OutdoorFighter,
-      0x1C => Self::IndoorFighter,
-      0x1D => Self::Tantivy,
-      0x1E => Self::Focus,
-      0x1F => Self::Gamble,
+      0x1a => Self::Zeal,
+      0x1b => Self::OutdoorFighter,
+      0x1c => Self::IndoorFighter,
+      0x1d => Self::Tantivy,
+      0x1e => Self::Focus,
+      0x1f => Self::Gamble,
       0x20 => Self::Wrath,
       0x21 => Self::Prescience,
       0x22 => Self::Patience,
@@ -274,12 +263,12 @@ impl Skill {
       0x27 => Self::Hex,
       0x28 => Self::Anathema,
       0x29 => Self::Healtouch,
-      0x2A => Self::Relief,
-      0x2B => Self::Renewal,
-      0x2C => Self::Deliverer,
-      0x2D => Self::Defender,
-      0x2E => Self::Acrobat,
-      0x2F => Self::Pass,
+      0x2a => Self::Relief,
+      0x2b => Self::Renewal,
+      0x2c => Self::Deliverer,
+      0x2d => Self::Defender,
+      0x2e => Self::Acrobat,
+      0x2f => Self::Pass,
       0x30 => Self::Swordfaire,
       0x31 => Self::Lancefaire,
       0x32 => Self::Axefaire,
@@ -290,12 +279,12 @@ impl Skill {
       0x37 => Self::RallyStrength,
       0x38 => Self::RallyMagic,
       0x39 => Self::RallySkill,
-      0x3A => Self::RallySpeed,
-      0x3B => Self::RallyLuck,
-      0x3C => Self::RallyDefense,
-      0x3D => Self::RallyResistance,
-      0x3E => Self::RallyMovement,
-      0x3F => Self::RallySpectrum,
+      0x3a => Self::RallySpeed,
+      0x3b => Self::RallyLuck,
+      0x3c => Self::RallyDefense,
+      0x3d => Self::RallyResistance,
+      0x3e => Self::RallyMovement,
+      0x3f => Self::RallySpectrum,
       0x40 => Self::Swordbreaker,
       0x41 => Self::Lancebreaker,
       0x42 => Self::Axebreaker,
@@ -306,12 +295,12 @@ impl Skill {
       0x47 => Self::Lethality,
       0x48 => Self::Aether,
       0x49 => Self::Astra,
-      0x4A => Self::Sol,
-      0x4B => Self::Luna,
-      0x4C => Self::Ignis,
-      0x4D => Self::Vengeance,
-      0x4E => Self::Vantage,
-      0x4F => Self::Pavise,
+      0x4a => Self::Sol,
+      0x4b => Self::Luna,
+      0x4c => Self::Ignis,
+      0x4d => Self::Vengeance,
+      0x4e => Self::Vantage,
+      0x4f => Self::Pavise,
       0x50 => Self::Aegis,
       0x51 => Self::Counter,
       0x52 => Self::Miracle,
@@ -321,28 +310,40 @@ impl Skill {
       0x56 => Self::Conquest,
       0x57 => Self::Shadowgift,
       0x58 => Self::AllStatsPlus2,
-      0x5B => Self::LimitBreaker,
-      0x5C => Self::Dragonskin,
-      0x5D => Self::RightfulGod,
-      0x5E => Self::Hawkeye,
-      0x5F => Self::LunaPlus,
+      0x5b => Self::LimitBreaker,
+      0x5c => Self::Dragonskin,
+      0x5d => Self::RightfulGod,
+      0x5e => Self::Hawkeye,
+      0x5f => Self::LunaPlus,
       0x60 => Self::VantagePlus,
       0x61 => Self::PavisePlus,
       0x62 => Self::AegisPlus,
       0x63 => Self::ResistancePlus10,
-      0xC0 => Self::Paragon,
-      0xC1 => Self::IotesShield,
+      0xc0 => Self::Paragon,
+      0xc1 => Self::IotesShield,
       other => Self::Unknown(other),
     }
+  }
+
+  /// Returns the canonical numeric ID of the skill.
+  #[must_use]
+  pub const fn id(self) -> u16 {
+    self.raw_id()
+  }
+
+  /// Resolves a skill from its canonical numeric ID.
+  #[must_use]
+  pub const fn from_id(id: u16) -> Self {
+    Self::from_raw(id)
   }
 
   /// Converts a [`Skill`] variant back into its raw 16-bit identifier.
   #[must_use]
   #[expect(
     clippy::too_many_lines,
-    reason = "exhaustive match over all FE13 skill variants"
+    reason = "exhaustive 1:1 binary ID encoding table"
   )]
-  pub const fn raw_id(self) -> u16 {
+  pub(crate) const fn raw_id(self) -> u16 {
     match self {
       Self::None => 0,
       Self::HpPlus5 => 0x01,
@@ -354,12 +355,12 @@ impl Skill {
       Self::ResistancePlus2 => 0x07,
       Self::HitRatePlus10 => 0x08,
       Self::HitRatePlus20 => 0x09,
-      Self::AvoidPlus10 => 0x0A,
-      Self::MovementPlus1 => 0x0B,
-      Self::Locktouch => 0x0C,
-      Self::Veteran => 0x0D,
-      Self::Aptitude => 0x0E,
-      Self::Discipline => 0x0F,
+      Self::AvoidPlus10 => 0x0a,
+      Self::MovementPlus1 => 0x0b,
+      Self::Locktouch => 0x0c,
+      Self::Veteran => 0x0d,
+      Self::Aptitude => 0x0e,
+      Self::Discipline => 0x0f,
       Self::Armsthrift => 0x10,
       Self::DualSupportPlus => 0x11,
       Self::DualStrikePlus => 0x12,
@@ -370,12 +371,12 @@ impl Skill {
       Self::QuickBurn => 0x17,
       Self::SlowBurn => 0x18,
       Self::LuckySeven => 0x19,
-      Self::Zeal => 0x1A,
-      Self::OutdoorFighter => 0x1B,
-      Self::IndoorFighter => 0x1C,
-      Self::Tantivy => 0x1D,
-      Self::Focus => 0x1E,
-      Self::Gamble => 0x1F,
+      Self::Zeal => 0x1a,
+      Self::OutdoorFighter => 0x1b,
+      Self::IndoorFighter => 0x1c,
+      Self::Tantivy => 0x1d,
+      Self::Focus => 0x1e,
+      Self::Gamble => 0x1f,
       Self::Wrath => 0x20,
       Self::Prescience => 0x21,
       Self::Patience => 0x22,
@@ -386,12 +387,12 @@ impl Skill {
       Self::Hex => 0x27,
       Self::Anathema => 0x28,
       Self::Healtouch => 0x29,
-      Self::Relief => 0x2A,
-      Self::Renewal => 0x2B,
-      Self::Deliverer => 0x2C,
-      Self::Defender => 0x2D,
-      Self::Acrobat => 0x2E,
-      Self::Pass => 0x2F,
+      Self::Relief => 0x2a,
+      Self::Renewal => 0x2b,
+      Self::Deliverer => 0x2c,
+      Self::Defender => 0x2d,
+      Self::Acrobat => 0x2e,
+      Self::Pass => 0x2f,
       Self::Swordfaire => 0x30,
       Self::Lancefaire => 0x31,
       Self::Axefaire => 0x32,
@@ -402,12 +403,12 @@ impl Skill {
       Self::RallyStrength => 0x37,
       Self::RallyMagic => 0x38,
       Self::RallySkill => 0x39,
-      Self::RallySpeed => 0x3A,
-      Self::RallyLuck => 0x3B,
-      Self::RallyDefense => 0x3C,
-      Self::RallyResistance => 0x3D,
-      Self::RallyMovement => 0x3E,
-      Self::RallySpectrum => 0x3F,
+      Self::RallySpeed => 0x3a,
+      Self::RallyLuck => 0x3b,
+      Self::RallyDefense => 0x3c,
+      Self::RallyResistance => 0x3d,
+      Self::RallyMovement => 0x3e,
+      Self::RallySpectrum => 0x3f,
       Self::Swordbreaker => 0x40,
       Self::Lancebreaker => 0x41,
       Self::Axebreaker => 0x42,
@@ -418,12 +419,12 @@ impl Skill {
       Self::Lethality => 0x47,
       Self::Aether => 0x48,
       Self::Astra => 0x49,
-      Self::Sol => 0x4A,
-      Self::Luna => 0x4B,
-      Self::Ignis => 0x4C,
-      Self::Vengeance => 0x4D,
-      Self::Vantage => 0x4E,
-      Self::Pavise => 0x4F,
+      Self::Sol => 0x4a,
+      Self::Luna => 0x4b,
+      Self::Ignis => 0x4c,
+      Self::Vengeance => 0x4d,
+      Self::Vantage => 0x4e,
+      Self::Pavise => 0x4f,
       Self::Aegis => 0x50,
       Self::Counter => 0x51,
       Self::Miracle => 0x52,
@@ -433,26 +434,26 @@ impl Skill {
       Self::Conquest => 0x56,
       Self::Shadowgift => 0x57,
       Self::AllStatsPlus2 => 0x58,
-      Self::LimitBreaker => 0x5B,
-      Self::Dragonskin => 0x5C,
-      Self::RightfulGod => 0x5D,
-      Self::Hawkeye => 0x5E,
-      Self::LunaPlus => 0x5F,
+      Self::LimitBreaker => 0x5b,
+      Self::Dragonskin => 0x5c,
+      Self::RightfulGod => 0x5d,
+      Self::Hawkeye => 0x5e,
+      Self::LunaPlus => 0x5f,
       Self::VantagePlus => 0x60,
       Self::PavisePlus => 0x61,
       Self::AegisPlus => 0x62,
       Self::ResistancePlus10 => 0x63,
-      Self::Paragon => 0xC0,
-      Self::IotesShield => 0xC1,
+      Self::Paragon => 0xc0,
+      Self::IotesShield => 0xc1,
       Self::Unknown(id) => id,
     }
   }
 
-  /// Returns the human-readable canonical name of the skill.
+  /// Returns the human-readable canonical display name for the skill.
   #[must_use]
   #[expect(
     clippy::too_many_lines,
-    reason = "exhaustive match over all FE13 skill variants"
+    reason = "exhaustive 1:1 display name mapping"
   )]
   pub const fn name(self) -> &'static str {
     match self {
@@ -560,7 +561,7 @@ impl Skill {
     }
   }
 
-  /// Returns true if this skill represents an unassigned slot.
+  /// Returns true if this skill represents an empty slot.
   #[must_use]
   pub const fn is_none(self) -> bool {
     matches!(self, Self::None)
@@ -582,23 +583,20 @@ mod tests {
 
   #[test]
   fn test_skill_roundtrip_and_properties() {
-    let aether = Skill::Aether;
-    assert_eq!(aether.raw_id(), 0x48);
-    assert_eq!(aether.name(), "Aether");
-    assert_eq!(Skill::from_raw(0x48), aether);
+    assert_eq!(Skill::from_raw(0), Skill::None);
+    assert_eq!(Skill::None.raw_id(), 0);
+    assert!(Skill::None.is_none());
 
-    let galeforce = Skill::Galeforce;
-    assert_eq!(galeforce.raw_id(), 0x54);
-    assert_eq!(galeforce.name(), "Galeforce");
-    assert_eq!(Skill::from_raw(0x54), galeforce);
+    assert_eq!(Skill::from_raw(0x48), Skill::Aether);
+    assert_eq!(Skill::Aether.raw_id(), 0x48);
+    assert_eq!(Skill::Aether.name(), "Aether");
+    assert!(!Skill::Aether.is_none());
 
-    let limit_breaker = Skill::LimitBreaker;
-    assert_eq!(limit_breaker.raw_id(), 0x5B);
-    assert_eq!(limit_breaker.name(), "Limit Breaker");
-    assert_eq!(Skill::from_raw(0x5B), limit_breaker);
+    assert_eq!(Skill::from_raw(0x54), Skill::Galeforce);
+    assert_eq!(Skill::Galeforce.raw_id(), 0x54);
+    assert_eq!(Skill::Galeforce.name(), "Galeforce");
 
-    let unknown = Skill::from_raw(0x999);
-    assert_eq!(unknown, Skill::Unknown(0x999));
-    assert_eq!(unknown.raw_id(), 0x999);
+    assert_eq!(Skill::from_raw(0x999), Skill::Unknown(0x999));
+    assert_eq!(Skill::Unknown(0x999).raw_id(), 0x999);
   }
 }

@@ -7,9 +7,8 @@
 use std::fs;
 use std::path;
 
-use awakening::save::preview;
-use awakening::save::time;
-use awakening::save::types;
+use awakening::PlayTime;
+use awakening::header;
 
 use crate::backup;
 use crate::error;
@@ -70,13 +69,13 @@ pub struct SlotSummary {
   /// Formatted chapter name (e.g. "Chapter 19: The Conqueror").
   pub chapter_title: Option<String>,
   /// Game difficulty setting if available.
-  pub difficulty: Option<types::Difficulty>,
+  pub difficulty: Option<header::Difficulty>,
   /// Permadeath game mode (Classic vs Casual).
-  pub mode: Option<types::GameMode>,
+  pub mode: Option<header::GameMode>,
   /// Recorded campaign playtime duration.
-  pub play_time: Option<time::PlayTime>,
+  pub play_time: Option<PlayTime>,
   /// Raw 192-byte preview header buffer if parsed.
-  pub raw_preview: Option<[u8; preview::PREVIEW_LEN]>,
+  pub raw_preview: Option<[u8; header::PREVIEW_LEN]>,
 }
 
 /// Multi-slot save directory container.
@@ -222,7 +221,7 @@ impl SaveSet {
   pub fn load_slot(
     &self,
     filename: &str,
-  ) -> Result<awakening::SaveSlot, error::Error> {
+  ) -> Result<awakening::Save, error::Error> {
     let summary =
       self
         .find_slot(filename)
@@ -236,7 +235,7 @@ impl SaveSet {
       source,
     })?;
 
-    let slot = awakening::SaveSlot::from_bytes(&bytes)?;
+    let slot = awakening::Save::from_bytes(&bytes)?;
     Ok(slot)
   }
 
@@ -275,7 +274,7 @@ impl SaveSet {
   pub fn save_slot(
     &self,
     filename: &str,
-    slot: &awakening::SaveSlot,
+    slot: &awakening::Save,
     create_backup: bool,
   ) -> Result<(), error::Error> {
     let summary =
@@ -359,10 +358,10 @@ impl SaveSet {
       source,
     })?;
 
-    if bytes.len() >= preview::PREVIEW_LEN {
-      let mut raw = [0u8; preview::PREVIEW_LEN];
-      raw.copy_from_slice(&bytes[..preview::PREVIEW_LEN]);
-      let view = preview::PreviewRef::new(&raw);
+    if bytes.len() >= header::PREVIEW_LEN {
+      let mut raw = [0u8; header::PREVIEW_LEN];
+      raw.copy_from_slice(&bytes[..header::PREVIEW_LEN]);
+      let view = header::PreviewRef::from_bytes(&raw);
 
       let avatar_name = view.avatar_name();
       let chapter_title = view.chapter_title();
@@ -418,7 +417,7 @@ mod tests {
   #[test]
   fn test_open_saveset_fixtures() {
     let fixture_dir = path::Path::new(env!("CARGO_MANIFEST_DIR"))
-      .join("../../tests/fixtures/20200831-225628");
+      .join("../fedit-awakening/tests/fixtures/20200831-225628");
     let set =
       SaveSet::open_dir(&fixture_dir).expect("failed to open fixtures saveset");
 
@@ -451,7 +450,7 @@ mod tests {
   #[test]
   fn test_open_path_with_individual_file() {
     let file = path::Path::new(env!("CARGO_MANIFEST_DIR"))
-      .join("../../tests/fixtures/20200831-225628/Chapter1");
+      .join("../fedit-awakening/tests/fixtures/20200831-225628/Chapter1");
     let (set, selected_file) =
       SaveSet::open_path(&file).expect("open Chapter1 path");
     assert_eq!(selected_file.as_deref(), Some("Chapter1"));
@@ -461,7 +460,7 @@ mod tests {
   #[test]
   fn test_open_non_directory_fails() {
     let file = path::Path::new(env!("CARGO_MANIFEST_DIR"))
-      .join("../../tests/fixtures/20200831-225628/Chapter0");
+      .join("../fedit-awakening/tests/fixtures/20200831-225628/Chapter0");
     let res = SaveSet::open_dir(&file);
     assert!(matches!(res, Err(error::Error::NotADirectory { .. })));
   }

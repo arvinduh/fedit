@@ -5,11 +5,22 @@
 
 use std::fmt;
 
-use crate::slot::convoy::item;
-use crate::slot::roster::unit::character;
+use crate::save::convoy::item;
+use crate::save::roster::unit::character;
+
+/// Gender restriction rule for character classes.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ClassGenderRestriction {
+  /// Class can be assumed by either male or female units.
+  Universal,
+  /// Class can only be assumed by male units.
+  MaleOnly,
+  /// Class can only be assumed by female units.
+  FemaleOnly,
+}
 
 /// Canonical class identifier for Fire Emblem: Awakening units.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Class {
   /// Tactician base class.
   Tactician,
@@ -125,21 +136,15 @@ pub enum Class {
   Unknown(u8),
 }
 
-/// Gender restriction rule for character classes.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
-pub enum ClassGenderRestriction {
-  /// Class can be assumed by either male or female units.
-  Universal,
-  /// Class can only be assumed by male units.
-  MaleOnly,
-  /// Class can only be assumed by female units.
-  FemaleOnly,
-}
-
 impl Class {
-  /// Converts a raw byte to a [`Class`] variant.
+  /// Resolves a class from its canonical numeric identifier.
   #[must_use]
-  pub const fn from_raw(raw: u8) -> Self {
+  pub const fn from_id(id: u8) -> Self {
+    Self::from_raw(id)
+  }
+
+  /// Converts a raw byte to a [`Class`] variant.
+  pub(crate) const fn from_raw(raw: u8) -> Self {
     match raw {
       0 | 1 => Self::Lord,
       2 | 3 => Self::GreatLord,
@@ -200,172 +205,136 @@ impl Class {
     }
   }
 
-  /// Automatically resolves gender-paired equivalents (e.g. Cleric <-> Priest).
+  /// Returns the canonical numeric ID for this class given biological [`character::Gender`].
   #[must_use]
-  pub const fn resolve_for_gender(self, gender: character::Gender) -> Self {
-    match (self, gender) {
-      (Self::Cleric, character::Gender::Male) => Self::Priest,
-      (Self::Priest, character::Gender::Female) => Self::Cleric,
-      (Self::WarMonk, character::Gender::Female) => Self::WarCleric,
-      (Self::WarCleric, character::Gender::Male) => Self::WarMonk,
-      (other, _) => other,
-    }
+  pub const fn id(self, gender: character::Gender) -> u8 {
+    self.raw_id(gender)
   }
 
-  /// Converts a [`Class`] variant back to its default raw byte representation.
-  #[must_use]
-  pub const fn raw_id(self) -> u8 {
-    self.raw_id_for_gender(character::Gender::Male)
-  }
-
-  /// Converts a [`Class`] variant into its raw byte ID given a unit's [`character::Gender`].
+  /// Converts a [`Class`] into its raw byte ID given biological [`character::Gender`].
   #[must_use]
   #[expect(
     clippy::too_many_lines,
-    reason = "exhaustive mapping of 82 classes across male/female variants"
+    reason = "Comprehensive gendered class raw ID lookup table"
   )]
-  pub const fn raw_id_for_gender(self, gender: character::Gender) -> u8 {
-    match self {
-      Self::Lord => match gender {
-        character::Gender::Male => 0,
-        character::Gender::Female => 1,
+  pub(crate) const fn raw_id(self, gender: character::Gender) -> u8 {
+    match gender {
+      character::Gender::Male => match self {
+        Self::Lord => 0,
+        Self::GreatLord => 2,
+        Self::Tactician => 4,
+        Self::Grandmaster => 6,
+        Self::Cavalier => 8,
+        Self::Knight => 10,
+        Self::Paladin => 12,
+        Self::GreatKnight => 14,
+        Self::General => 16,
+        Self::Barbarian => 18,
+        Self::Fighter => 19,
+        Self::Mercenary => 20,
+        Self::Archer => 22,
+        Self::Berserker => 24,
+        Self::Warrior => 25,
+        Self::Hero => 26,
+        Self::BowKnight => 28,
+        Self::Sniper => 30,
+        Self::Myrmidon => 32,
+        Self::Thief => 34,
+        Self::Swordmaster => 36,
+        Self::Assassin => 38,
+        Self::Trickster => 40,
+        Self::PegasusKnight => 42,
+        Self::FalconKnight => 43,
+        Self::DarkFlier => 44,
+        Self::WyvernRider => 45,
+        Self::WyvernLord => 47,
+        Self::GriffonRider => 49,
+        Self::Troubadour => 51,
+        Self::Priest => 52,
+        Self::Cleric => 53,
+        Self::Mage => 54,
+        Self::DarkMage => 56,
+        Self::Valkyrie => 58,
+        Self::WarMonk => 59,
+        Self::WarCleric => 60,
+        Self::Sage => 61,
+        Self::DarkKnight => 63,
+        Self::Sorcerer => 65,
+        Self::Dancer => 67,
+        Self::Manakete => 68,
+        Self::Taguel => 69,
+        Self::Soldier => 71,
+        Self::Villager => 72,
+        Self::Merchant => 73,
+        Self::Reverant => 74,
+        Self::Entombed => 75,
+        Self::Conqueror => 76,
+        Self::Lodestar => 77,
+        Self::Grima => 78,
+        Self::Mirage => 79,
+        Self::DreadFighter => 80,
+        Self::Bride => 81,
+        Self::Dummy => 82,
+        Self::Unknown(id) => id,
       },
-      Self::GreatLord => match gender {
-        character::Gender::Male => 2,
-        character::Gender::Female => 3,
+      character::Gender::Female => match self {
+        Self::Lord => 1,
+        Self::GreatLord => 3,
+        Self::Tactician => 5,
+        Self::Grandmaster => 7,
+        Self::Cavalier => 9,
+        Self::Knight => 11,
+        Self::Paladin => 13,
+        Self::GreatKnight => 15,
+        Self::General => 17,
+        Self::Barbarian => 18,
+        Self::Fighter => 19,
+        Self::Mercenary => 21,
+        Self::Archer => 23,
+        Self::Berserker => 24,
+        Self::Warrior => 25,
+        Self::Hero => 27,
+        Self::BowKnight => 29,
+        Self::Sniper => 31,
+        Self::Myrmidon => 33,
+        Self::Thief => 35,
+        Self::Swordmaster => 37,
+        Self::Assassin => 39,
+        Self::Trickster => 41,
+        Self::PegasusKnight => 42,
+        Self::FalconKnight => 43,
+        Self::DarkFlier => 44,
+        Self::WyvernRider => 46,
+        Self::WyvernLord => 48,
+        Self::GriffonRider => 50,
+        Self::Troubadour => 51,
+        Self::Priest => 52,
+        Self::Cleric => 53,
+        Self::Mage => 55,
+        Self::DarkMage => 57,
+        Self::Valkyrie => 58,
+        Self::WarMonk => 59,
+        Self::WarCleric => 60,
+        Self::Sage => 62,
+        Self::DarkKnight => 64,
+        Self::Sorcerer => 66,
+        Self::Dancer => 67,
+        Self::Manakete => 68,
+        Self::Taguel => 70,
+        Self::Soldier => 71,
+        Self::Villager => 72,
+        Self::Merchant => 73,
+        Self::Reverant => 74,
+        Self::Entombed => 75,
+        Self::Conqueror => 76,
+        Self::Lodestar => 77,
+        Self::Grima => 78,
+        Self::Mirage => 79,
+        Self::DreadFighter => 80,
+        Self::Bride => 81,
+        Self::Dummy => 82,
+        Self::Unknown(id) => id,
       },
-      Self::Tactician => match gender {
-        character::Gender::Male => 4,
-        character::Gender::Female => 5,
-      },
-      Self::Grandmaster => match gender {
-        character::Gender::Male => 6,
-        character::Gender::Female => 7,
-      },
-      Self::Cavalier => match gender {
-        character::Gender::Male => 8,
-        character::Gender::Female => 9,
-      },
-      Self::Knight => match gender {
-        character::Gender::Male => 10,
-        character::Gender::Female => 11,
-      },
-      Self::Paladin => match gender {
-        character::Gender::Male => 12,
-        character::Gender::Female => 13,
-      },
-      Self::GreatKnight => match gender {
-        character::Gender::Male => 14,
-        character::Gender::Female => 15,
-      },
-      Self::General => match gender {
-        character::Gender::Male => 16,
-        character::Gender::Female => 17,
-      },
-      Self::Barbarian => 18,
-      Self::Fighter => 19,
-      Self::Mercenary => match gender {
-        character::Gender::Male => 20,
-        character::Gender::Female => 21,
-      },
-      Self::Archer => match gender {
-        character::Gender::Male => 22,
-        character::Gender::Female => 23,
-      },
-      Self::Berserker => 24,
-      Self::Warrior => 25,
-      Self::Hero => match gender {
-        character::Gender::Male => 26,
-        character::Gender::Female => 27,
-      },
-      Self::BowKnight => match gender {
-        character::Gender::Male => 28,
-        character::Gender::Female => 29,
-      },
-      Self::Sniper => match gender {
-        character::Gender::Male => 30,
-        character::Gender::Female => 31,
-      },
-      Self::Myrmidon => match gender {
-        character::Gender::Male => 32,
-        character::Gender::Female => 33,
-      },
-      Self::Thief => match gender {
-        character::Gender::Male => 34,
-        character::Gender::Female => 35,
-      },
-      Self::Swordmaster => match gender {
-        character::Gender::Male => 36,
-        character::Gender::Female => 37,
-      },
-      Self::Assassin => match gender {
-        character::Gender::Male => 38,
-        character::Gender::Female => 39,
-      },
-      Self::Trickster => match gender {
-        character::Gender::Male => 40,
-        character::Gender::Female => 41,
-      },
-      Self::PegasusKnight => 42,
-      Self::FalconKnight => 43,
-      Self::DarkFlier => 44,
-      Self::WyvernRider => match gender {
-        character::Gender::Male => 45,
-        character::Gender::Female => 46,
-      },
-      Self::WyvernLord => match gender {
-        character::Gender::Male => 47,
-        character::Gender::Female => 48,
-      },
-      Self::GriffonRider => match gender {
-        character::Gender::Male => 49,
-        character::Gender::Female => 50,
-      },
-      Self::Troubadour => 51,
-      Self::Priest => 52,
-      Self::Cleric => 53,
-      Self::Mage => match gender {
-        character::Gender::Male => 54,
-        character::Gender::Female => 55,
-      },
-      Self::DarkMage => match gender {
-        character::Gender::Male => 56,
-        character::Gender::Female => 57,
-      },
-      Self::Valkyrie => 58,
-      Self::WarMonk => 59,
-      Self::WarCleric => 60,
-      Self::Sage => match gender {
-        character::Gender::Male => 61,
-        character::Gender::Female => 62,
-      },
-      Self::DarkKnight => match gender {
-        character::Gender::Male => 63,
-        character::Gender::Female => 64,
-      },
-      Self::Sorcerer => match gender {
-        character::Gender::Male => 65,
-        character::Gender::Female => 66,
-      },
-      Self::Dancer => 67,
-      Self::Manakete => 68,
-      Self::Taguel => match gender {
-        character::Gender::Male => 69,
-        character::Gender::Female => 70,
-      },
-      Self::Soldier => 71,
-      Self::Villager => 72,
-      Self::Merchant => 73,
-      Self::Reverant => 74,
-      Self::Entombed => 75,
-      Self::Conqueror => 76,
-      Self::Lodestar => 77,
-      Self::Grima => 78,
-      Self::Mirage => 79,
-      Self::DreadFighter => 80,
-      Self::Bride => 81,
-      Self::Dummy => 82,
-      Self::Unknown(id) => id,
     }
   }
 
@@ -373,29 +342,29 @@ impl Class {
   #[must_use]
   pub const fn gender_restriction(self) -> ClassGenderRestriction {
     match self {
-      Self::PegasusKnight
-      | Self::FalconKnight
-      | Self::DarkFlier
-      | Self::Troubadour
-      | Self::Cleric
-      | Self::Valkyrie
-      | Self::WarCleric
-      | Self::Dancer
-      | Self::Manakete
-      | Self::Merchant
-      | Self::Bride => ClassGenderRestriction::FemaleOnly,
-
-      Self::Barbarian
+      Self::Villager
       | Self::Fighter
-      | Self::Berserker
       | Self::Warrior
-      | Self::Priest
+      | Self::Barbarian
+      | Self::Berserker
       | Self::WarMonk
-      | Self::Soldier
-      | Self::Villager
+      | Self::Priest
       | Self::Lodestar
       | Self::DreadFighter
-      | Self::Conqueror => ClassGenderRestriction::MaleOnly,
+      | Self::Conqueror
+      | Self::Soldier => ClassGenderRestriction::MaleOnly,
+
+      Self::PegasusKnight
+      | Self::Manakete
+      | Self::FalconKnight
+      | Self::Valkyrie
+      | Self::Dancer
+      | Self::DarkFlier
+      | Self::Cleric
+      | Self::WarCleric
+      | Self::Troubadour
+      | Self::Bride
+      | Self::Merchant => ClassGenderRestriction::FemaleOnly,
 
       _ => ClassGenderRestriction::Universal,
     }
@@ -403,15 +372,17 @@ impl Class {
 
   /// Returns whether this class is permitted for the given biological gender.
   #[must_use]
-  pub const fn is_eligible_for_gender(self, gender: character::Gender) -> bool {
+  pub const fn is_eligible(self, gender: character::Gender) -> bool {
     match self.gender_restriction() {
       ClassGenderRestriction::Universal => true,
-      ClassGenderRestriction::MaleOnly => {
-        matches!(gender, character::Gender::Male)
-      }
-      ClassGenderRestriction::FemaleOnly => {
-        matches!(gender, character::Gender::Female)
-      }
+      ClassGenderRestriction::MaleOnly => match gender {
+        character::Gender::Male => true,
+        character::Gender::Female => false,
+      },
+      ClassGenderRestriction::FemaleOnly => match gender {
+        character::Gender::Female => true,
+        character::Gender::Male => false,
+      },
     }
   }
 
@@ -478,177 +449,60 @@ impl Class {
     }
   }
 
-  /// Returns true if this class is proficient in using the specified item kind.
-  #[must_use]
-  #[expect(
-    clippy::too_many_lines,
-    reason = "comprehensive class weapon proficiency matrix"
-  )]
-  pub const fn can_use(self, kind: item::ItemKind) -> bool {
-    match kind {
-      item::ItemKind::Sword => matches!(
-        self,
-        Self::Lord
-          | Self::GreatLord
-          | Self::Tactician
-          | Self::Grandmaster
-          | Self::Cavalier
-          | Self::Paladin
-          | Self::GreatKnight
-          | Self::Myrmidon
-          | Self::Swordmaster
-          | Self::Mercenary
-          | Self::Hero
-          | Self::Thief
-          | Self::Assassin
-          | Self::Trickster
-          | Self::BowKnight
-          | Self::DarkKnight
-          | Self::Dancer
-          | Self::Lodestar
-          | Self::DreadFighter
-          | Self::Conqueror
-          | Self::Unknown(_)
-      ),
-      item::ItemKind::Lance => matches!(
-        self,
-        Self::GreatLord
-          | Self::Cavalier
-          | Self::Paladin
-          | Self::Knight
-          | Self::General
-          | Self::GreatKnight
-          | Self::PegasusKnight
-          | Self::FalconKnight
-          | Self::DarkFlier
-          | Self::WyvernLord
-          | Self::Villager
-          | Self::Bride
-          | Self::Conqueror
-          | Self::Unknown(_)
-      ),
-      item::ItemKind::Axe => matches!(
-        self,
-        Self::Fighter
-          | Self::Warrior
-          | Self::Barbarian
-          | Self::Berserker
-          | Self::Knight
-          | Self::General
-          | Self::GreatKnight
-          | Self::Hero
-          | Self::WyvernRider
-          | Self::WyvernLord
-          | Self::GriffonRider
-          | Self::WarMonk
-          | Self::WarCleric
-          | Self::DreadFighter
-          | Self::Conqueror
-          | Self::Unknown(_)
-      ),
-      item::ItemKind::Bow => matches!(
-        self,
-        Self::Archer
-          | Self::Sniper
-          | Self::BowKnight
-          | Self::Assassin
-          | Self::Warrior
-          | Self::Bride
-          | Self::Unknown(_)
-      ),
-      item::ItemKind::Tome => matches!(
-        self,
-        Self::Mage
-          | Self::Sage
-          | Self::DarkMage
-          | Self::Sorcerer
-          | Self::DarkKnight
-          | Self::DarkFlier
-          | Self::Tactician
-          | Self::Grandmaster
-          | Self::Valkyrie
-          | Self::DreadFighter
-          | Self::Unknown(_)
-      ),
-      item::ItemKind::Staff => matches!(
-        self,
-        Self::Cleric
-          | Self::Priest
-          | Self::WarMonk
-          | Self::WarCleric
-          | Self::Troubadour
-          | Self::Valkyrie
-          | Self::Sage
-          | Self::FalconKnight
-          | Self::Trickster
-          | Self::Bride
-          | Self::Unknown(_)
-      ),
-      item::ItemKind::Stone => {
-        matches!(self, Self::Manakete | Self::Taguel | Self::Unknown(_))
-      }
-      item::ItemKind::Consumable
-      | item::ItemKind::Seal
-      | item::ItemKind::StatBooster
-      | item::ItemKind::Valuable
-      | item::ItemKind::Unknown => false,
-    }
-  }
-
   /// Class base combat attributes (HP, Str, Mag, Skl, Spd, Lck, Def, Res).
   #[must_use]
   pub const fn base_stats(self) -> [u8; 8] {
     match self {
-      Self::Lord => [18, 6, 0, 5, 7, 0, 7, 0],
-      Self::GreatLord => [23, 10, 0, 7, 9, 0, 10, 3],
       Self::Tactician => [16, 4, 3, 5, 5, 0, 5, 3],
-      Self::Grandmaster => [20, 7, 6, 7, 7, 0, 7, 5],
-      Self::Cavalier => [18, 6, 0, 5, 6, 0, 7, 0],
-      Self::Knight => [18, 8, 0, 4, 2, 0, 11, 0],
-      Self::Paladin => [25, 9, 1, 7, 8, 0, 10, 6],
       Self::GreatKnight => [26, 11, 0, 6, 5, 0, 14, 1],
-      Self::General => [28, 12, 0, 7, 4, 0, 15, 3],
-      Self::Barbarian => [22, 8, 0, 3, 8, 0, 3, 0],
-      Self::Fighter => [20, 8, 0, 5, 5, 0, 4, 0],
-      Self::Mercenary => [18, 5, 0, 8, 7, 0, 5, 0],
-      Self::Archer => [16, 5, 0, 8, 6, 0, 5, 0],
-      Self::Berserker => [30, 13, 0, 5, 11, 0, 5, 1],
-      Self::Warrior => [28, 12, 0, 8, 7, 0, 7, 3],
-      Self::Hero => [22, 8, 1, 11, 10, 0, 8, 3],
-      Self::BowKnight => [24, 8, 0, 10, 10, 0, 6, 2],
-      Self::Sniper => [20, 7, 1, 12, 9, 0, 10, 3],
-      Self::Myrmidon => [16, 4, 1, 9, 10, 0, 4, 1],
-      Self::Thief => [16, 3, 0, 6, 8, 0, 2, 0],
+      Self::Lord => [18, 6, 0, 5, 7, 0, 7, 0],
       Self::Swordmaster => [20, 7, 2, 11, 13, 0, 6, 4],
-      Self::Assassin => [21, 8, 0, 13, 12, 0, 5, 1],
-      Self::Trickster => [19, 4, 4, 10, 11, 0, 3, 5],
       Self::PegasusKnight => [16, 4, 2, 7, 8, 0, 4, 6],
-      Self::FalconKnight => [20, 6, 3, 10, 11, 0, 6, 9],
-      Self::DarkFlier => [19, 5, 6, 8, 10, 0, 5, 9],
-      Self::WyvernRider => [19, 7, 0, 6, 5, 0, 8, 0],
-      Self::WyvernLord => [24, 11, 0, 8, 7, 0, 11, 3],
-      Self::GriffonRider => [22, 9, 0, 10, 9, 0, 8, 3],
-      Self::Troubadour => [16, 0, 3, 2, 5, 0, 1, 5],
-      Self::Priest | Self::Cleric => [16, 0, 3, 2, 4, 0, 1, 6],
+      Self::Villager => [16, 1, 0, 1, 1, 0, 1, 0],
+      Self::Archer => [16, 5, 0, 8, 6, 0, 5, 0],
       Self::Mage => [16, 0, 4, 3, 4, 0, 2, 3],
-      Self::DarkMage => [18, 1, 3, 2, 3, 0, 4, 4],
-      Self::Valkyrie => [19, 0, 5, 4, 8, 0, 3, 8],
-      Self::WarMonk | Self::WarCleric => [24, 5, 5, 4, 6, 0, 6, 6],
+      Self::Manakete => [18, 2, 0, 1, 1, 0, 2, 2],
+      Self::GreatLord => [23, 10, 0, 7, 9, 0, 10, 3],
+      Self::Cavalier => [18, 6, 0, 5, 6, 0, 7, 0],
       Self::Sage => [20, 1, 7, 5, 7, 0, 4, 5],
-      Self::DarkKnight => [25, 4, 5, 6, 5, 0, 9, 5],
+      Self::FalconKnight => [20, 6, 3, 10, 11, 0, 6, 9],
+      Self::Myrmidon => [16, 4, 1, 9, 10, 0, 4, 1],
+      Self::WyvernLord => [24, 11, 0, 8, 7, 0, 11, 3],
+      Self::Taguel => [18, 3, 0, 4, 4, 0, 4, 1],
+      Self::Paladin => [25, 9, 1, 7, 8, 0, 10, 6],
+      Self::Valkyrie => [19, 0, 5, 4, 8, 0, 3, 8],
+      Self::Knight => [18, 8, 0, 4, 2, 0, 11, 0],
       Self::Sorcerer => [23, 2, 6, 4, 4, 0, 7, 7],
       Self::Dancer => [16, 1, 1, 5, 8, 0, 3, 1],
-      Self::Manakete => [18, 2, 0, 1, 1, 0, 2, 2],
-      Self::Taguel => [18, 3, 0, 4, 4, 0, 4, 1],
-      Self::Soldier => [16, 3, 0, 3, 3, 0, 3, 0],
-      Self::Villager => [16, 1, 0, 1, 1, 0, 1, 0],
-      Self::Merchant => [18, 3, 0, 2, 2, 0, 4, 1],
-      Self::Reverant => [18, 3, 0, 0, 0, 0, 0, 0],
-      Self::Entombed => [20, 3, 1, 2, 2, 0, 2, 1],
-      Self::Conqueror => [24, 10, 2, 9, 8, 0, 12, 5],
+      Self::WarMonk | Self::WarCleric => [24, 5, 5, 4, 6, 0, 6, 6],
+      Self::Assassin => [21, 8, 0, 13, 12, 0, 5, 1],
+      Self::Grandmaster => [20, 7, 6, 7, 7, 0, 7, 5],
+      Self::General => [28, 12, 0, 7, 4, 0, 15, 3],
+      Self::Mercenary => [18, 5, 0, 8, 7, 0, 5, 0],
+      Self::Hero => [22, 8, 1, 11, 10, 0, 8, 3],
+      Self::Fighter => [20, 8, 0, 5, 5, 0, 4, 0],
+      Self::Warrior => [28, 12, 0, 8, 7, 0, 7, 3],
+      Self::Barbarian => [22, 8, 0, 3, 8, 0, 3, 0],
+      Self::Berserker => [30, 13, 0, 5, 11, 0, 5, 1],
+      Self::Sniper => [20, 7, 1, 12, 9, 0, 10, 3],
+      Self::BowKnight => [24, 8, 0, 10, 10, 0, 6, 2],
+      Self::Thief => [16, 3, 0, 6, 8, 0, 2, 0],
+      Self::Trickster => [19, 4, 4, 10, 11, 0, 3, 5],
+      Self::DarkFlier => [19, 5, 6, 8, 10, 0, 5, 9],
+      Self::WyvernRider => [19, 7, 0, 6, 5, 0, 8, 0],
+      Self::GriffonRider => [22, 9, 0, 10, 9, 0, 8, 3],
+      Self::DarkKnight => [25, 4, 5, 6, 5, 0, 9, 5],
+      Self::DarkMage => [18, 1, 3, 2, 3, 0, 4, 4],
+      Self::Cleric | Self::Priest => [16, 0, 3, 2, 4, 0, 1, 6],
+      Self::Troubadour => [16, 0, 3, 2, 5, 0, 1, 5],
       Self::Lodestar => [21, 9, 1, 10, 10, 0, 8, 4],
       Self::DreadFighter => [30, 15, 15, 15, 15, 0, 15, 10],
       Self::Bride => [1, 0, 0, 0, 0, 0, 0, 0],
+      Self::Conqueror => [24, 10, 2, 9, 8, 0, 12, 5],
+      Self::Soldier => [16, 3, 0, 3, 3, 0, 3, 0],
+      Self::Merchant => [18, 3, 0, 2, 2, 0, 4, 1],
+      Self::Reverant => [18, 3, 0, 0, 0, 0, 0, 0],
+      Self::Entombed => [20, 3, 1, 2, 2, 0, 2, 1],
       _ => [0; 8],
     }
   }
@@ -657,57 +511,200 @@ impl Class {
   #[must_use]
   pub const fn max_stats(self) -> [u8; 8] {
     match self {
-      Self::Lord => [60, 27, 20, 25, 26, 30, 26, 25],
-      Self::GreatLord => [80, 43, 30, 40, 41, 45, 42, 40],
       Self::Tactician => [60, 25, 25, 25, 25, 30, 25, 25],
-      Self::Grandmaster => [80, 40, 40, 40, 40, 45, 40, 40],
-      Self::Cavalier => [60, 26, 20, 25, 25, 30, 26, 26],
-      Self::Knight => [60, 30, 20, 26, 23, 30, 30, 22],
-      Self::Paladin => [80, 42, 30, 40, 40, 45, 42, 42],
       Self::GreatKnight => [80, 48, 20, 34, 37, 45, 48, 30],
-      Self::General => [80, 50, 30, 41, 35, 45, 50, 35],
-      Self::Barbarian => [60, 30, 20, 23, 27, 30, 22, 20],
-      Self::Fighter => [60, 29, 20, 26, 25, 30, 25, 23],
-      Self::Mercenary => [60, 26, 20, 28, 26, 30, 25, 23],
-      Self::Archer => [60, 26, 20, 29, 25, 30, 25, 21],
-      Self::Berserker => [80, 50, 30, 35, 44, 45, 34, 30],
-      Self::Warrior => [80, 48, 30, 42, 40, 45, 40, 35],
-      Self::Hero => [80, 42, 30, 46, 42, 45, 40, 36],
-      Self::BowKnight => [80, 40, 30, 43, 41, 45, 35, 30],
-      Self::Sniper => [80, 41, 30, 48, 40, 45, 40, 31],
-      Self::Myrmidon => [60, 24, 22, 27, 28, 30, 22, 24],
-      Self::Thief => [60, 22, 20, 30, 28, 30, 21, 20],
+      Self::Lord => [60, 27, 20, 25, 26, 30, 26, 25],
       Self::Swordmaster => [80, 38, 34, 44, 46, 45, 33, 38],
-      Self::Assassin => [80, 40, 30, 48, 46, 45, 31, 30],
-      Self::Trickster => [80, 35, 38, 45, 43, 45, 30, 40],
       Self::PegasusKnight => [60, 24, 23, 28, 27, 30, 22, 25],
-      Self::FalconKnight => [80, 38, 35, 45, 44, 45, 33, 40],
-      Self::DarkFlier => [80, 36, 42, 41, 42, 45, 32, 41],
-      Self::WyvernRider => [60, 28, 20, 24, 24, 30, 28, 20],
-      Self::WyvernLord => [80, 46, 30, 38, 38, 45, 46, 30],
-      Self::GriffonRider => [80, 40, 30, 43, 41, 45, 40, 30],
-      Self::Troubadour => [60, 20, 26, 24, 26, 30, 20, 28],
-      Self::Priest | Self::Cleric => [60, 22, 25, 24, 25, 30, 22, 27],
-      Self::Mage => [60, 20, 28, 27, 26, 30, 21, 25],
-      Self::DarkMage => [60, 20, 27, 25, 25, 30, 25, 27],
-      Self::Valkyrie => [80, 30, 42, 38, 43, 45, 30, 45],
-      Self::WarMonk | Self::WarCleric => [80, 40, 40, 38, 41, 45, 38, 43],
-      Self::Sage => [80, 30, 46, 43, 42, 45, 31, 40],
-      Self::DarkKnight => [80, 38, 41, 40, 40, 45, 42, 38],
-      Self::Sorcerer => [80, 30, 44, 38, 40, 45, 41, 44],
-      Self::Dancer => [80, 30, 30, 40, 40, 45, 30, 30],
-      Self::Manakete => [80, 40, 35, 35, 35, 45, 40, 40],
-      Self::Taguel => [80, 35, 30, 40, 40, 45, 35, 30],
-      Self::Soldier => [80, 30, 30, 30, 30, 45, 30, 30],
-      Self::Villager | Self::Merchant | Self::Bride => {
+      Self::Villager | Self::Bride | Self::Merchant => {
         [60, 20, 20, 20, 20, 30, 20, 20]
       }
-      Self::Reverant => [80, 30, 20, 25, 25, 30, 30, 30],
-      Self::Entombed => [80, 40, 30, 35, 35, 45, 35, 30],
-      Self::Conqueror => [80, 45, 25, 40, 40, 45, 45, 35],
+      Self::Archer => [60, 26, 20, 29, 25, 30, 25, 21],
+      Self::Mage => [60, 20, 28, 27, 26, 30, 21, 25],
+      Self::Manakete => [80, 40, 35, 35, 35, 45, 40, 40],
+      Self::GreatLord => [80, 43, 30, 40, 41, 45, 42, 40],
+      Self::Cavalier => [60, 26, 20, 25, 25, 30, 26, 26],
+      Self::Sage => [80, 30, 46, 43, 42, 45, 31, 40],
+      Self::FalconKnight => [80, 38, 35, 45, 44, 45, 33, 40],
+      Self::Myrmidon => [60, 24, 22, 27, 28, 30, 22, 24],
+      Self::WyvernLord => [80, 46, 30, 38, 38, 45, 46, 30],
+      Self::Taguel => [80, 35, 30, 40, 40, 45, 35, 30],
+      Self::Paladin => [80, 42, 30, 40, 40, 45, 42, 42],
+      Self::Valkyrie => [80, 30, 42, 38, 43, 45, 30, 45],
+      Self::Knight => [60, 30, 20, 26, 23, 30, 30, 22],
+      Self::Sorcerer => [80, 30, 44, 38, 40, 45, 41, 44],
+      Self::Dancer => [80, 30, 30, 40, 40, 45, 30, 30],
+      Self::WarMonk | Self::WarCleric => [80, 40, 40, 38, 41, 45, 38, 43],
+      Self::Assassin => [80, 40, 30, 48, 46, 45, 31, 30],
+      Self::Grandmaster => [80, 40, 40, 40, 40, 45, 40, 40],
+      Self::General => [80, 50, 30, 41, 35, 45, 50, 35],
+      Self::Mercenary => [60, 26, 20, 28, 26, 30, 25, 23],
+      Self::Hero => [80, 42, 30, 46, 42, 45, 40, 36],
+      Self::Fighter => [60, 29, 20, 26, 25, 30, 25, 23],
+      Self::Warrior => [80, 48, 30, 42, 40, 45, 40, 35],
+      Self::Barbarian => [60, 30, 20, 23, 27, 30, 22, 20],
+      Self::Berserker => [80, 50, 30, 35, 44, 45, 34, 30],
+      Self::Sniper => [80, 41, 30, 48, 40, 45, 40, 31],
+      Self::BowKnight => [80, 40, 30, 43, 41, 45, 35, 30],
+      Self::Thief => [60, 22, 20, 30, 28, 30, 21, 20],
+      Self::Trickster => [80, 35, 38, 45, 43, 45, 30, 40],
+      Self::DarkFlier => [80, 36, 42, 41, 42, 45, 32, 41],
+      Self::WyvernRider => [60, 28, 20, 24, 24, 30, 28, 20],
+      Self::GriffonRider => [80, 40, 30, 43, 41, 45, 40, 30],
+      Self::DarkKnight => [80, 38, 41, 40, 40, 45, 42, 38],
+      Self::DarkMage => [60, 20, 27, 25, 25, 30, 25, 27],
+      Self::Cleric | Self::Priest => [60, 22, 25, 24, 25, 30, 22, 27],
+      Self::Troubadour => [60, 20, 26, 24, 26, 30, 20, 28],
       Self::Lodestar => [80, 41, 30, 43, 43, 45, 41, 40],
       Self::DreadFighter => [99, 50, 40, 50, 45, 45, 50, 50],
+      Self::Conqueror => [80, 45, 25, 40, 40, 45, 45, 35],
+      Self::Soldier => [80, 30, 30, 30, 30, 45, 30, 30],
+      Self::Reverant => [80, 30, 20, 25, 25, 30, 30, 30],
+      Self::Entombed => [80, 40, 30, 35, 35, 45, 35, 30],
       _ => [80; 8],
+    }
+  }
+
+  /// Canonical base movement tiles for this class.
+  #[must_use]
+  pub const fn base_movement(self) -> u8 {
+    match self {
+      Self::Knight => 4,
+      Self::Paladin
+      | Self::BowKnight
+      | Self::FalconKnight
+      | Self::DarkFlier
+      | Self::WyvernLord
+      | Self::GriffonRider
+      | Self::DarkKnight
+      | Self::Valkyrie
+      | Self::Conqueror => 8,
+      Self::Cavalier
+      | Self::GreatKnight
+      | Self::PegasusKnight
+      | Self::WyvernRider
+      | Self::Troubadour => 7,
+      Self::GreatLord
+      | Self::Grandmaster
+      | Self::Swordmaster
+      | Self::Assassin
+      | Self::Trickster
+      | Self::Hero
+      | Self::Warrior
+      | Self::Berserker
+      | Self::Sniper
+      | Self::Sage
+      | Self::Sorcerer
+      | Self::WarMonk
+      | Self::WarCleric
+      | Self::Dancer
+      | Self::Taguel
+      | Self::Manakete
+      | Self::DreadFighter
+      | Self::Bride
+      | Self::Lodestar => 6,
+      _ => 5,
+    }
+  }
+
+  /// Returns true if this class is proficient in using the specified item kind.
+  #[must_use]
+  pub const fn can_use(self, kind: item::ItemKind) -> bool {
+    match kind {
+      item::ItemKind::Sword => match self {
+        Self::Lord
+        | Self::GreatLord
+        | Self::Tactician
+        | Self::Grandmaster
+        | Self::Cavalier
+        | Self::Paladin
+        | Self::GreatKnight
+        | Self::Mercenary
+        | Self::Hero
+        | Self::Myrmidon
+        | Self::Swordmaster
+        | Self::Thief
+        | Self::Assassin
+        | Self::Trickster
+        | Self::DarkKnight
+        | Self::Dancer
+        | Self::Lodestar
+        | Self::DreadFighter => true,
+        _ => false,
+      },
+      item::ItemKind::Lance => match self {
+        Self::GreatLord
+        | Self::Cavalier
+        | Self::Paladin
+        | Self::Knight
+        | Self::General
+        | Self::GreatKnight
+        | Self::PegasusKnight
+        | Self::FalconKnight
+        | Self::DarkFlier
+        | Self::WyvernLord
+        | Self::Soldier
+        | Self::Bride => true,
+        _ => false,
+      },
+      item::ItemKind::Axe => match self {
+        Self::GreatKnight
+        | Self::Knight
+        | Self::General
+        | Self::Barbarian
+        | Self::Berserker
+        | Self::Fighter
+        | Self::Warrior
+        | Self::Hero
+        | Self::WyvernRider
+        | Self::WyvernLord
+        | Self::GriffonRider
+        | Self::WarMonk
+        | Self::WarCleric
+        | Self::DreadFighter => true,
+        _ => false,
+      },
+      item::ItemKind::Bow => match self {
+        Self::Archer
+        | Self::Sniper
+        | Self::BowKnight
+        | Self::Warrior
+        | Self::Assassin
+        | Self::Bride => true,
+        _ => false,
+      },
+      item::ItemKind::Tome => match self {
+        Self::Tactician
+        | Self::Grandmaster
+        | Self::Mage
+        | Self::Sage
+        | Self::DarkMage
+        | Self::Sorcerer
+        | Self::DarkKnight
+        | Self::DarkFlier
+        | Self::Valkyrie
+        | Self::DreadFighter => true,
+        _ => false,
+      },
+      item::ItemKind::Staff => match self {
+        Self::Priest
+        | Self::Cleric
+        | Self::WarMonk
+        | Self::WarCleric
+        | Self::Sage
+        | Self::FalconKnight
+        | Self::Troubadour
+        | Self::Valkyrie
+        | Self::Trickster
+        | Self::Bride => true,
+        _ => false,
+      },
+      item::ItemKind::Stone => matches!(self, Self::Manakete | Self::Taguel),
+      item::ItemKind::Consumable
+      | item::ItemKind::Seal
+      | item::ItemKind::StatBooster
+      | item::ItemKind::Valuable
+      | item::ItemKind::Unknown => false,
     }
   }
 }
@@ -726,42 +723,28 @@ mod tests {
   use super::*;
 
   #[test]
-  fn test_class_roundtrip() {
+  fn test_class_roundtrip_and_properties() {
+    assert_eq!(Class::from_raw(0), Class::Lord);
+    assert_eq!(Class::from_raw(1), Class::Lord);
+    assert_eq!(Class::Lord.raw_id(character::Gender::Male), 0);
+    assert_eq!(Class::Lord.raw_id(character::Gender::Female), 1);
+    assert_eq!(Class::Lord.id(character::Gender::Male), 0);
+    assert_eq!(Class::Lord.name(), "Lord");
+
     assert_eq!(Class::from_raw(4), Class::Tactician);
     assert_eq!(Class::from_raw(5), Class::Tactician);
-    assert_eq!(Class::from_raw(14), Class::GreatKnight);
-    assert_eq!(Class::from_raw(15), Class::GreatKnight);
-    assert_eq!(
-      Class::Tactician.raw_id_for_gender(character::Gender::Male),
-      4
-    );
-    assert_eq!(
-      Class::Tactician.raw_id_for_gender(character::Gender::Female),
-      5
-    );
-    assert_eq!(
-      Class::GreatKnight.raw_id_for_gender(character::Gender::Male),
-      14
-    );
-    assert_eq!(
-      Class::GreatKnight.raw_id_for_gender(character::Gender::Female),
-      15
-    );
-    assert_eq!(
-      Class::Cleric.raw_id_for_gender(character::Gender::Female),
-      53
-    );
-    assert_eq!(Class::Priest.raw_id_for_gender(character::Gender::Male), 52);
     assert_eq!(Class::Tactician.name(), "Tactician");
-    assert_eq!(format!("{}", Class::Tactician), "Tactician");
-  }
 
-  #[test]
-  fn test_class_unknown() {
-    let unk = Class::from_raw(255);
-    assert_eq!(unk, Class::Unknown(255));
-    assert_eq!(unk.raw_id(), 255);
-    assert_eq!(unk.name(), "Unknown");
-    assert_eq!(format!("{unk}"), "Class(255)");
+    assert_eq!(Class::from_raw(42), Class::PegasusKnight);
+    assert_eq!(
+      Class::PegasusKnight.gender_restriction(),
+      ClassGenderRestriction::FemaleOnly
+    );
+    assert!(!Class::PegasusKnight.is_eligible(character::Gender::Male));
+    assert!(Class::PegasusKnight.is_eligible(character::Gender::Female));
+
+    assert_eq!(Class::from_raw(99), Class::Unknown(99));
+    assert_eq!(Class::Unknown(99).raw_id(character::Gender::Male), 99);
+    assert_eq!(Class::Unknown(99).id(character::Gender::Male), 99);
   }
 }

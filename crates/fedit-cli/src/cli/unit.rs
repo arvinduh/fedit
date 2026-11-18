@@ -71,7 +71,7 @@ impl UnitArgs {
       fs::copy(&self.file, &bak)?;
       println!("Backup created at {}", bak.display());
     }
-    let mut slot = awakening::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
+    let mut slot = awakening::Save::from_bytes(&fs::read(&self.file)?)?;
     let u = if let Some(idx) = self.index {
       slot.roster.get_mut(idx).ok_or_else(|| {
         io::Error::new(
@@ -97,35 +97,35 @@ impl UnitArgs {
     };
     let mut m = false;
     if let Some(v) = self.hp {
-      u.stats.set_hp(v)?;
+      u.hp.set_total(v)?;
       m = true;
     }
     if let Some(v) = self.strength {
-      u.stats.set_combat_stat("strength", v)?;
+      u.strength.set_total(v)?;
       m = true;
     }
     if let Some(v) = self.magic {
-      u.stats.set_combat_stat("magic", v)?;
+      u.magic.set_total(v)?;
       m = true;
     }
     if let Some(v) = self.skill {
-      u.stats.set_combat_stat("skill", v)?;
+      u.skill.set_total(v)?;
       m = true;
     }
     if let Some(v) = self.speed {
-      u.stats.set_combat_stat("speed", v)?;
+      u.speed.set_total(v)?;
       m = true;
     }
     if let Some(v) = self.luck {
-      u.stats.set_combat_stat("luck", v)?;
+      u.luck.set_total(v)?;
       m = true;
     }
     if let Some(v) = self.defense {
-      u.stats.set_combat_stat("defense", v)?;
+      u.defense.set_total(v)?;
       m = true;
     }
     if let Some(v) = self.resistance {
-      u.stats.set_combat_stat("resistance", v)?;
+      u.resistance.set_total(v)?;
       m = true;
     }
     let character = u.character();
@@ -138,11 +138,17 @@ impl UnitArgs {
     println!("Unit: {}  Class: {}", u.character(), u.class());
     println!(
       "HP:  {:2}  Str: {:2}  Mag: {:2}  Skl: {:2}",
-      u.stats.hp, u.stats.strength, u.stats.magic, u.stats.skill
+      u.hp.total(),
+      u.strength.total(),
+      u.magic.total(),
+      u.skill.total()
     );
     println!(
       "Spd: {:2}  Lck: {:2}  Def: {:2}  Res: {:2}",
-      u.stats.speed, u.stats.luck, u.stats.defense, u.stats.resistance
+      u.speed.total(),
+      u.luck.total(),
+      u.defense.total(),
+      u.resistance.total()
     );
     Ok(())
   }

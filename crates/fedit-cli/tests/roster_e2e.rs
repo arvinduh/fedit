@@ -2,7 +2,8 @@
 
 use std::process;
 
-const FIXTURE: &str = "../../tests/fixtures/20200831-225628/Chapter0";
+const FIXTURE: &str =
+  "../fedit-awakening/tests/fixtures/20200831-225628/Chapter0";
 
 #[test]
 fn test_roster_table_and_json() {
@@ -23,6 +24,9 @@ fn test_roster_table_and_json() {
   assert!(json_out.status.success(), "json status ok");
   let js = String::from_utf8_lossy(&json_out.stdout);
   assert!(js.contains("\"name\": \"Frederick\""), "contains name");
-  assert!(js.contains("\"unit_id\": 3"), "contains unit id 3");
+  assert!(
+    js.contains("\"name\": \"Frederick\""),
+    "contains name Frederick"
+  );
   assert!(js.contains("\"hp\": 60"), "contains hp 60");
 }

@@ -35,6 +35,7 @@ unused_qualifications = "warn"
 
 [workspace.lints.clippy]
 pedantic = { level = "warn", priority = -1 }
+match_like_matches_macro = "allow"
 wildcard_imports = "deny"
 single_component_path_imports = "allow"
 dbg_macro = "deny"

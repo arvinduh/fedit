@@ -2,9 +2,10 @@
 
 use std::process;
 
-const CHAPTER0: &str = "../../tests/fixtures/20200831-225628/Chapter0";
-const GLOBAL: &str = "../../tests/fixtures/20200831-225628/Global";
-const FIXTURE_DIR: &str = "../../tests/fixtures/20200831-225628";
+const CHAPTER0: &str =
+  "../fedit-awakening/tests/fixtures/20200831-225628/Chapter0";
+const GLOBAL: &str = "../fedit-awakening/tests/fixtures/20200831-225628/Global";
+const FIXTURE_DIR: &str = "../fedit-awakening/tests/fixtures/20200831-225628";
 
 #[test]
 fn test_inspect_slot_save() {

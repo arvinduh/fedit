@@ -36,28 +36,25 @@ impl RosterArgs {
         .into(),
       );
     }
-    let slot = awakening::SaveSlot::from_bytes(&fs::read(&self.file)?)?;
+    let slot = awakening::Save::from_bytes(&fs::read(&self.file)?)?;
     if self.json {
       let rows: Vec<serde_json::Value> = slot
         .roster
         .iter()
         .enumerate()
         .map(|(i, u)| {
-          let s = u.stats;
           serde_json::json!({
             "index": i,
-            "unit_id": u.raw_id(),
             "name": u.name(),
-            "class_id": u.class().raw_id(),
             "class": u.class().name(),
-            "hp": s.hp,
-            "strength": s.strength,
-            "magic": s.magic,
-            "skill": s.skill,
-            "speed": s.speed,
-            "luck": s.luck,
-            "defense": s.defense,
-            "resistance": s.resistance,
+            "hp": u.hp.total(),
+            "strength": u.strength.total(),
+            "magic": u.magic.total(),
+            "skill": u.skill.total(),
+            "speed": u.speed.total(),
+            "luck": u.luck.total(),
+            "defense": u.defense.total(),
+            "resistance": u.resistance.total(),
           })
         })
         .collect();
@@ -65,28 +62,26 @@ impl RosterArgs {
       return Ok(());
     }
     println!(
-      "Idx  Unit Name            Class          HP Str Mag Skl Spd Lck Def Res"
+      "Idx  Unit Name       Class          HP Str Mag Skl Spd Lck Def Res"
     );
     println!(
-      "--------------------------------------------------------------------------"
+      "------------------------------------------------------------------"
     );
     for (i, u) in slot.roster.iter().enumerate() {
-      let s = u.stats;
       let name = u.name();
       let class_name = u.class().name();
       println!(
-        "{i:3}  {:4} {:<15} {:<14} {:3} {:3} {:3} {:3} {:3} {:3} {:3} {:3}",
-        u.raw_id(),
+        "{i:3}  {:<15} {:<14} {:3} {:3} {:3} {:3} {:3} {:3} {:3} {:3}",
         name,
         class_name,
-        s.hp,
-        s.strength,
-        s.magic,
-        s.skill,
-        s.speed,
-        s.luck,
-        s.defense,
-        s.resistance
+        u.hp.total(),
+        u.strength.total(),
+        u.magic.total(),
+        u.skill.total(),
+        u.speed.total(),
+        u.luck.total(),
+        u.defense.total(),
+        u.resistance.total()
       );
     }
     Ok(())

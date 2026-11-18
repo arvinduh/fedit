@@ -3,7 +3,8 @@
 use std::fs;
 use std::process;
 
-const FIXTURE: &str = "../../tests/fixtures/20200831-225628/Chapter0";
+const FIXTURE: &str =
+  "../fedit-awakening/tests/fixtures/20200831-225628/Chapter0";
 
 #[test]
 fn test_convoy_cli() {
@@ -13,14 +14,14 @@ fn test_convoy_cli() {
     .output()
     .expect("fedit convoy table");
   assert!(out.status.success(), "table status ok");
-  assert!(String::from_utf8_lossy(&out.stdout).contains("Slot  Item ID  Uses"));
+  assert!(String::from_utf8_lossy(&out.stdout).contains("Item ID  Uses  Name"));
 
   let j_out = process::Command::new(bin)
     .args(["convoy", FIXTURE, "--json"])
     .output()
     .expect("fedit convoy json");
   assert!(j_out.status.success(), "json status ok");
-  assert!(String::from_utf8_lossy(&j_out.stdout).contains("\"slot\": 0"));
+  assert!(String::from_utf8_lossy(&j_out.stdout).contains("\"item_id\": 1"));
 
   let tmp = std::env::temp_dir().join("fedit_convoy_test");
   let _ = fs::remove_dir_all(&tmp);
@@ -32,7 +33,7 @@ fn test_convoy_cli() {
       "convoy",
       file.to_str().unwrap(),
       "--slot",
-      "0",
+      "1",
       "--uses",
       "25",
       "--backup",

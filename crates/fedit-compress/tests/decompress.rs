@@ -3,10 +3,11 @@
 use fedit_compress::huffman;
 use fedit_compress::pmoc;
 
-const CHAPTER0: &[u8] =
-  include_bytes!("../../../tests/fixtures/20200831-225628/Chapter0");
+const CHAPTER0: &[u8] = include_bytes!(
+  "../../fedit-awakening/tests/fixtures/20200831-225628/Chapter0"
+);
 const GLOBAL: &[u8] =
-  include_bytes!("../../../tests/fixtures/20200831-225628/Global");
+  include_bytes!("../../fedit-awakening/tests/fixtures/20200831-225628/Global");
 
 #[test]
 fn test_decompress_chapter0() {

@@ -1,0 +1,144 @@
+{
+  "is_chapter": false,
+  "is_west": true,
+  "user": {
+    "playtime_frames": 91981,
+    "money": 2500,
+    "renown": 40,
+    "difficulty": 1,
+    "is_lunatic_plus": false,
+    "current_chapter": 6,
+    "count_total_chapters": 6,
+    "count_last_chapter": 6,
+    "chapters_beaten": 5
+  },
+  "unit_groups": {
+    "blue_units_count": 2,
+    "red_units_count": 4,
+    "green_units_count": 0,
+    "main_units_count": 9,
+    "dead_units_count": 0,
+    "other_units_count": 0,
+    "main_units": [
+      {
+        "slot": 0,
+        "unit_id": 4,
+        "unit_name": "Lissa",
+        "class_id": 53,
+        "level": 2,
+        "exp": 40,
+        "growths": [1, 1, 1, 1, 1, 1, 0, 1],
+        "items": [{"id": 133, "uses": 23}, {"id": 152, "uses": 3}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}],
+        "equipped_skills": [82, 0, 0, 0, 0],
+        "weapon_exp": [0, 0, 0, 0, 0, 7]
+      },
+      {
+        "slot": 1,
+        "unit_id": 5,
+        "unit_name": "Frederick",
+        "class_id": 14,
+        "level": 1,
+        "exp": 4,
+        "growths": [0, 0, 0, 0, 0, 0, 0, 0],
+        "items": [{"id": 38, "uses": 29}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}],
+        "equipped_skills": [15, 27, 0, 0, 0],
+        "weapon_exp": [15, 64, 15, 0, 0, 0]
+      },
+      {
+        "slot": 2,
+        "unit_id": 6,
+        "unit_name": "Virion",
+        "class_id": 22,
+        "level": 2,
+        "exp": 0,
+        "growths": [0, 0, 0, 0, 0, 0, 0, 0],
+        "items": [{"id": 83, "uses": 40}, {"id": 154, "uses": 3}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}],
+        "equipped_skills": [4, 0, 0, 0, 0],
+        "weapon_exp": [0, 0, 0, 15, 0, 0]
+      },
+      {
+        "slot": 3,
+        "unit_id": 7,
+        "unit_name": "Sully",
+        "class_id": 9,
+        "level": 2,
+        "exp": 0,
+        "growths": [0, 0, 0, 0, 0, 0, 0, 0],
+        "items": [{"id": 35, "uses": 50}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}],
+        "equipped_skills": [15, 0, 0, 0, 0],
+        "weapon_exp": [0, 10, 0, 0, 0, 0]
+      },
+      {
+        "slot": 4,
+        "unit_id": 8,
+        "unit_name": "Vaike",
+        "class_id": 19,
+        "level": 3,
+        "exp": 0,
+        "growths": [0, 0, 0, 0, 0, 0, 0, 0],
+        "items": [{"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}],
+        "equipped_skills": [1, 0, 0, 0, 0],
+        "weapon_exp": [0, 0, 15, 0, 0, 0]
+      },
+      {
+        "slot": 5,
+        "unit_id": 9,
+        "unit_name": "Stahl",
+        "class_id": 8,
+        "level": 2,
+        "exp": 0,
+        "growths": [0, 0, 0, 0, 0, 0, 0, 0],
+        "items": [{"id": 1, "uses": 50}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}],
+        "equipped_skills": [15, 0, 0, 0, 0],
+        "weapon_exp": [10, 0, 0, 0, 0, 0]
+      },
+      {
+        "slot": 6,
+        "unit_id": 12,
+        "unit_name": "Sumia",
+        "class_id": 42,
+        "level": 1,
+        "exp": 0,
+        "growths": [0, 0, 0, 0, 0, 0, 0, 0],
+        "items": [{"id": 36, "uses": 40}, {"id": 152, "uses": 3}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}],
+        "equipped_skills": [5, 0, 0, 0, 0],
+        "weapon_exp": [0, 15, 0, 0, 0, 0]
+      },
+      {
+        "slot": 7,
+        "unit_id": 11,
+        "unit_name": "Kellam",
+        "class_id": 10,
+        "level": 5,
+        "exp": 0,
+        "growths": [0, 0, 0, 0, 0, 0, 0, 0],
+        "items": [{"id": 36, "uses": 40}, {"id": 40, "uses": 25}, {"id": 152, "uses": 3}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}],
+        "equipped_skills": [6, 0, 0, 0, 0],
+        "weapon_exp": [0, 15, 0, 0, 0, 0]
+      },
+      {
+        "slot": 8,
+        "unit_id": 10,
+        "unit_name": "Miriel",
+        "class_id": 55,
+        "level": 1,
+        "exp": 0,
+        "growths": [0, 0, 0, 0, 0, 0, 0, 0],
+        "items": [{"id": 59, "uses": 40}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}, {"id": 0, "uses": 0}],
+        "equipped_skills": [3, 0, 0, 0, 0],
+        "weapon_exp": [0, 0, 0, 0, 5, 0]
+      }
+    ]
+  },
+  "forged_weapons_count": 0,
+  "forged_weapons": [
+  ],
+  "convoy_items_count": 202,
+  "convoy_active_items": [
+    {"slot": 36, "uses": 40},
+    {"slot": 66, "uses": 25},
+    {"slot": 132, "uses": 10},
+    {"slot": 164, "uses": 1},
+    {"slot": 179, "uses": 1}
+  ]
+}

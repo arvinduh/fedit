@@ -24,7 +24,7 @@ pub enum DifficultyArg {
   LunaticPlus,
 }
 
-impl From<DifficultyArg> for awakening::types::Difficulty {
+impl From<DifficultyArg> for awakening::Difficulty {
   fn from(arg: DifficultyArg) -> Self {
     match arg {
       DifficultyArg::Normal => Self::Normal,
@@ -85,7 +85,7 @@ impl EditArgs {
     }
 
     let bytes = fs::read(&self.file)?;
-    let mut slot = awakening::SaveSlot::from_bytes(&bytes)?;
+    let mut slot = awakening::Save::from_bytes(&bytes)?;
 
     if let Some(gold) = self.gold {
       slot.set_gold(gold)?;
@@ -108,16 +108,14 @@ impl EditArgs {
 }
 
 /// Parses duration string formatted as "hh:mm:ss" or integer seconds.
-fn parse_play_time(s: &str) -> Option<awakening::types::PlayTime> {
+fn parse_play_time(s: &str) -> Option<awakening::PlayTime> {
   let parts: Vec<&str> = s.split(':').collect();
   if parts.len() == 3 {
     let h: u64 = parts[0].parse().ok()?;
     let m: u64 = parts[1].parse().ok()?;
     let s: u64 = parts[2].parse().ok()?;
-    Some(awakening::types::PlayTime::from_secs(h * 3600 + m * 60 + s))
+    Some(awakening::PlayTime::from_secs(h * 3600 + m * 60 + s))
   } else {
-    s.parse::<u64>()
-      .ok()
-      .map(awakening::types::PlayTime::from_secs)
+    s.parse::<u64>().ok().map(awakening::PlayTime::from_secs)
   }
 }

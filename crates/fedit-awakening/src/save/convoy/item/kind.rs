@@ -4,7 +4,7 @@
 //! to determine unit equipment eligibility and combat proficiencies.
 
 /// Category of an item determining combat proficiencies and equipment rules.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ItemKind {
   /// Swords and katanas.
   Sword,
@@ -35,7 +35,7 @@ pub enum ItemKind {
 impl ItemKind {
   /// Returns true if this item kind can be equipped into a unit's active hand.
   #[must_use]
-  pub const fn is_equippable(&self) -> bool {
+  pub const fn is_equippable(self) -> bool {
     match self {
       Self::Sword
       | Self::Lance

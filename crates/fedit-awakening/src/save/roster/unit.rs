@@ -3,30 +3,158 @@
 //! Owns character entry models in the TINU roster block, coordinating combat stats,
 //! equipment, skills, and biological gender resolution.
 
-use crate::error;
+use thiserror;
+
 use crate::save::convoy::item;
-use crate::save::types;
+use crate::save::header::config;
 
-pub mod character;
-pub mod class;
-pub mod iter;
-pub mod skill;
-pub mod stats;
-pub mod status;
+pub(crate) mod battle;
+pub(crate) mod character;
+pub(crate) mod class;
+pub(crate) mod skill;
+pub(crate) mod stat;
+pub(crate) mod status;
 
+pub use battle::BattleState;
 pub use character::Character;
 pub use character::Gender;
-pub use character::GenderRule;
 pub use class::Class;
-pub(crate) use iter::UnitIter;
-pub use iter::UnitRef;
 pub use skill::Skill;
-pub use stats::UnitStats;
+pub use stat::Error as StatError;
+pub use stat::Stat;
+pub use stat::StatKind;
 pub use status::Availability;
 pub use status::UnitStatus;
 
+/// Errors that can occur when mutating unit attributes or inventory.
+#[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]
+pub enum Error {
+  /// Level value was out of bounds [1..=40].
+  #[error("level {level} is out of bounds [1..=40]")]
+  LevelOutOfBounds {
+    /// Provided level.
+    level: u8,
+  },
+  /// Exp value was out of bounds [0..=99].
+  #[error("exp {exp} is out of bounds [0..=99]")]
+  ExpOutOfBounds {
+    /// Provided exp.
+    exp: u8,
+  },
+  /// Growth index or value was out of bounds.
+  #[error("growth index {index} value {value} is out of bounds")]
+  GrowthOutOfBounds {
+    /// Stat index.
+    index: usize,
+    /// Provided value.
+    value: u8,
+  },
+  /// Weapon rank index or value was out of bounds.
+  #[error("weapon rank index {index} value {value} is out of bounds")]
+  WeaponRankOutOfBounds {
+    /// Rank index.
+    index: usize,
+    /// Provided value.
+    value: u8,
+  },
+  /// Character is incompatible with the specified class.
+  #[error("character '{character}' is incompatible with class '{class}'")]
+  ClassIncompatible {
+    /// Target character.
+    character: Character,
+    /// Target class.
+    class: Class,
+  },
+  /// Class does not match the character's biological gender.
+  #[error("class '{class}' does not match gender '{gender}'")]
+  ClassGenderMismatch {
+    /// Incompatible class.
+    class: Class,
+    /// Biological gender.
+    gender: Gender,
+  },
+  /// Item cannot be equipped because it is not a weapon or staff.
+  #[error("cannot equip non-weapon item '{item_type}'")]
+  CannotEquipNonWeapon {
+    /// Attempted item type.
+    item_type: item::ItemType,
+  },
+  /// Class does not possess weapon proficiency for the target item.
+  #[error("class '{class}' cannot equip weapon of kind '{kind:?}'")]
+  ClassCannotEquip {
+    /// Incompatible class.
+    class: Class,
+    /// Weapon category.
+    kind: item::ItemKind,
+  },
+  /// Target inventory slot index was out of bounds (0..5).
+  #[error("unit slot {slot} is out of bounds")]
+  SlotOutOfBounds {
+    /// Out of bounds slot index.
+    slot: usize,
+  },
+  /// Target inventory slot is empty.
+  #[error("unit slot {slot} is empty")]
+  EmptySlot {
+    /// Empty slot index.
+    slot: usize,
+  },
+  /// Target skill slot index was out of bounds (0..5).
+  #[error("skill slot {slot} is out of bounds")]
+  SkillSlotOutOfBounds {
+    /// Out of bounds slot index.
+    slot: usize,
+  },
+  /// Story anchor character cannot be removed or killed.
+  #[error("story anchor unit '{character}' cannot be removed or killed")]
+  AnchorUnitProtected {
+    /// Protected character.
+    character: Character,
+  },
+  /// Combat stat error.
+  #[error(transparent)]
+  Stat(#[from] stat::Error),
+  /// Movement was out of bounds [min..=max].
+  #[error("movement {value} is out of bounds [{min}..={max}]")]
+  MovementOutOfBounds {
+    /// Provided movement value.
+    value: u8,
+    /// Minimum allowed.
+    min: u8,
+    /// Maximum allowed.
+    max: u8,
+  },
+  /// Boots movement bonus exceeded the safe maximum.
+  #[error("boots bonus {value} exceeds safe maximum {max}")]
+  BootsBonusOutOfBounds {
+    /// Provided boots bonus.
+    value: u8,
+    /// Maximum allowed.
+    max: u8,
+  },
+  /// Coordinates were out of bounds [0..=32].
+  #[error("coordinates [{x}, {y}] out of bounds [0..=32]")]
+  CoordinatesOutOfBounds {
+    /// Provided X coordinate.
+    x: u8,
+    /// Provided Y coordinate.
+    y: u8,
+  },
+  /// Unit byte slice length was invalid.
+  #[error("invalid unit byte length: expected {expected}, got {actual}")]
+  InvalidByteLength {
+    /// Expected length.
+    expected: usize,
+    /// Actual length.
+    actual: usize,
+  },
+  /// Item error.
+  #[error(transparent)]
+  Item(#[from] item::Error),
+}
+
 /// Owned character unit domain representation.
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct Unit {
   /// Canonical character enumeration.
   character: Character,
@@ -35,17 +163,35 @@ pub struct Unit {
   /// Unit class enumeration.
   class: Class,
   /// Character experience level (1..=40).
-  pub level: u8,
+  level: u8,
   /// Level experience progress (0..=99).
-  pub exp: u8,
-  /// Character combat attributes.
-  pub stats: UnitStats,
-  /// Level-up stat growth bonuses (HP, Str, Mag, Skl, Spd, Lck, Def, Res).
-  pub growths: [u8; 8],
+  exp: u8,
+  /// Maximum hit points attribute.
+  pub hp: Stat,
+  /// Physical strength attribute.
+  pub strength: Stat,
+  /// Magic attribute.
+  pub magic: Stat,
+  /// Skill attribute.
+  pub skill: Stat,
+  /// Speed attribute.
+  pub speed: Stat,
+  /// Luck attribute.
+  pub luck: Stat,
+  /// Physical defense attribute.
+  pub defense: Stat,
+  /// Magical resistance attribute.
+  pub resistance: Stat,
+  /// Boots permanent movement bonus attribute stored at offset 0x15.
+  boots_movement: u8,
   /// Weapon proficiency ranks (Sword, Lance, Axe, Bow, Tome, Staff).
-  pub weapon_ranks: [u8; 6],
+  weapon_ranks: [u8; 6],
+  /// Total battles fought by this unit.
+  battles: u16,
+  /// Total victories won by this unit.
+  victories: u16,
   /// Personal inventory equipment slots (up to 5 items).
-  inventory: [Option<item::ItemSlot>; 5],
+  inventory: [Option<item::Item>; 5],
   /// Index of the currently equipped weapon slot (0..5), or None if unarmed.
   equipped_slot: Option<usize>,
   /// Equipped skills (up to 5 skills).
@@ -56,83 +202,276 @@ pub struct Unit {
   status: UnitStatus,
   /// Byte offset of this unit entry within the TINU block.
   offset: usize,
+  /// Active mid-map battle state, if deployed on a combat grid.
+  battle_state: Option<BattleState>,
+  /// Backing raw bytes for lossless roundtrip preservation.
+  raw_bytes: Vec<u8>,
 }
 
 impl Unit {
-  /// Constructs a new unit with default empty inventory and active status.
-  #[must_use]
-  pub fn new(
+  /// Builds a combat [`Stat`] with character additions and class bounds.
+  fn build_stat(
     character: Character,
     class: Class,
-    stats: UnitStats,
-    offset: usize,
-  ) -> Self {
-    let gender = character.default_gender();
+    idx: usize,
+    kind: StatKind,
+    growth: u8,
+  ) -> Stat {
+    let raw_base = i16::from(class.base_stats()[idx])
+      + i16::from(character.additions()[idx]);
+    let base = u8::try_from(raw_base.clamp(0, 99)).unwrap_or(0);
+    let cap = if idx == 0 {
+      stat::UNIVERSAL_STAT_CEILING
+    } else {
+      let raw_cap = i16::from(class.max_stats()[idx])
+        + i16::from(character.modifiers()[idx]);
+      u8::try_from(raw_cap.clamp(0, 99)).unwrap_or(stat::UNIVERSAL_STAT_CEILING)
+    };
+    Stat::new(kind, base, cap, growth)
+  }
+
+  /// Constructs a new unit with default empty inventory and active status.
+  #[must_use]
+  pub(crate) fn new(character: Character, class: Class, offset: usize) -> Self {
+    let gender = character.gender();
     Self {
       character,
       gender,
       class,
       level: 1,
       exp: 0,
-      stats,
-      growths: [0; 8],
+      hp: Self::build_stat(character, class, 0, StatKind::Hp, 0),
+      strength: Self::build_stat(character, class, 1, StatKind::Strength, 0),
+      magic: Self::build_stat(character, class, 2, StatKind::Magic, 0),
+      skill: Self::build_stat(character, class, 3, StatKind::Skill, 0),
+      speed: Self::build_stat(character, class, 4, StatKind::Speed, 0),
+      luck: Self::build_stat(character, class, 5, StatKind::Luck, 0),
+      defense: Self::build_stat(character, class, 6, StatKind::Defense, 0),
+      resistance: Self::build_stat(character, class, 7, StatKind::Resist, 0),
+      boots_movement: 0,
       weapon_ranks: [0; 6],
+      battles: 0,
+      victories: 0,
       inventory: [None, None, None, None, None],
       equipped_slot: None,
       skills: [Skill::None; 5],
       repertoire: Vec::new(),
       status: UnitStatus::Active,
       offset,
+      battle_state: None,
+      raw_bytes: {
+        let mut v = vec![0u8; 187];
+        for slot in 0..5 {
+          v[26 + slot * 5] = 0x04;
+        }
+        v
+      },
     }
   }
 
-  /// Constructs an owned unit from a borrowed view and block offset.
-  #[must_use]
-  pub(crate) fn from_ref(
+  /// Parses an owned [`Unit`] from a TINU unit record byte slice.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::InvalidByteLength`] if `raw.len() < 67`.
+  #[expect(
+    clippy::too_many_lines,
+    reason = "Comprehensive binary unit record parser matching Awakening TINU layout"
+  )]
+  pub(crate) fn from_bytes(
+    raw: &[u8],
     offset: usize,
-    r: &UnitRef<'_>,
-    mode: Option<types::GameMode>,
-  ) -> Self {
-    Self {
-      character: r.character(),
-      gender: r.gender(),
-      class: r.class(),
-      level: r.level().max(1),
-      exp: r.exp(),
-      stats: UnitStats {
-        hp: r.hp(),
-        strength: r.strength(),
-        magic: r.magic(),
-        skill: r.skill(),
-        speed: r.speed(),
-        luck: r.luck(),
-        defense: r.defense(),
-        resistance: r.resistance(),
-      },
-      growths: r.growths(),
-      weapon_ranks: r.weapon_ranks(),
-      inventory: [r.item(0), r.item(1), r.item(2), r.item(3), r.item(4)],
-      equipped_slot: r.equipped_slot(),
-      skills: [
-        Skill::from_raw(r.skill_id(0)),
-        Skill::from_raw(r.skill_id(1)),
-        Skill::from_raw(r.skill_id(2)),
-        Skill::from_raw(r.skill_id(3)),
-        Skill::from_raw(r.skill_id(4)),
-      ],
-      repertoire: {
-        let mut rep = Vec::new();
-        for i in 0..5 {
-          let s = Skill::from_raw(r.skill_id(i));
-          if s != Skill::None && !rep.contains(&s) {
-            rep.push(s);
+    mode: Option<config::GameMode>,
+  ) -> Result<Self, Error> {
+    if raw.len() < 67 {
+      return Err(Error::InvalidByteLength {
+        expected: 67,
+        actual: raw.len(),
+      });
+    }
+    let char_id = Character::from_raw(u16::from_le_bytes([raw[1], raw[2]]));
+    let class_id = Class::from_raw(raw[3]);
+    let mut growths = [0u8; 8];
+    growths.copy_from_slice(&raw[10..18]);
+
+    let level = raw[18].max(1);
+    let exp = raw[19];
+    let current_hp = raw[20];
+    let boots_movement = raw[21];
+    let coords1 = [raw[22], raw[23]];
+    let coords2 = [raw[24], raw[25]];
+
+    let mut inventory = [None, None, None, None, None];
+    let mut equipped_slot = None;
+    for (slot, inv_slot) in inventory.iter_mut().enumerate() {
+      let off = 26 + slot * 5;
+      if off + 5 <= raw.len() {
+        let id = u16::from_le_bytes([raw[off + 1], raw[off + 2]]);
+        if id != 0 && id != 0xFFFF {
+          let raw_uses = u16::from_le_bytes([raw[off + 3], raw[off + 4]]);
+          let uses = raw_uses & 0x0FFF;
+          let item_type = item::ItemType::from_raw(id);
+          if let Ok(it) = item::Item::with_durability(item_type, uses) {
+            *inv_slot = Some(it);
+          }
+          if (raw_uses & 0x1000) != 0 {
+            equipped_slot = Some(slot);
           }
         }
-        rep
-      },
-      status: r.status(mode),
-      offset,
+      }
     }
+
+    let mut skills = [Skill::None; 5];
+    for (slot, skill_slot) in skills.iter_mut().enumerate() {
+      let off = 51 + slot * 2;
+      if off + 2 <= raw.len() {
+        *skill_slot =
+          Skill::from_raw(u16::from_le_bytes([raw[off], raw[off + 1]]));
+      }
+    }
+
+    let mut weapon_ranks = [0u8; 6];
+    weapon_ranks.copy_from_slice(&raw[61..67]);
+
+    let support_size = usize::from(raw[67]);
+    let unk_idx = 67 + 1 + support_size;
+    let unk_size = if unk_idx < raw.len() {
+      usize::from(raw[unk_idx])
+    } else {
+      0
+    };
+    let flags_off = unk_idx + 1 + unk_size;
+    let skill_off = flags_off + 0x2A;
+    let end_off = skill_off + 0xD;
+
+    let mut repertoire = Vec::new();
+    if skill_off + 0xD <= raw.len() {
+      let skill_bytes = &raw[skill_off..skill_off + 0xD];
+      for sk_id in 1..=0x66 {
+        let byte_idx = sk_id / 8;
+        let bit_idx = sk_id % 8;
+        if byte_idx < skill_bytes.len()
+          && (skill_bytes[byte_idx] & (1 << bit_idx)) != 0
+          && let Ok(sk_u16) = u16::try_from(sk_id)
+        {
+          repertoire.push(Skill::from_raw(sk_u16));
+        }
+      }
+    }
+
+    let battles = if end_off + 0x33 <= raw.len() {
+      u16::from_le_bytes([raw[end_off + 0x31], raw[end_off + 0x32]])
+    } else {
+      0
+    };
+    let victories = if end_off + 0x35 <= raw.len() {
+      u16::from_le_bytes([raw[end_off + 0x33], raw[end_off + 0x34]])
+    } else {
+      0
+    };
+
+    let status = if mode == Some(config::GameMode::Casual) {
+      UnitStatus::Active
+    } else if current_hp == 0 {
+      if char_id.is_story_anchor() {
+        UnitStatus::Retreated
+      } else {
+        UnitStatus::Dead
+      }
+    } else {
+      UnitStatus::Active
+    };
+
+    let battle_state = if coords1 != [0, 0] || coords2 != [0, 0] {
+      Some(BattleState::new(
+        current_hp,
+        boots_movement,
+        coords1,
+        coords2,
+      ))
+    } else {
+      None
+    };
+
+    Ok(Self {
+      character: char_id,
+      gender: char_id.gender(),
+      class: class_id,
+      level,
+      exp,
+      hp: Self::build_stat(char_id, class_id, 0, StatKind::Hp, growths[0]),
+      strength: Self::build_stat(
+        char_id,
+        class_id,
+        1,
+        StatKind::Strength,
+        growths[1],
+      ),
+      magic: Self::build_stat(
+        char_id,
+        class_id,
+        2,
+        StatKind::Magic,
+        growths[2],
+      ),
+      skill: Self::build_stat(
+        char_id,
+        class_id,
+        3,
+        StatKind::Skill,
+        growths[3],
+      ),
+      speed: Self::build_stat(
+        char_id,
+        class_id,
+        4,
+        StatKind::Speed,
+        growths[4],
+      ),
+      luck: Self::build_stat(char_id, class_id, 5, StatKind::Luck, growths[5]),
+      defense: Self::build_stat(
+        char_id,
+        class_id,
+        6,
+        StatKind::Defense,
+        growths[6],
+      ),
+      resistance: Self::build_stat(
+        char_id,
+        class_id,
+        7,
+        StatKind::Resist,
+        growths[7],
+      ),
+      boots_movement,
+      weapon_ranks,
+      battles,
+      victories,
+      inventory,
+      equipped_slot,
+      skills,
+      repertoire,
+      status,
+      offset,
+      battle_state,
+      raw_bytes: raw.to_vec(),
+    })
+  }
+
+  /// Serializes modified unit fields back into a binary unit record.
+  #[must_use]
+  pub(crate) fn to_bytes(&self) -> Vec<u8> {
+    let mut bytes = if self.raw_bytes.is_empty() {
+      let mut v = vec![0u8; 187];
+      for slot in 0..5 {
+        v[26 + slot * 5] = 0x04;
+      }
+      v
+    } else {
+      self.raw_bytes.clone()
+    };
+    self.write_back(&mut bytes);
+    bytes
   }
 
   /// Returns the byte offset of this unit entry within the TINU block.
@@ -149,17 +488,34 @@ impl Unit {
 
   /// Returns the concrete 16-bit identifier of this unit in the save file.
   #[must_use]
-  pub const fn raw_id(&self) -> u16 {
-    match (self.character, self.gender) {
-      (Character::Robin, Gender::Male) => 0,
-      (Character::Robin, Gender::Female) => 1,
-      (Character::Morgan, Gender::Male) => 39,
-      (Character::Morgan, Gender::Female) => 40,
-      _ => match self.character.raw_id() {
-        Some(id) => id,
-        None => 0,
-      },
+  pub(crate) const fn raw_id(&self) -> u16 {
+    self.character.raw_id()
+  }
+
+  /// Returns the concrete 8-bit class identifier in the save file,
+  /// resolved against the unit's biological gender.
+  #[must_use]
+  pub(crate) const fn class_id(&self) -> u8 {
+    self.class.raw_id(self.gender)
+  }
+
+  /// Updates the unit's canonical character identity with strict validation.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::ClassIncompatible`] if the current class is ineligible
+  /// for the new character's biological gender. Never silently auto-reclasses!
+  pub fn set_character(&mut self, character: Character) -> Result<(), Error> {
+    let gender = character.gender();
+    if !self.class.is_eligible(gender) {
+      return Err(Error::ClassIncompatible {
+        character,
+        class: self.class,
+      });
     }
+    self.character = character;
+    self.gender = gender;
+    Ok(())
   }
 
   /// Returns the canonical character display name.
@@ -188,28 +544,190 @@ impl Unit {
 
   /// Sets the unit's biological gender with class compatibility checks.
   ///
-  /// # Side Effects
-  ///
-  /// Automatically resolves gender-paired variants for the current class
-  /// (e.g. Priest <-> Cleric). If the unit's class is gender-exclusive and
-  /// cannot be adapted (e.g. Berserker or Bride), the mutation is rejected.
-  ///
   /// # Errors
   ///
-  /// Returns [`error::Error::GenderIncompatibleClass`] if the current class
-  /// is incompatible with the requested gender.
-  pub fn set_gender(&mut self, gender: Gender) -> Result<(), error::Error> {
-    let resolved = self.class.resolve_for_gender(gender);
-    if !resolved.is_eligible_for_gender(gender) {
-      return Err(error::Error::GenderIncompatibleClass {
-        character: self.character,
-        class: resolved,
+  /// Returns [`Error::ClassGenderMismatch`] if the current class is incompatible
+  /// with the requested gender.
+  pub fn set_gender(&mut self, gender: Gender) -> Result<(), Error> {
+    if !self.class.is_eligible(gender) {
+      return Err(Error::ClassGenderMismatch {
+        class: self.class,
         gender,
       });
     }
     self.gender = gender;
-    self.class = resolved;
+    if self.character.is_robin() {
+      self.character = match gender {
+        Gender::Male => Character::RobinM,
+        Gender::Female => Character::RobinF,
+      };
+    } else if self.character.is_morgan() {
+      self.character = match gender {
+        Gender::Male => Character::MorganM,
+        Gender::Female => Character::MorganF,
+      };
+    }
     Ok(())
+  }
+
+  /// Returns an iterator over references to the combat attributes (HP, Str, Mag, Skl, Spd, Lck, Def, Res).
+  pub fn stats(&self) -> impl Iterator<Item = &Stat> {
+    [
+      &self.hp,
+      &self.strength,
+      &self.magic,
+      &self.skill,
+      &self.speed,
+      &self.luck,
+      &self.defense,
+      &self.resistance,
+    ]
+    .into_iter()
+  }
+
+  /// Returns an iterator over mutable references to the combat attributes.
+  pub(crate) fn stats_mut(&mut self) -> impl Iterator<Item = &mut Stat> {
+    [
+      &mut self.hp,
+      &mut self.strength,
+      &mut self.magic,
+      &mut self.skill,
+      &mut self.speed,
+      &mut self.luck,
+      &mut self.defense,
+      &mut self.resistance,
+    ]
+    .into_iter()
+  }
+
+  /// Returns a reference to the combat stat corresponding to `kind`.
+  #[must_use]
+  pub const fn stat(&self, kind: StatKind) -> &Stat {
+    match kind {
+      StatKind::Hp => &self.hp,
+      StatKind::Strength => &self.strength,
+      StatKind::Magic => &self.magic,
+      StatKind::Skill => &self.skill,
+      StatKind::Speed => &self.speed,
+      StatKind::Luck => &self.luck,
+      StatKind::Defense => &self.defense,
+      StatKind::Resist => &self.resistance,
+    }
+  }
+
+  /// Returns the level-up stat growth bonuses.
+  #[must_use]
+  pub fn growths(&self) -> [u8; 8] {
+    [
+      self.hp.growth,
+      self.strength.growth,
+      self.magic.growth,
+      self.skill.growth,
+      self.speed.growth,
+      self.luck.growth,
+      self.defense.growth,
+      self.resistance.growth,
+    ]
+  }
+
+  /// Total movement tiles (class base + boots bonus).
+  #[must_use]
+  pub fn movement(&self) -> u8 {
+    self
+      .class
+      .base_movement()
+      .saturating_add(self.boots_movement)
+  }
+
+  /// Permanent movement bonus granted by Boots (stored at offset 0x15).
+  #[must_use]
+  pub const fn boots_movement(&self) -> u8 {
+    self.boots_movement
+  }
+
+  /// Sets total movement tiles, adjusting the boots bonus accordingly.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::MovementOutOfBounds`] if `total < base` or `total > 99`.
+  pub fn set_movement(&mut self, total_movement: u8) -> Result<(), Error> {
+    let base = self.class.base_movement();
+    if total_movement < base || total_movement > stat::UNIVERSAL_STAT_CEILING {
+      return Err(Error::MovementOutOfBounds {
+        value: total_movement,
+        min: base,
+        max: stat::UNIVERSAL_STAT_CEILING,
+      });
+    }
+    let bonus = total_movement - base;
+    if bonus > stat::MAX_SAFE_BOOTS_BONUS {
+      return Err(Error::MovementOutOfBounds {
+        value: total_movement,
+        min: base,
+        max: base.saturating_add(stat::MAX_SAFE_BOOTS_BONUS),
+      });
+    }
+    self.boots_movement = bonus;
+    Ok(())
+  }
+
+  /// Sets the boots movement bonus directly with safe ceiling bounds.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::BootsBonusOutOfBounds`] if `bonus > 91`.
+  pub fn set_boots_movement(&mut self, bonus: u8) -> Result<(), Error> {
+    if bonus > stat::MAX_SAFE_BOOTS_BONUS {
+      return Err(Error::BootsBonusOutOfBounds {
+        value: bonus,
+        max: stat::MAX_SAFE_BOOTS_BONUS,
+      });
+    }
+    self.boots_movement = bonus;
+    Ok(())
+  }
+
+  /// Calculates the displayed combat rating.
+  ///
+  /// Rating = Str + Mag + Skl + Spd + Lck + Def + Res + Mov.
+  #[must_use]
+  pub fn rating(&self) -> u16 {
+    u16::from(self.strength.total())
+      + u16::from(self.magic.total())
+      + u16::from(self.skill.total())
+      + u16::from(self.speed.total())
+      + u16::from(self.luck.total())
+      + u16::from(self.defense.total())
+      + u16::from(self.resistance.total())
+      + u16::from(self.movement())
+  }
+
+  /// Returns the weapon proficiency ranks.
+  #[must_use]
+  pub const fn weapon_ranks(&self) -> &[u8; 6] {
+    &self.weapon_ranks
+  }
+
+  /// Returns total battles fought by this unit.
+  #[must_use]
+  pub const fn battles(&self) -> u16 {
+    self.battles
+  }
+
+  /// Sets total battles fought by this unit.
+  pub fn set_battles(&mut self, battles: u16) {
+    self.battles = battles;
+  }
+
+  /// Returns total victories won by this unit.
+  #[must_use]
+  pub const fn victories(&self) -> u16 {
+    self.victories
+  }
+
+  /// Sets total victories won by this unit.
+  pub fn set_victories(&mut self, victories: u16) {
+    self.victories = victories;
   }
 
   /// Returns character experience level (1..=40).
@@ -222,15 +740,10 @@ impl Unit {
   ///
   /// # Errors
   ///
-  /// Returns [`error::Error::StatOutOfBounds`] if `level` is outside `[1, 40]`.
-  pub fn set_level(&mut self, level: u8) -> Result<(), error::Error> {
+  /// Returns [`Error::LevelOutOfBounds`] if `level` is outside `[1, 40]`.
+  pub fn set_level(&mut self, level: u8) -> Result<(), Error> {
     if level == 0 || level > 40 {
-      return Err(error::Error::StatOutOfBounds {
-        stat: "level",
-        value: level,
-        min: 1,
-        max: 40,
-      });
+      return Err(Error::LevelOutOfBounds { level });
     }
     self.level = level;
     Ok(())
@@ -246,15 +759,10 @@ impl Unit {
   ///
   /// # Errors
   ///
-  /// Returns [`error::Error::StatOutOfBounds`] if `exp > 99`.
-  pub fn set_exp(&mut self, exp: u8) -> Result<(), error::Error> {
+  /// Returns [`Error::ExpOutOfBounds`] if `exp > 99`.
+  pub fn set_exp(&mut self, exp: u8) -> Result<(), Error> {
     if exp > 99 {
-      return Err(error::Error::StatOutOfBounds {
-        stat: "exp",
-        value: exp,
-        min: 0,
-        max: 99,
-      });
+      return Err(Error::ExpOutOfBounds { exp });
     }
     self.exp = exp;
     Ok(())
@@ -272,14 +780,10 @@ impl Unit {
   ///
   /// # Errors
   ///
-  /// Returns [`error::Error::SlotOutOfBounds`] if `slot >= 5`.
-  pub fn set_skill(
-    &mut self,
-    slot: usize,
-    skill: Skill,
-  ) -> Result<(), error::Error> {
+  /// Returns [`Error::SkillSlotOutOfBounds`] if `slot >= 5`.
+  pub fn set_skill(&mut self, slot: usize, skill: Skill) -> Result<(), Error> {
     if slot >= 5 {
-      return Err(error::Error::SlotOutOfBounds { slot });
+      return Err(Error::SkillSlotOutOfBounds { slot });
     }
     self.skills[slot] = skill;
     if skill != Skill::None && !self.repertoire.contains(&skill) {
@@ -324,48 +828,52 @@ impl Unit {
   ///
   /// # Errors
   ///
-  /// Returns [`error::Error::GenderIncompatibleClass`] if the unit's biological
+  /// Returns [`Error::ClassGenderMismatch`] if the unit's biological
   /// gender cannot reclass to the requested class.
-  pub fn set_class(&mut self, class: Class) -> Result<(), error::Error> {
-    let gender = self.gender;
-    let resolved = class.resolve_for_gender(gender);
-    if !resolved.is_eligible_for_gender(gender) {
-      return Err(error::Error::GenderIncompatibleClass {
-        character: self.character,
-        class: resolved,
-        gender,
+  pub fn set_class(&mut self, class: Class) -> Result<(), Error> {
+    if !class.is_eligible(self.gender) {
+      return Err(Error::ClassGenderMismatch {
+        class,
+        gender: self.gender,
       });
     }
-    self.class = resolved;
+    self.class = class;
     if let Some(eq_slot) = self.equipped_slot
-      && let Some(item_slot) = &self.inventory[eq_slot]
-      && !class.can_use(item_slot.item().kind())
+      && let Some(item) = &self.inventory[eq_slot]
+      && !class.can_use(item.item_type().kind())
     {
       self.equipped_slot = None;
+    }
+    let additions = self.character.additions();
+    let modifiers = self.character.modifiers();
+    for (idx, stat) in self.stats_mut().enumerate() {
+      let raw_base =
+        i16::from(class.base_stats()[idx]) + i16::from(additions[idx]);
+      let new_base = u8::try_from(raw_base.clamp(0, 99)).unwrap_or(0);
+      let new_cap = if idx == 0 {
+        stat::UNIVERSAL_STAT_CEILING
+      } else {
+        let raw_cap =
+          i16::from(class.max_stats()[idx]) + i16::from(modifiers[idx]);
+        u8::try_from(raw_cap.clamp(0, 99))
+          .unwrap_or(stat::UNIVERSAL_STAT_CEILING)
+      };
+      stat.clamp_on_reclass(new_base, new_cap);
     }
     Ok(())
   }
 
   /// Returns a borrowed slice of the 5 inventory item slots.
   #[must_use]
-  pub const fn inventory(&self) -> &[Option<item::ItemSlot>; 5] {
+  pub const fn inventory(&self) -> &[Option<item::Item>; 5] {
     &self.inventory
   }
 
-  /// Returns a reference to the item slot at index `slot` (0..5).
+  /// Returns a reference to the item at index `slot` (0..5).
   #[must_use]
-  pub fn item(&self, slot: usize) -> Option<&item::ItemSlot> {
+  pub fn item(&self, slot: usize) -> Option<&item::Item> {
     if slot < 5 {
       self.inventory[slot].as_ref()
-    } else {
-      None
-    }
-  }
-
-  /// Returns a mutable reference to the item slot at index `slot` (0..5).
-  pub fn item_mut(&mut self, slot: usize) -> Option<&mut item::ItemSlot> {
-    if slot < 5 {
-      self.inventory[slot].as_mut()
     } else {
       None
     }
@@ -389,184 +897,143 @@ impl Unit {
   ///
   /// # Errors
   ///
-  /// - Returns [`error::Error::SlotOutOfBounds`] if `slot >= 5`.
-  /// - Returns [`error::Error::EmptySlot`] if the slot has no item.
-  /// - Returns [`error::Error::CannotEquipNonWeapon`] if the item is not equippable.
-  /// - Returns [`error::Error::ClassCannotEquip`] if the unit's class cannot use it.
-  pub fn equip(&mut self, slot: usize) -> Result<(), error::Error> {
+  /// - Returns [`Error::SlotOutOfBounds`] if `slot >= 5`.
+  /// - Returns [`Error::EmptySlot`] if the slot has no item.
+  /// - Returns [`Error::CannotEquipNonWeapon`] if the item is not equippable.
+  /// - Returns [`Error::ClassCannotEquip`] if the unit's class cannot use it.
+  pub fn equip(&mut self, slot: usize) -> Result<(), Error> {
     if slot >= 5 {
-      return Err(error::Error::SlotOutOfBounds { slot });
+      return Err(Error::SlotOutOfBounds { slot });
     }
-    let Some(item_slot) = &self.inventory[slot] else {
-      return Err(error::Error::EmptySlot { slot });
+    let Some(it) = &self.inventory[slot] else {
+      return Err(Error::EmptySlot { slot });
     };
-    if !item_slot.item().is_equippable() {
-      return Err(error::Error::CannotEquipNonWeapon {
-        item: item_slot.item(),
+    if !it.item_type().is_equippable() {
+      return Err(Error::CannotEquipNonWeapon {
+        item_type: it.item_type(),
       });
     }
-    if !self.class.can_use(item_slot.item().kind()) {
-      return Err(error::Error::ClassCannotEquip {
+    if !self.class.can_use(it.item_type().kind()) {
+      return Err(Error::ClassCannotEquip {
         class: self.class,
-        item: item_slot.item(),
+        kind: it.item_type().kind(),
       });
     }
     self.equipped_slot = Some(slot);
     Ok(())
   }
 
-  /// Unequips the currently active weapon.
+  /// Unequips the currently equipped weapon.
   pub fn unequip(&mut self) {
     self.equipped_slot = None;
   }
 
-  /// Sets all level-up stat growth bonuses to maximum (255).
-  ///
-  /// # Side Effects
-  ///
-  /// Modifies all 8 stat growth attributes and corresponding stats to 255.
-  pub fn max_growths(&mut self) {
-    self.growths.fill(255);
-    for i in 0..8 {
-      let base = i16::from(self.class.base_stats()[i])
-        + i16::from(self.character.additions()[i]);
-      let max = if i == 0 {
-        99
-      } else {
-        (i16::from(self.class.max_stats()[i])
-          + i16::from(self.character.modifiers()[i]))
-        .max(0)
-      };
-      let total = u8::try_from((base + 255).clamp(0, max)).unwrap_or(0);
-      match i {
-        0 => self.stats.hp = total,
-        1 => self.stats.strength = total,
-        2 => self.stats.magic = total,
-        3 => self.stats.skill = total,
-        4 => self.stats.speed = total,
-        5 => self.stats.luck = total,
-        6 => self.stats.defense = total,
-        7 => self.stats.resistance = total,
-        _ => {}
-      }
-    }
-  }
-
-  /// Sets all weapon proficiencies to maximum Rank A (90).
-  ///
-  /// # Side Effects
-  ///
-  /// Modifies all 6 weapon proficiencies to 90.
-  pub fn max_weapon_ranks(&mut self) {
-    self.weapon_ranks.fill(90);
-  }
-
-  /// Sets a specific stat growth bonus attribute.
-  ///
-  /// # Side Effects
-  ///
-  /// Modifies the growth byte and corresponding stat at `stat_index`.
+  /// Sets an item in a specific inventory slot (0..5).
   ///
   /// # Errors
   ///
-  /// Returns [`error::Error::SlotOutOfBounds`] if `stat_index >= 8`.
-  pub fn set_growth(
-    &mut self,
-    stat_index: usize,
-    value: u8,
-  ) -> Result<(), error::Error> {
-    if stat_index >= 8 {
-      return Err(error::Error::SlotOutOfBounds { slot: stat_index });
-    }
-    self.growths[stat_index] = value;
-    let base = i16::from(self.class.base_stats()[stat_index])
-      + i16::from(self.character.additions()[stat_index]);
-    let max = if stat_index == 0 {
-      99
-    } else {
-      (i16::from(self.class.max_stats()[stat_index])
-        + i16::from(self.character.modifiers()[stat_index]))
-      .max(0)
-    };
-    let total =
-      u8::try_from((base + i16::from(value)).clamp(0, max)).unwrap_or(0);
-    match stat_index {
-      0 => self.stats.hp = total,
-      1 => self.stats.strength = total,
-      2 => self.stats.magic = total,
-      3 => self.stats.skill = total,
-      4 => self.stats.speed = total,
-      5 => self.stats.luck = total,
-      6 => self.stats.defense = total,
-      7 => self.stats.resistance = total,
-      _ => {}
-    }
-    Ok(())
-  }
-
-  /// Sets a specific weapon proficiency rank.
-  ///
-  /// # Side Effects
-  ///
-  /// Modifies the weapon exp byte at `rank_index`.
-  ///
-  /// # Errors
-  ///
-  /// Returns [`error::Error::SlotOutOfBounds`] if `rank_index >= 6`.
-  pub fn set_weapon_rank(
-    &mut self,
-    rank_index: usize,
-    value: u8,
-  ) -> Result<(), error::Error> {
-    if rank_index >= 6 {
-      return Err(error::Error::SlotOutOfBounds { slot: rank_index });
-    }
-    self.weapon_ranks[rank_index] = value;
-    Ok(())
-  }
-
-  /// Sets an item and its remaining uses in a specific inventory slot (0..5).
-  ///
-  /// # Errors
-  ///
-  /// - Returns [`error::Error::SlotOutOfBounds`] if `slot >= 5`.
-  /// - Returns [`error::Error::DurabilityOverflow`] if `uses > 4095`.
+  /// Returns [`Error::SlotOutOfBounds`] if `slot >= 5`.
   pub fn set_item(
     &mut self,
     slot: usize,
     item: item::Item,
-    uses: u16,
-  ) -> Result<(), error::Error> {
+  ) -> Result<(), Error> {
     if slot >= 5 {
-      return Err(error::Error::SlotOutOfBounds { slot });
+      return Err(Error::SlotOutOfBounds { slot });
     }
-    let slot_entry = item::ItemSlot::with_uses(item, uses)?;
-    self.inventory[slot] = Some(slot_entry);
+    let item_type = item.item_type();
+    self.inventory[slot] = Some(item);
     if self.equipped_slot == Some(slot)
-      && (!item.is_equippable() || !self.class.can_use(item.kind()))
+      && (!item_type.is_equippable() || !self.class.can_use(item_type.kind()))
     {
       self.equipped_slot = None;
     }
     Ok(())
   }
 
-  /// Clears the item in the specified inventory slot (0..5).
-  pub fn clear_item(&mut self, slot: usize) {
-    if slot < 5 {
-      self.inventory[slot] = None;
-      if self.equipped_slot == Some(slot) {
-        self.equipped_slot = None;
-      }
+  /// Clears an item slot (0..5), unequipping it if currently active.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::SlotOutOfBounds`] if `slot >= 5`.
+  pub fn clear_item(&mut self, slot: usize) -> Result<(), Error> {
+    if slot >= 5 {
+      return Err(Error::SlotOutOfBounds { slot });
+    }
+    self.inventory[slot] = None;
+    if self.equipped_slot == Some(slot) {
+      self.equipped_slot = None;
+    }
+    Ok(())
+  }
+
+  /// Sets a specific level-up stat growth bonus.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::GrowthOutOfBounds`] if `stat_index >= 8`.
+  pub fn set_growth(
+    &mut self,
+    stat_index: usize,
+    value: u8,
+  ) -> Result<(), Error> {
+    match stat_index {
+      0 => self.hp.set_growth(value).map_err(Into::into),
+      1 => self.strength.set_growth(value).map_err(Into::into),
+      2 => self.magic.set_growth(value).map_err(Into::into),
+      3 => self.skill.set_growth(value).map_err(Into::into),
+      4 => self.speed.set_growth(value).map_err(Into::into),
+      5 => self.luck.set_growth(value).map_err(Into::into),
+      6 => self.defense.set_growth(value).map_err(Into::into),
+      7 => self.resistance.set_growth(value).map_err(Into::into),
+      _ => Err(Error::GrowthOutOfBounds {
+        index: stat_index,
+        value,
+      }),
     }
   }
 
-  /// Returns the operational deployment status of the unit.
+  /// Sets all level-up growth bonuses to maximum (99 - base).
+  pub fn max_growths(&mut self) {
+    for stat in self.stats_mut() {
+      let _ = stat.set_total(stat::UNIVERSAL_STAT_CEILING);
+    }
+  }
+
+  /// Sets a specific weapon proficiency rank.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::WeaponRankOutOfBounds`] if `rank_index >= 6`.
+  pub fn set_weapon_rank(
+    &mut self,
+    rank_index: usize,
+    value: u8,
+  ) -> Result<(), Error> {
+    if rank_index >= 6 {
+      return Err(Error::WeaponRankOutOfBounds {
+        index: rank_index,
+        value,
+      });
+    }
+    self.weapon_ranks[rank_index] = value;
+    Ok(())
+  }
+
+  /// Sets all weapon proficiency ranks to S rank (90 `WExp`).
+  pub fn max_weapon_ranks(&mut self) {
+    for i in 0..6 {
+      let _ = self.set_weapon_rank(i, 90);
+    }
+  }
+
+  /// Returns current operational combat status.
   #[must_use]
   pub const fn status(&self) -> UnitStatus {
     self.status
   }
 
-  /// Returns high-level army availability status.
+  /// Returns high-level deployment availability status.
   #[must_use]
   pub const fn availability(&self) -> Availability {
     match self.status {
@@ -575,36 +1042,37 @@ impl Unit {
     }
   }
 
-  /// Returns true if the unit is actively deployed and available.
+  /// Returns true if unit is active and eligible for combat deployment.
   #[must_use]
   pub const fn is_active(&self) -> bool {
-    matches!(self.status, UnitStatus::Active)
+    match self.status {
+      UnitStatus::Active => true,
+      UnitStatus::Retreated | UnitStatus::Dead => false,
+    }
   }
 
-  /// Sets the operational deployment status of the unit.
+  /// Sets operational combat status.
   ///
   /// # Errors
   ///
-  /// Returns [`error::Error::AnchorUnitProtected`] if attempting to set a story
+  /// Returns [`Error::AnchorUnitProtected`] if attempting to set a story
   /// anchor unit to [`UnitStatus::Dead`].
-  pub fn set_status(&mut self, status: UnitStatus) -> Result<(), error::Error> {
+  pub fn set_status(&mut self, status: UnitStatus) -> Result<(), Error> {
     if self.is_story_anchor() && status == UnitStatus::Dead {
-      return Err(error::Error::AnchorUnitProtected {
+      return Err(Error::AnchorUnitProtected {
         character: self.character,
       });
     }
     self.status = status;
     if status == UnitStatus::Dead {
-      self.stats.hp = 0;
-      self.stats.strength = 0;
-      self.stats.magic = 0;
-      self.stats.skill = 0;
-      self.stats.speed = 0;
-      self.stats.luck = 0;
-      self.stats.defense = 0;
-      self.stats.resistance = 0;
-    } else if self.stats.hp == 0 {
-      self.stats.hp = 10;
+      self.hp.growth = 0;
+      self.strength.growth = 0;
+      self.magic.growth = 0;
+      self.skill.growth = 0;
+      self.speed.growth = 0;
+      self.luck.growth = 0;
+      self.defense.growth = 0;
+      self.resistance.growth = 0;
     }
     Ok(())
   }
@@ -612,91 +1080,174 @@ impl Unit {
   /// Revives a dead or retreated unit to active status with restored hit points.
   pub fn revive(&mut self) {
     self.status = UnitStatus::Active;
-    if self.stats.hp == 0 {
-      self.stats.hp = 10;
-    }
-    if self.stats.strength == 0
-      && self.stats.magic == 0
-      && self.stats.skill == 0
-      && self.stats.speed == 0
-      && self.stats.luck == 0
-      && self.stats.defense == 0
-      && self.stats.resistance == 0
-    {
-      self.stats.strength = 5;
-      self.stats.magic = 5;
-      self.stats.skill = 5;
-      self.stats.speed = 5;
-      self.stats.luck = 5;
-      self.stats.defense = 5;
-      self.stats.resistance = 5;
-    }
-    if self.level == 0 {
-      self.level = 1;
+  }
+
+  /// Returns a reference to the active battle state, if deployed on a battle map.
+  #[must_use]
+  pub const fn battle_state(&self) -> Option<&BattleState> {
+    self.battle_state.as_ref()
+  }
+
+  /// Returns a mutable reference to the active battle state, if deployed on a battle map.
+  pub(crate) fn battle_state_mut(&mut self) -> Option<&mut BattleState> {
+    self.battle_state.as_mut()
+  }
+
+  /// Sets or clears the active battle state.
+  pub fn set_battle_state(&mut self, state: Option<BattleState>) {
+    self.battle_state = state;
+  }
+
+  /// Returns current live hit points.
+  #[must_use]
+  pub const fn current_hp(&self) -> u8 {
+    if let Some(bs) = &self.battle_state {
+      bs.current_hp
+    } else {
+      self.hp.total()
     }
   }
 
+  /// Sets current live hit points.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::Stat`] if `hp > 99`.
+  pub fn set_current_hp(&mut self, hp: u8) -> Result<(), Error> {
+    if hp > stat::UNIVERSAL_STAT_CEILING {
+      return Err(
+        stat::Error::StatOutOfBounds {
+          stat: StatKind::Hp,
+          value: hp,
+          min: 0,
+          max: stat::UNIVERSAL_STAT_CEILING,
+        }
+        .into(),
+      );
+    }
+    if let Some(bs) = &mut self.battle_state {
+      bs.current_hp = hp;
+    }
+    Ok(())
+  }
+
+  /// Returns battle map coordinates `[x, y]` if deployed.
+  #[must_use]
+  pub const fn coordinates(&self) -> Option<[u8; 2]> {
+    if let Some(bs) = &self.battle_state {
+      Some(bs.coordinates)
+    } else {
+      None
+    }
+  }
+
+  /// Sets battle map coordinates `[x, y]` with bounds check `[0..=32]`.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::CoordinatesOutOfBounds`] if coordinates exceed 32.
+  pub fn set_coordinates(&mut self, x: u8, y: u8) -> Result<(), Error> {
+    if x > 32 || y > 32 {
+      return Err(Error::CoordinatesOutOfBounds { x, y });
+    }
+    if let Some(bs) = &mut self.battle_state {
+      bs.coordinates = [x, y];
+    }
+    Ok(())
+  }
+
+  /// Returns pair-up partner coordinates `[x, y]` if deployed.
+  #[must_use]
+  pub const fn pair_up_coordinates(&self) -> Option<[u8; 2]> {
+    if let Some(bs) = &self.battle_state {
+      Some(bs.pair_up_coordinates)
+    } else {
+      None
+    }
+  }
+
+  /// Sets pair-up partner coordinates `[x, y]` with bounds check `[0..=32]`.
+  ///
+  /// # Errors
+  ///
+  /// Returns [`Error::CoordinatesOutOfBounds`] if coordinates exceed 32.
+  pub fn set_pair_up_coordinates(&mut self, x: u8, y: u8) -> Result<(), Error> {
+    if x > 32 || y > 32 {
+      return Err(Error::CoordinatesOutOfBounds { x, y });
+    }
+    if let Some(bs) = &mut self.battle_state {
+      bs.pair_up_coordinates = [x, y];
+    }
+    Ok(())
+  }
+
   /// Writes modified unit fields back into a raw unit slice.
-  pub fn write_back(&self, slice: &mut [u8]) {
-    if slice.len() < 32 {
+  #[expect(
+    clippy::too_many_lines,
+    reason = "Comprehensive binary encoder supporting canonical and legacy layouts"
+  )]
+  pub(crate) fn write_back(&self, slice: &mut [u8]) {
+    if slice.len() < 26 {
       return;
     }
+    let is_canonical = slice.len() > 26 && slice[26] == 0x04;
+    let base = usize::from(is_canonical);
+
     let pid = self.raw_id();
-    slice[0..2].copy_from_slice(&pid.to_le_bytes());
-    slice[2] = self.class.raw_id_for_gender(self.gender);
-    for i in 0..8 {
-      if slice.len() > 9 + i {
-        let base = i16::from(self.class.base_stats()[i])
-          + i16::from(self.character.additions()[i]);
-        let max = if i == 0 {
-          99
-        } else {
-          (i16::from(self.class.max_stats()[i])
-            + i16::from(self.character.modifiers()[i]))
-          .max(0)
-        };
-        let stat_val = match i {
-          0 => self.stats.hp,
-          1 => self.stats.strength,
-          2 => self.stats.magic,
-          3 => self.stats.skill,
-          4 => self.stats.speed,
-          5 => self.stats.luck,
-          6 => self.stats.defense,
-          7 => self.stats.resistance,
-          _ => 0,
-        };
-        let calc_from_growth =
-          u8::try_from((base + i16::from(self.growths[i])).clamp(0, max))
-            .unwrap_or(0);
-        let growth_to_write = if stat_val == calc_from_growth {
-          self.growths[i]
-        } else {
-          u8::try_from((i16::from(stat_val) - base).clamp(0, 255)).unwrap_or(0)
-        };
-        slice[9 + i] = growth_to_write;
+    slice[base..base + 2].copy_from_slice(&pid.to_le_bytes());
+    if base + 2 < slice.len() {
+      slice[base + 2] = self.class_id();
+    }
+    let growths = self.growths();
+    let g_start = if is_canonical { 10 } else { 9 };
+    for (i, &g) in growths.iter().enumerate() {
+      if g_start + i < slice.len() {
+        slice[g_start + i] = g;
       }
     }
-    if slice.len() >= 20 {
-      slice[17] = self.level;
-      slice[18] = self.exp;
-      slice[19] = self.stats.hp;
+    let lvl_off = if is_canonical { 18 } else { 17 };
+    if lvl_off + 2 <= slice.len() {
+      slice[lvl_off] = self.level;
+      slice[lvl_off + 1] = self.exp;
+    }
+    let hp_off = if is_canonical { 20 } else { 19 };
+    if hp_off < slice.len() {
+      slice[hp_off] = if let Some(bs) = &self.battle_state {
+        bs.current_hp
+      } else {
+        self.hp.total()
+      };
+    }
+    let boots_off = 21;
+    if boots_off < slice.len() {
+      slice[boots_off] = if let Some(bs) = &self.battle_state {
+        bs.boots_movement
+      } else {
+        self.boots_movement
+      };
+    }
+    if is_canonical
+      && slice.len() >= 26
+      && let Some(bs) = &self.battle_state
+    {
+      slice[22..24].copy_from_slice(&bs.coordinates);
+      slice[24..26].copy_from_slice(&bs.pair_up_coordinates);
     }
 
-    // Inventory records at offsets 25..50 (5 slots * 5 bytes)
+    let inv_start = if is_canonical { 26 } else { 25 };
     for (i, slot) in self.inventory.iter().enumerate() {
-      let off = 25 + i * 5;
+      let off = inv_start + i * 5;
       if off + 5 <= slice.len() {
         if let Some(it) = slot {
           slice[off] = 0x04;
           slice[off + 1..off + 3]
-            .copy_from_slice(&it.item().raw_id().to_le_bytes());
+            .copy_from_slice(&it.item_type().raw_id().to_le_bytes());
           let equipped_flag = if self.equipped_slot == Some(i) {
             0x1000
           } else {
             0
           };
-          let raw_uses = (it.uses() & 0x0fff) | equipped_flag;
+          let raw_uses = (it.durability() & 0x0fff) | equipped_flag;
           slice[off + 3..off + 5].copy_from_slice(&raw_uses.to_le_bytes());
         } else {
           slice[off] = 0x04;
@@ -705,25 +1256,57 @@ impl Unit {
       }
     }
 
-    // Skill records at offsets 50..60 (5 slots * 2 bytes)
-    for (i, &sk) in self.skills.iter().enumerate() {
-      let off = 50 + i * 2;
+    let skl_start = if is_canonical { 51 } else { 50 };
+    for (i, slot) in self.skills.iter().enumerate() {
+      let off = skl_start + i * 2;
       if off + 2 <= slice.len() {
-        slice[off..off + 2].copy_from_slice(&sk.raw_id().to_le_bytes());
+        slice[off..off + 2].copy_from_slice(&slot.raw_id().to_le_bytes());
       }
     }
 
-    if slice.len() >= 66 {
-      slice[60..66].copy_from_slice(&self.weapon_ranks);
+    let wr_start = if is_canonical { 61 } else { 60 };
+    if wr_start + 6 <= slice.len() {
+      slice[wr_start..wr_start + 6].copy_from_slice(&self.weapon_ranks);
     }
 
-    // Learned skill bitfield flags
-    for &sk in &self.repertoire {
-      let id = usize::from(sk.raw_id());
-      if id > 0 {
-        let byte_idx = 66 + (id / 8);
-        if byte_idx < slice.len() {
-          slice[byte_idx] |= 1 << (id % 8);
+    if is_canonical && slice.len() > 67 {
+      let support_size = slice[67] as usize;
+      let unk_idx = 67 + 1 + support_size;
+      let unk_size = if unk_idx < slice.len() {
+        slice[unk_idx] as usize
+      } else {
+        0
+      };
+      let skill_off = unk_idx + 1 + unk_size + 0x2A;
+      let end_off = skill_off + 0xD;
+      if end_off + 0x35 <= slice.len() {
+        slice[end_off + 0x31..end_off + 0x33]
+          .copy_from_slice(&self.battles.to_le_bytes());
+        slice[end_off + 0x33..end_off + 0x35]
+          .copy_from_slice(&self.victories.to_le_bytes());
+      }
+      if skill_off + 0xD <= slice.len() {
+        slice[skill_off..skill_off + 0xD].fill(0);
+        for &sk in &self.repertoire {
+          let id = usize::from(sk.raw_id());
+          if id > 0 && id <= 0x66 {
+            let byte_idx = skill_off + (id / 8);
+            if byte_idx < slice.len() {
+              slice[byte_idx] |= 1 << (id % 8);
+            }
+          }
+        }
+      }
+    } else if slice.len() >= 70 {
+      slice[66..68].copy_from_slice(&self.battles.to_le_bytes());
+      slice[68..70].copy_from_slice(&self.victories.to_le_bytes());
+      for &sk in &self.repertoire {
+        let id = usize::from(sk.raw_id());
+        if id > 0 {
+          let byte_idx = 70 + (id / 8);
+          if byte_idx < slice.len() {
+            slice[byte_idx] |= 1 << (id % 8);
+          }
         }
       }
     }
@@ -736,20 +1319,32 @@ mod tests {
 
   #[test]
   fn test_unit_equipment_and_single_equipped_invariant() {
-    let mut unit = Unit::new(
-      Character::Chrom,
-      Class::Lord,
-      UnitStats {
-        hp: 45,
-        ..Default::default()
-      },
-      0,
-    );
+    let mut unit = Unit::new(Character::Chrom, Class::Lord, 0);
 
     // Lord can use swords, not axes
-    assert!(unit.set_item(0, item::Item::Falchion, 0).is_ok());
-    assert!(unit.set_item(1, item::Item::SteelAxe, 35).is_ok());
-    assert!(unit.set_item(2, item::Item::Vulnerary, 3).is_ok());
+    assert!(
+      unit
+        .set_item(0, item::Item::new(item::ItemType::Falchion))
+        .is_ok()
+    );
+    assert!(
+      unit
+        .set_item(
+          1,
+          item::Item::with_durability(item::ItemType::SteelAxe, 35)
+            .expect("steel axe")
+        )
+        .is_ok()
+    );
+    assert!(
+      unit
+        .set_item(
+          2,
+          item::Item::with_durability(item::ItemType::Vulnerary, 3)
+            .expect("vulnerary")
+        )
+        .is_ok()
+    );
 
     // Equip Falchion
     assert!(unit.equip(0).is_ok());
@@ -771,16 +1366,12 @@ mod tests {
 
   #[test]
   fn test_class_change_unequips_incompatible_weapon() {
-    let mut unit = Unit::new(
-      Character::Chrom,
-      Class::Lord,
-      UnitStats {
-        hp: 45,
-        ..Default::default()
-      },
-      0,
+    let mut unit = Unit::new(Character::Chrom, Class::Lord, 0);
+    assert!(
+      unit
+        .set_item(0, item::Item::new(item::ItemType::Falchion))
+        .is_ok()
     );
-    assert!(unit.set_item(0, item::Item::Falchion, 0).is_ok());
     assert!(unit.equip(0).is_ok());
     assert_eq!(unit.equipped_slot(), Some(0));
 
@@ -791,15 +1382,7 @@ mod tests {
 
   #[test]
   fn test_class_gender_restrictions_and_resolution() {
-    let mut chrom = Unit::new(
-      Character::Chrom,
-      Class::Lord,
-      UnitStats {
-        hp: 45,
-        ..Default::default()
-      },
-      0,
-    );
+    let mut chrom = Unit::new(Character::Chrom, Class::Lord, 0);
     // Chrom cannot become a Bride or Pegasus Knight
     assert!(chrom.set_class(Class::Bride).is_err());
     assert!(chrom.set_class(Class::PegasusKnight).is_err());
@@ -816,15 +1399,7 @@ mod tests {
     assert_eq!(slice[2], 0);
 
     // Lucina
-    let mut lucina = Unit::new(
-      Character::Lucina,
-      Class::Lord,
-      UnitStats {
-        hp: 35,
-        ..Default::default()
-      },
-      0,
-    );
+    let mut lucina = Unit::new(Character::Lucina, Class::Lord, 0);
     // Lucina as Lord gives ID 1 (Lord F)
     let mut lucina_slice = [0u8; 32];
     lucina.write_back(&mut lucina_slice);
@@ -838,16 +1413,7 @@ mod tests {
 
   #[test]
   fn test_unit_availability_abstractions() {
-    let mut cordelia = Unit::new(
-      Character::Cordelia,
-      Class::DarkFlier,
-      UnitStats {
-        hp: 40,
-        strength: 20,
-        ..Default::default()
-      },
-      0,
-    );
+    let mut cordelia = Unit::new(Character::Cordelia, Class::DarkFlier, 0);
     assert_eq!(cordelia.availability(), Availability::Active);
     assert!(cordelia.is_active());
 
@@ -862,50 +1428,25 @@ mod tests {
 
   #[test]
   fn test_story_anchor_unit_protection() {
-    let mut chrom = Unit::new(
-      Character::Chrom,
-      Class::Lord,
-      UnitStats {
-        hp: 40,
-        ..Default::default()
-      },
-      0,
-    );
+    let mut chrom = Unit::new(Character::Chrom, Class::Lord, 0);
     assert!(chrom.is_story_anchor());
     assert!(chrom.set_status(UnitStatus::Dead).is_err());
     assert!(chrom.set_status(UnitStatus::Retreated).is_ok());
     assert_eq!(chrom.status(), UnitStatus::Retreated);
 
-    let mut donnel = Unit::new(
-      Character::Donnel,
-      Class::Villager,
-      UnitStats {
-        hp: 20,
-        ..Default::default()
-      },
-      180,
-    );
+    let mut donnel = Unit::new(Character::Donnel, Class::Villager, 180);
     assert!(!donnel.is_story_anchor());
     assert!(donnel.set_status(UnitStatus::Dead).is_ok());
     assert_eq!(donnel.status(), UnitStatus::Dead);
-    assert_eq!(donnel.stats.hp, 0);
+    assert_eq!(donnel.hp.growth, 0);
 
     donnel.revive();
     assert_eq!(donnel.status(), UnitStatus::Active);
-    assert_eq!(donnel.stats.hp, 10);
   }
 
   #[test]
   fn test_unit_skills_and_raw_id() {
-    let mut robin = Unit::new(
-      Character::Robin,
-      Class::Tactician,
-      UnitStats {
-        hp: 30,
-        ..Default::default()
-      },
-      0,
-    );
+    let mut robin = Unit::new(Character::RobinM, Class::Tactician, 0);
     assert_eq!(robin.raw_id(), 0);
     assert!(robin.set_gender(Gender::Female).is_ok());
     assert_eq!(robin.raw_id(), 1);
@@ -941,5 +1482,57 @@ mod tests {
       u16::from_le_bytes([slice[58], slice[59]]),
       Skill::LimitBreaker.raw_id()
     );
+  }
+
+  #[test]
+  fn test_unit_stat_mutations_and_battles() {
+    let mut chrom = Unit::new(Character::Chrom, Class::Lord, 0);
+    assert!(chrom.hp.set_total(99).is_ok());
+    assert_eq!(chrom.hp.total(), 99);
+    assert!(chrom.hp.set_total(0).is_err());
+    assert!(chrom.strength.set_total(50).is_ok());
+    assert_eq!(chrom.strength.total(), 50);
+    assert!(chrom.strength.set_total(100).is_err());
+
+    chrom.set_battles(42);
+    assert_eq!(chrom.battles(), 42);
+    chrom.set_victories(30);
+    assert_eq!(chrom.victories(), 30);
+
+    // Direct StatKind query & mutation
+    assert_eq!(chrom.stat(StatKind::Hp).total(), 99);
+    assert!(chrom.strength.set_total(45).is_ok());
+    assert_eq!(chrom.stat(StatKind::Strength).total(), 45);
+    let totals: Vec<u8> = chrom.stats().map(Stat::total).collect();
+    assert_eq!(totals[0], 99); // HP
+    assert_eq!(totals[1], 45); // Str
+
+    let mut slice = [0u8; 80];
+    chrom.write_back(&mut slice);
+    assert_eq!(u16::from_le_bytes([slice[66], slice[67]]), 42);
+    assert_eq!(u16::from_le_bytes([slice[68], slice[69]]), 30);
+  }
+
+  #[test]
+  fn test_unit_movement_and_boots() {
+    let mut paladin = Unit::new(Character::Chrom, Class::Paladin, 0);
+    assert_eq!(paladin.movement(), 8);
+    assert_eq!(paladin.boots_movement(), 0);
+
+    // Increase total movement to 12 (4 boots points)
+    assert!(paladin.set_movement(12).is_ok());
+    assert_eq!(paladin.boots_movement(), 4);
+    assert_eq!(paladin.movement(), 12);
+
+    // Boots bonus up to max safe 91
+    assert!(paladin.set_boots_movement(91).is_ok());
+    assert_eq!(paladin.movement(), 99);
+
+    // Beyond max safe bonus 91 fails
+    assert!(paladin.set_boots_movement(92).is_err());
+
+    // Reclassing to Tactician (base 5) preserves bonus: 5 + 91 = 96 <= 99
+    assert!(paladin.set_class(Class::Tactician).is_ok());
+    assert_eq!(paladin.movement(), 96);
   }
 }

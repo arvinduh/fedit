@@ -4,7 +4,8 @@ use std::env;
 use std::fs;
 use std::process;
 
-const FIXTURE: &str = "../../tests/fixtures/20200831-225628/Chapter0";
+const FIXTURE: &str =
+  "../fedit-awakening/tests/fixtures/20200831-225628/Chapter0";
 
 #[test]
 fn test_edit_save_slot() {
